@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {HelpComponent} from './help/help.component';
+import {NgRedux} from 'ng2-redux';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+  
+
 }

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
+import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
+import {InputTextModule, ButtonModule} from 'primeng/primeng';
+
 import { NgReduxModule, NgRedux } from 'ng2-redux';
 var createLogger = require('redux-logger');
 
@@ -23,7 +26,9 @@ import {rootReducerTest} from './store/StoreConfig';
     FormsModule,
     HttpModule,
     NgReduxModule,
-    MaterialModule
+    MaterialModule.forRoot(),
+    AlertModule,
+    InputTextModule, ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,69 @@
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Organization</h1>
+        <div class="row center">
+            <h5 class="header col s12 light">Übersicht über die angelegten Organizationen</h5>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="section">
+
+        <div class="row" *ngFor="let singlePerson of personList">
+            <person [person]="singlePerson"></person>
+        </div>
+
+        <form (ngSubmit)="addPerson()" #personForm="ngForm">
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newPersonTest.name"  required>
+                <div [hidden]="personForm.valid || personForm.pristine"
+                     class="alert alert-danger">
+                    Name is required
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control"  id="surname" name="surname" [(ngModel)]="newPersonTest.surname">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            {{newPersonTest.name}} {{newPersonTest.surname}}
+
+        </form>
+
+        <button md-button (click)="addDummyPerson()">Add Person</button>
+
+        <div class="row">
+            <div class="col s12 m12">
+                <alert type="success">hello</alert>
+                <input type="text" pInputText/>
+                <input type="text"/>
+                <button pButton type="button" label="Click"></button>
+
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title"><i class="material-icons">business</i> Gemeinde Frankfurt</span>
+                        <p>Eschborner Landstrasse 99 60489 Frankfurt am Main</p>
+                        <p>Anzahl Mitglieder: 255</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#"><i class="material-icons ">assignment</i> Mehr</a>
+                        <a href="#"><i class="material-icons ">delete</i> Löschen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <a class="waves-effect waves-light btn"><i class="material-icons left">playlist_add</i>Neu</a>
+    </div>
+    <br><br>
+
+
+</div>

@@ -12,16 +12,23 @@ import {AppComponent} from "./app.component";
 import {HelpComponent} from "./help/help.component";
 import {IAppState} from "./store";
 import personList from "./reducers/PersonListReducer";
-import {PersonListComponent} from "./personlist/PersonList.component";
 import {PersonComponent} from "./person/Person.component";
 import {PersonActions} from "./actions/PersonActions";
+import {PersonListComponent} from "./person-list/person-list.component";
+import { PersonDetailComponent } from './person-detail/person-detail.component';
+import { PersonHomeComponent } from './person-home/person-home.component';
+import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HelpComponent,
         PersonListComponent,
-        PersonComponent
+        PersonComponent,
+        PersonDetailComponent,
+        PersonHomeComponent,
+        PersonListComponent,
+        DashboardHomeComponent
     ],
     imports: [
         BrowserModule,

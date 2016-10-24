@@ -4,7 +4,7 @@ import {Router} from "@angular/router";
 
 
 @Component({
-    selector: 'app-root',
+    selector: 'j316-organizer',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
@@ -16,11 +16,9 @@ export class AppComponent {
         this.unsub = appStore.sub((state: any)=> {
             console.info("Hey im AppComponent and got update!")
         }, 'persons')
-
-        router.navigate(['/app/dashboard']);
+  console.info("Hey im AppComponent initialized")
+       // router.navigate(['/']);
     }
-
-    title = 'app works!';
 
     private ngOnDestroy() {
         this.unsub();

@@ -1,15 +1,14 @@
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">J316-Organizer</a>
         <ul class="right hide-on-med-and-down">
-            <li class="active"><a href="#" ><i class="material-icons left">business</i>Organization</a></li>
-            <li><a href="#"><i class="material-icons left">contacts</i>Person</a></li>
-            <li><a href="#"><i class="material-icons left">games</i>Dienst</a></li>
+            <li><a routerLink="/person" routerLinkActive="active"><i class="material-icons left">contacts</i>Person</a></li>
+            <li><a routerLink="/service" routerLinkActive="active"><i class="material-icons left">games</i>Dienst</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <li class="active"><a href="#" ><i class="material-icons left">business</i>Organization</a></li>
-            <li><a href="#"><i class="material-icons left">contacts</i>Person</a></li>
-            <li><a href="#"><i class="material-icons left">games</i>Dienst</a></li>
+            <li class="active"><a routerLink="/organization"><i class="material-icons left">business</i>Organization</a></li>
+            <li><a routerLink="/person"><i class="material-icons left">contacts</i>Person</a></li>
+            <li><a routerLink="/service"><i class="material-icons left">games</i>Dienst</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -21,15 +20,13 @@
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">J316 Organization</h5>
-                <p class="grey-text text-lighten-4">Graphorientierte Anwendung zur Verwaltung von gemeinnützigen Organizationstrukturen</p>
+                <h5 class="white-text">J316 Organization</h5>               
             </div>
             <div class="col l3 s12">
                 <h5 class="white-text">Perspektiven</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Organization</a></li>
-                    <li><a class="white-text" href="#!">Person</a></li>
-                    <li><a class="white-text" href="#!">Dienst</a></li>
+                    <li><a class="white-text"  routerLink="/person" routerLinkActive="active">Person</a></li>
+                    <li><a class="white-text"  routerLink="/service" routerLinkActive="active">Dienst</a></li>
                 </ul>
             </div>
 
@@ -37,7 +34,7 @@
     </div>
     <div class="footer-copyright">
         <div class="container">
-            Made by <a class="orange-text text-lighten-3" href="http://seidheilig.de">Leonid Agranovskiy</a>
+            Author <a class="orange-text text-lighten-3" href="http://agranovskiy.de">Leonid Agranovskiy</a>
         </div>
     </div>
 </footer>

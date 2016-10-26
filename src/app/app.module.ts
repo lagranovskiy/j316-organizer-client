@@ -5,29 +5,14 @@ import {HttpModule} from "@angular/http";
 import {MaterialModule} from "@angular/material";
 import {AlertModule} from "ng2-bootstrap/ng2-bootstrap";
 import {InputTextModule, ButtonModule} from "primeng/primeng";
-import {routing} from "./app.routes";
-import {createStore, combineReducers} from "redux";
 import {AppStore} from "angular2-redux-util";
 import {AppComponent} from "./app.component";
-import {HelpComponent} from "./help/help.component";
-import {IAppState} from "./store";
-import personList from "./reducers/PersonListReducer";
-import {PersonComponent} from "./person/Person.component";
-import {PersonActions} from "./actions/PersonActions";
-import { PersonDetailComponent } from './person-detail/person-detail.component';
-import { PersonHomeComponent } from './person-home/person-home.component';
-import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
-import { GroupComponent } from './group/group.component';
+import {routing} from "./app.routes";
+
 
 @NgModule({
     declarations: [
-        AppComponent,
-        HelpComponent,
-        PersonComponent,
-        PersonDetailComponent,
-        PersonHomeComponent,
-        DashboardHomeComponent,
-        GroupComponent
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -38,19 +23,10 @@ import { GroupComponent } from './group/group.component';
         InputTextModule, ButtonModule,
         routing
     ],
-    providers: [
-        {provide: AppStore, useFactory: StoreFactory({personList})},
-        {provide: PersonActions, useClass: PersonActions},
-    ],
     bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
 
 
-function StoreFactory(reducerList: any) {
-    return () => {
-        const reducers = combineReducers<IAppState>(reducerList);
-        return new AppStore(createStore(reducers));
-    };
-}

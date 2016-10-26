@@ -4,25 +4,16 @@ import {Router} from "@angular/router";
 
 
 @Component({
-    selector: 'j316-organizer',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'j316-organizer',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
 
-    private unsub;
 
-    constructor(private router: Router, private appStore: AppStore) {
-        this.unsub = appStore.sub((state: any)=> {
-            console.info("Hey im AppComponent and got update!")
-        }, 'persons')
-  console.info("Hey im AppComponent initialized")
-       // router.navigate(['/']);
-    }
+  constructor(private router: Router) {
 
-    private ngOnDestroy() {
-        this.unsub();
-    }
+    console.info("Hey im AppComponent initialized")
+  }
 
 
 }

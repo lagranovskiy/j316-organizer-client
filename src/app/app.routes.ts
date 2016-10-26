@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from "@angular/router";
-import {AppComponent} from './app.component';
+import {PlanDashboardComponent} from './plan-dashboard/plan-dashboard.component';
 
 const routes: Routes = [
     {
-        component: AppComponent,
+        component: PlanDashboardComponent,
         path: ''
     }
 ];

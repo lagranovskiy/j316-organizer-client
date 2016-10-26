@@ -8,6 +8,7 @@ import {InputTextModule, ButtonModule} from "primeng/primeng";
 import {AppStore} from "angular2-redux-util";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
+import {} from '@angular/core'
 
 import {PlanPersistenceService} from './plan-persistence.service';
 

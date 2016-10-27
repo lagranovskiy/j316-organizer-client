@@ -1,6 +1,11 @@
-export class DienstPlan {
+import {DisplayableModel} from "./DisplayableModel";
+import * as moment from "moment";
+import {J316Model} from "./J316Model";
 
-  constructor(private data: any = {
+export class DienstPlan extends J316Model implements DisplayableModel {
+
+  constructor(data: any = {
+    uid: '',
     groupList: [],
     personList: [],
     planInformation: {
@@ -10,8 +15,10 @@ export class DienstPlan {
     },
     plan: {}
   }) {
-
+    super(data);
   }
+
+
 
   get groupList() {
     return this.data.groupList;
@@ -29,9 +36,14 @@ export class DienstPlan {
     return this.data.plan;
   }
 
-  getData() {
-    return this.data;
+  getTitle() {
+    return this.data.planInformation.planName;
   }
 
+  getDescription() {
+    let start = moment(this.data.planInformation.planStart).format('MM.YYYY');
+    let end = moment(this.data.planInformation.planEnd).format('MM.YYYY');
+    return 'Von ' + start + ' bis ' + end;
+  }
 
 }

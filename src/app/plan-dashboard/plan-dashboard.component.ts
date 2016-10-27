@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, EventEmitter} from '@angular/core';
 import {PlanPersistenceService} from '../plan-persistence.service';
 import {DienstPlan} from "../model/DienstPlan";
+
 
 @Component({
   selector: 'app-plan-dashboard',
@@ -15,15 +16,18 @@ export class PlanDashboardComponent implements OnInit {
     this.planList = service.fetchPlansFromStorage();
   }
 
+
   private createNewDienstplan() {
     let newPlan = new DienstPlan();
     newPlan.planInformation.planName = 'Neue Plan';
     this.planList.push(newPlan);
+  }
 
+  private openPlan(){
 
   }
 
-  private removeDienstplan(plan: DienstPlan) {
+  private removePlan(plan){
     this.planList.splice(this.planList.indexOf(plan), 1);
   }
 

@@ -2,13 +2,10 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {MaterialModule} from "@angular/material";
-import {AlertModule} from "ng2-bootstrap/ng2-bootstrap";
-import {InputTextModule, ButtonModule} from "primeng/primeng";
-import {AppStore} from "angular2-redux-util";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
-import {} from '@angular/core'
+import {MaterializeDirective} from "angular2-materialize";
+import {MomentModule} from 'angular2-moment';
 
 import {PlanPersistenceService} from './plan-persistence.service';
 
@@ -18,6 +15,7 @@ import {PersonEditorComponent} from './person-editor/person-editor.component';
 import {GruppeViewComponent} from './gruppe-view/gruppe-view.component';
 import {GruppeEditorComponent} from './gruppe-editor/gruppe-editor.component';
 import {PlanEditorComponent} from './plan-editor/plan-editor.component';
+import { ViewCardComponent } from './view-card/view-card.component';
 
 
 @NgModule({
@@ -28,7 +26,9 @@ import {PlanEditorComponent} from './plan-editor/plan-editor.component';
     PersonEditorComponent,
     GruppeViewComponent,
     GruppeEditorComponent,
-    PlanEditorComponent
+    PlanEditorComponent,
+    MaterializeDirective,
+    ViewCardComponent
   ],
   providers: [
     PlanPersistenceService
@@ -37,9 +37,7 @@ import {PlanEditorComponent} from './plan-editor/plan-editor.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
-    AlertModule,
-    InputTextModule, ButtonModule,
+    MomentModule,
     routing
   ],
   bootstrap: [AppComponent]

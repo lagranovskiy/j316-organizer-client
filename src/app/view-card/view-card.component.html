@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"> {{model.getTitle()}}</span>
+    <p>{{model.getDescription()}}</p>
+  </div>
+  <div class="card-action">
+    <a class="waves-effect waves-teal btn-flat" (click)="sendOpenEvent()"><i class="material-icons ">create</i></a>
+    <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat " materialize="leanModal"
+       [materializeParams]="[{dismissible: false}]"><i
+      class="material-icons red-text">delete</i></a>
+  </div>
+</div>
+
+<div id="planRemovalDialog" class="modal" materialize>
+  <div class="modal-content">
+    <h4>Bitte bestätigen Sie die Löschung?</h4>
+    <p>{{ model.getTitle()}}</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat red-text" (click)="sendRemoveEvent()">Agree</a>
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
+  </div>
+</div>

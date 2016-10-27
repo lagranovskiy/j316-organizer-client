@@ -16,8 +16,7 @@
       "mobile": false,
       "styles": [
         "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/primeng/resources/themes/ui-darkness/theme.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
         "../node_modules/primeng/resources/primeng.min.css",
         "../node_modules/materialize-css/dist/css/materialize.min.css"
       ],

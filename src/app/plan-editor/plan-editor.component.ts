@@ -15,8 +15,23 @@ export class PlanEditorComponent implements OnInit {
   private plan: DienstPlan = new DienstPlan();
   private paramsSub;
 
+  private dummyPersonen: Array<any> = [
+    {name: 'Niki Wulfert', uid: '12345df66'},
+    {name: 'Wasilij Kloss', uid: '123a4566'},
+    {name: 'Max Wulfert', uid: '12s34566'},
+    {
+      name: 'Max Schaubert',
+      uid: '12d3566'
+    }, {name: 'Niki Loos', uid: '12dcvv34566'}];
+
+  private dummyGroups: Array<any> = [
+    {name: 'Gruppe1', uid: '12345df66'},
+    {name: 'Gruppe2', uid: '123a4566'},
+    {name: 'Gruppe3', uid: '12s34566'},
+  ];
+
   constructor(private service: PlanPersistenceService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.plan.planInformation.planName='Neue Plan';
+    this.plan.planInformation.planName = 'Neue Plan';
 
 
   }

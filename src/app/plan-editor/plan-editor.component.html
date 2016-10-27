@@ -1,14 +1,265 @@
 <div class="row">
   <div class="col s12">
-    <h2>Dienstplan</h2>
+    <h2>Dienstplan: {{plan.planInformation.planName}}</h2>
+  </div>
+</div>
+<form materialize class="col s12" #planForm="ngForm">
+  <div class="row">
+    <div class="col s12 right">
+      <a class="waves-effect waves-light btn" (click)="navDashboard()"><i class="material-icons left">reply</i>Zum
+        Übersicht</a>
+      <a class="waves-effect waves-light btn red" (click)="removePlan()"><i
+        class="material-icons left ">delete_sweep</i>Löschen</a>
+      <a class="waves-effect waves-light btn" (click)="saveChanges()" [ngClass]="{'disabled': !planForm.form.valid}"><i
+        class="material-icons left">send</i>Sichern</a>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="input-field col s12">
+      <input placeholder="Planbezeichnung" name="planName" [(ngModel)]="plan.planInformation.planName" id="planName"
+             type="text" class="validate" required #planName="ngModel">
+      <label for="planName">Planbezeichnung</label>
+      <div [hidden]="planName.valid || planName.pristine"
+           class="red-text">
+        Planbezeichnung muss angegeben werden
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planInformation.planStart"
+             id="planStart"
+             materialize="pickadate"
+             [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
+      <label for="planStart">Planbeginn</label>
+    </div>
+
+    <div class="input-field col s6">
+      <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planInformation.planEnd" id="planEnd"
+             materialize="pickadate"
+             [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
+      <label for="planStart">Planende</label>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col s12">
+    <h4>Plangruppen</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="chip">Gruppe1<i class="close material-icons">close</i></div>
+  <div class="chip">Gruppe2<i class="close material-icons">close</i></div>
+  <div class="chip">Gruppe3<i class="close material-icons">close</i></div>
+  <div class="chip">Gruppe4<i class="close material-icons">close</i></div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <h4>Mitarbeiter</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="chip">Max Loos<i class="close material-icons">close</i></div>
+  <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
+  <div class="chip">Dennis Jansen<i class="close material-icons">close</i></div>
+</div>
+
+
+<div class="row">
+  <div class="col s12">
+    <h4>Besetzung</h4>
   </div>
 </div>
 
 <div class="row">
-  <div class="col s12 right">
-    <a class="waves-effect waves-light btn" (click)="navDashboard()"><i class="material-icons left">reply</i>Zum Übersicht</a>
-    <a class="waves-effect waves-light btn red" (click)="removePlan()"><i class="material-icons left ">delete_sweep</i>Löschen</a>
-    <a class="waves-effect waves-light btn" (click)="saveChanges()"><i class="material-icons left">send</i>Sichern</a>
+  <div class="col s4">
+    <div class="input-field">
+      <select materialize="material_select" [materializeSelectOptions]="[]">
+        <option value="" disabled selected>Gruppe wählen</option>
+        <option *ngFor="let option of dummyGroups" [value]="option.uid">{{option.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col s6">
+    <div class="input-field">
+      <select multiple materialize="material_select" [materializeSelectOptions]="[]">
+        <option value="" disabled selected>Personen Zuordnen</option>
+        <option *ngFor="let option of dummyPersonen" [value]="option.uid">{{option.name}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col s2">
+    <a class="waves-effect waves-light btn"><i class="material-icons left">recent_actors</i>Hinzufügen</a>
   </div>
 </div>
 
+<div class="row">
+  <div class="col s12">
+    <table class="striped" border="1">
+      <thead>
+      <tr>
+        <th data-field="actions"></th>
+        <th data-field="id" width="40%">Gruppe1</th>
+        <th data-field="name">01.01</th>
+        <th data-field="price">07.01</th>
+        <th data-field="price">14.01</th>
+        <th data-field="price">21.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">12.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">12.01</th>
+        <th data-field="price">19.01</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
+        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
+        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
+        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
+        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
+        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
+        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
+      </tr>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
+        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
+        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
+        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
+        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
+        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
+        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
+      </tr>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
+          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
+        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
+        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
+        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
+        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
+        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
+        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
+      </tr>
+      </tbody>
+
+      <thead>
+      <tr>
+        <th data-field="actions"></th>
+        <th data-field="id" width="40%">Gruppe2</th>
+        <th data-field="name">01.01</th>
+        <th data-field="price">07.01</th>
+        <th data-field="price">14.01</th>
+        <th data-field="price">21.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">12.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">19.01</th>
+        <th data-field="price">12.01</th>
+        <th data-field="price">19.01</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
+          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+      </tr>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+      </tr>
+      <tr>
+        <td>
+          <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
+        </td>
+        <td>
+          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
+          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
+        </td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
+      </tr>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>

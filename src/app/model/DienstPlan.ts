@@ -10,8 +10,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     personList: [],
     planInformation: {
       planName: '',
-      planStart: new Date(),
-      planEnd: new Date()
+      planStart: moment().format('DD.MM.YYYY'),
+      planEnd: moment().add(3,'month').format('DD.MM.YYYY')
     },
     plan: {}
   }) {
@@ -41,8 +41,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   }
 
   getDescription() {
-    let start = moment(this.data.planInformation.planStart).format('MM.YYYY');
-    let end = moment(this.data.planInformation.planEnd).format('MM.YYYY');
+    let start = this.data.planInformation.planStart;
+    let end = this.data.planInformation.planEnd;
     return 'Von ' + start + ' bis ' + end;
   }
 

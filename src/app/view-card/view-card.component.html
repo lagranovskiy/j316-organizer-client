@@ -8,6 +8,8 @@
     <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat " materialize="leanModal"
        [materializeParams]="[{dismissible: false}]"><i
       class="material-icons red-text">delete</i></a>
+    <a *ngIf="clonable" class="waves-effect waves-teal btn-flat" (click)="sendCloneEvent()"><i class="material-icons ">content_copy</i></a>
+
   </div>
 </div>
 

@@ -11,11 +11,17 @@ export class ViewCardComponent implements OnInit {
   @Input()
   private model: DisplayableModel;
 
+  @Input()
+  private clonable: boolean;
+
   @Output()
   private openClicked: EventEmitter<DisplayableModel> = new EventEmitter();
 
   @Output()
   private removeClicked: EventEmitter<DisplayableModel> = new EventEmitter();
+
+  @Output()
+  private cloneClicked: EventEmitter<DisplayableModel> = new EventEmitter();
 
   constructor() {
   }
@@ -26,6 +32,10 @@ export class ViewCardComponent implements OnInit {
 
   sendOpenEvent(){
     this.openClicked.emit(this.model);
+  }
+
+  sendCloneEvent(){
+    this.cloneClicked.emit(this.model);
   }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
 import {UUID} from "angular2-uuid";
+import Immutable from "immutable";
 
 export class J316Model {
 
@@ -12,15 +13,20 @@ export class J316Model {
     }
 
   }
+
   get uid() {
     return this.data.uid;
   }
 
   getUniqueIdentifier() {
-    return UUID.UUID;
+    return UUID.UUID();
   }
 
   getData() {
     return this.data;
+  }
+
+  protected cloneData(): any {
+    return Immutable.Map(this.data).toObject();
   }
 }

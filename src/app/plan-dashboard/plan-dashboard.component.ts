@@ -1,6 +1,7 @@
-import {Component, OnInit, EventEmitter} from '@angular/core';
-import {PlanPersistenceService} from '../plan-persistence.service';
+import {Component, OnInit} from "@angular/core";
+import {PlanPersistenceService} from "../plan-persistence.service";
 import {DienstPlan} from "../model/DienstPlan";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,27 +13,27 @@ export class PlanDashboardComponent implements OnInit {
 
   private planList: Array<DienstPlan>;
 
-  constructor(private service: PlanPersistenceService) {
+  constructor(private service: PlanPersistenceService, private router: Router) {
     this.planList = service.fetchPlansFromStorage();
   }
 
-
   private createNewDienstplan() {
-    let newPlan = new DienstPlan();
-    newPlan.planInformation.planName = 'Neue Plan';
-    this.planList.push(newPlan);
+    this.router.navigate([`/plan/`]);
   }
 
-  private openPlan(){
-
+  private openPlan(plan) {
+    this.router.navigate([`/plan/${plan.uid}`]);
   }
 
-  private removePlan(plan){
-    this.planList.splice(this.planList.indexOf(plan), 1);
+  private removePlan(plan) {
+    this.service.removePlan(plan);
+    this.planList = this.service.fetchPlansFromStorage();
   }
 
-  private savePlans() {
-    this.service.savePlansToStorage(this.planList);
+  private clonePlan(plan) {
+    let newPlan = plan.clone();
+    this.service.upsertPlan(newPlan);
+    this.openPlan(newPlan);
   }
 
   ngOnInit() {

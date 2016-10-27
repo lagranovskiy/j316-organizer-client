@@ -46,4 +46,14 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return 'Von ' + start + ' bis ' + end;
   }
 
+  clone(){
+    let clonedData:any = super.cloneData();
+    clonedData.uid = super.getUniqueIdentifier();
+    clonedData.planInformation.planName = clonedData.planInformation.planName + '(Cloned)';
+
+    let retVal:DienstPlan = new DienstPlan(clonedData);
+
+    return retVal;
+  }
+
 }

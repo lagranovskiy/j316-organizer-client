@@ -25,3 +25,8 @@
 .input-field .prefix.active {
   color: #000;
 }
+
+
+.active-group .card {
+  border: solid black 5px;
+}

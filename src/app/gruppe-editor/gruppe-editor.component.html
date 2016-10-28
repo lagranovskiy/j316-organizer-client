@@ -1,3 +1,20 @@
-<p>
-  gruppe-editor works!
-</p>
+<form materialize class="col s12 groupForm" id="groupForm" #groupEditForm="ngForm">
+
+  <div class="row">
+    <div class="col s12">
+      <input placeholder="Gruppenname" name="groupName" [(ngModel)]="model.name" id="groupName"
+             type="text" class="validate" required #groupName="ngModel">
+      <div [hidden]="groupName.valid || groupName.pristine"
+           class="red-text">
+        Gruppenname ist leer
+      </div>
+    </div>
+  </div>
+  <input type="text" placeholder="Ort" name="groupLocation" [(ngModel)]="model.location" id="groupLocation"
+         #groupLocation="ngModel">
+
+  <textarea placeholder="Kommentar" name="groupComment" id="groupComment" [(ngModel)]="model.comment"
+            class="materialize-textarea" #groupComment="ngModel"></textarea>
+
+
+</form>

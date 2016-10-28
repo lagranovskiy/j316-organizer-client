@@ -1,7 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../plan-persistence.service";
 import {DienstPlan} from "../model/DienstPlan";
+import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
+import {GruppeEditorComponent} from "../gruppe-editor/gruppe-editor.component";
+import {Participant} from "../model/Participant";
+import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
 import any = jasmine.any;
 
 @Component({
@@ -15,25 +19,51 @@ export class PlanEditorComponent implements OnInit {
   private plan: DienstPlan = new DienstPlan();
   private paramsSub;
 
-  private dummyPersonen: Array<any> = [
-    {name: 'Niki Wulfert', uid: '12345df66'},
-    {name: 'Wasilij Kloss', uid: '123a4566'},
-    {name: 'Max Wulfert', uid: '12s34566'},
-    {
-      name: 'Max Schaubert',
-      uid: '12d3566'
-    }, {name: 'Niki Loos', uid: '12dcvv34566'}];
+  private selectedGroup: DienstPlanGruppe;
 
-  private dummyGroups: Array<any> = [
-    {name: 'Gruppe1', uid: '12345df66'},
-    {name: 'Gruppe2', uid: '123a4566'},
-    {name: 'Gruppe3', uid: '12s34566'},
-  ];
+  private selectedOption: string = '';
+
+  @ViewChild(GruppeEditorComponent)
+  private gruppeEditor: GruppeEditorComponent;
+
+  private dummyPersonen: Array<Participant> = [
+    new Participant({
+      forename: 'Leonid',
+      surname: 'Agranovskiy'
+    }), new Participant({forename: 'Max', surname: 'Loos'}), new Participant({
+      forename: 'Vitalij',
+      surname: 'Funk'
+    }), new Participant({forename: 'Mark', surname: 'Gorlicj'})];
+
 
   constructor(private service: PlanPersistenceService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.plan.planInformation.planName = 'Neue Plan';
 
 
+  }
+
+  getGroups() {
+    return this.plan.groupList;
+  }
+
+  addTeilgruppe(gruppe) {
+    let newDienstPlanTeilgruppe = new DienstPlanTeilgruppe();
+    gruppe.sections.push(newDienstPlanTeilgruppe);
+  }
+
+  addDienstPlanGruppe() {
+    let newGroup = new DienstPlanGruppe();
+
+    this.plan.groupList.push(newGroup);
+    this.selectedGroup = newGroup;
+  }
+
+  openDienstPlanGruppe(gruppe) {
+    this.selectedGroup = gruppe;
+  }
+
+  removeDienstPlanGruppe(gruppe) {
+    this.plan.groupList.splice(this.plan.groupList.indexOf(gruppe), 1);
   }
 
   navDashboard() {

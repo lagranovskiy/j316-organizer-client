@@ -5,7 +5,6 @@ import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
-import {MomentModule} from 'angular2-moment';
 
 import {PlanPersistenceService} from './plan-persistence.service';
 
@@ -15,7 +14,7 @@ import {PersonEditorComponent} from './person-editor/person-editor.component';
 import {GruppeViewComponent} from './gruppe-view/gruppe-view.component';
 import {GruppeEditorComponent} from './gruppe-editor/gruppe-editor.component';
 import {PlanEditorComponent} from './plan-editor/plan-editor.component';
-import { ViewCardComponent } from './view-card/view-card.component';
+import {ViewCardComponent} from './view-card/view-card.component';
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { ViewCardComponent } from './view-card/view-card.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MomentModule,
     routing
   ],
   bootstrap: [AppComponent]

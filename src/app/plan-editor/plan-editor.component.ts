@@ -21,7 +21,7 @@ export class PlanEditorComponent implements OnInit {
 
   private selectedGroup: DienstPlanGruppe;
 
-  private selectedOption: string = '';
+  private selectedOption: Array<string> = [];
 
   @ViewChild(GruppeEditorComponent)
   private gruppeEditor: GruppeEditorComponent;

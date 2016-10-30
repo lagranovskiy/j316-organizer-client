@@ -1,3 +1,39 @@
-<p>
-  gruppe-view works!
-</p>
+<div class="col s6" *ngIf="selectedGroup">
+
+
+  <form materialize class="col s12" #groupForm="ngForm">
+
+    <gruppe-editor [model]="selectedGroup"></gruppe-editor>
+
+    <div class="row">
+      <div class="col s12">
+
+        <a class="waves-effect waves-light btn" (click)="addTeilgruppe(selectedGroup)"><i
+          class="material-icons left">reply</i>Neue Teilgruppe</a>
+
+        <div class="card" *ngFor="let teilgruppe of selectedGroup.sections">
+          <div class="card-content">
+
+            <div class="input-field">
+              <select [(ngModel)]="teilgruppe.participantsArray" name="selectedOption" multiple
+                      [materializeSelectOptions]="dummyPersonen"
+                      materialize="material_select">
+                <option value="" disabled selected>Personen Zuordnen</option>
+                <option *ngFor="let option of dummyPersonen" [value]="option.uid">{{option.getTitle()}}</option>
+              </select>
+            </div>
+            {{teilgruppe.participants}}
+
+            <div class="chip" *ngFor="let participant of teilgruppe.participants">{{participant}}<i
+              class="close material-icons">close</i></div>
+          </div>
+          <div class="card-action">
+            <a class="waves-effect waves-teal btn-flat "><i class="material-icons red-text">delete</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>

@@ -19,6 +19,11 @@ export class DienstPlanTeilgruppe extends J316Model {
     return this.data.participants;
   }
 
+  set participantsArray(refList: Array<string>) {
+    this.data.participants = [];
+    this.data.participants = refList.map(refId => new ParticipantRef({participantUID: refId}));
+  }
+
   get besetzung(): Array<boolean> {
     return this.data.besetzung;
   }

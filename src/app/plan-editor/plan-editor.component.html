@@ -69,44 +69,7 @@
                  [ngClass]="{'active-group': selectedGroup && dienstPlanGruppe.uid === selectedGroup.uid}"></view-card>
     </div>
   </div>
-  <div class="col s6" *ngIf="selectedGroup">
 
-
-    <form materialize class="col s12" #groupForm="ngForm">
-
-      <gruppe-editor [model]="selectedGroup"></gruppe-editor>
-
-      <div class="row">
-        <div class="col s12">
-
-          <a class="waves-effect waves-light btn" (click)="addTeilgruppe(selectedGroup)"><i
-            class="material-icons left">reply</i>Neue Teilgruppe</a>
-
-          <div class="card" *ngFor="let teilgruppe of selectedGroup.sections">
-            <div class="card-content">
-
-              <div class="input-field">
-                <select [(ngModel)]="teilgruppe.participants" name="selectedOption"  multiple [materializeSelectOptions]="dummyPersonen"
-                        materialize="material_select">
-                  <option value="" disabled selected>Personen Zuordnen</option>
-                  <option *ngFor="let option of dummyPersonen" [value]="option.uid">{{option.getTitle()}}</option>
-                </select>
-              </div>
-              {{teilgruppe.participants.length}}
-
-              <div class="chip" *ngFor="let participant of teilgruppe.participants">{{participant}}<i
-                class="close material-icons">close</i></div>
-            </div>
-            <div class="card-action">
-              <a class="waves-effect waves-teal btn-flat "><i class="material-icons red-text">delete</i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </form>
-  </div>
 </div>
 
 
@@ -116,71 +79,6 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col s10">
-    <div class="input-field">
-      <select materialize="material_select" [materializeSelectOptions]="getGroups()">
-        <option value="" disabled selected>Gruppe wählen</option>
-        <option *ngFor="let option of getGroups()" [value]="option.uid">{{option.getTitle()}}</option>
-      </select>
-    </div>
-
-  </div>
-  <div class="col s2 right-align">
-    <a (click)="addDienstPlanGruppe()" class="btn-floating btn-small waves-effect waves-light red"><i
-      class="material-icons">add</i></a>
-  </div>
-</div>
-
-
-<div class="row">
-  <div class="col s12">
-
-    <div class="col s4">
-      <div class="card">
-        <div class="card-content">
-
-          <div class="input-field">
-            <select multiple materialize="material_select" [materializeSelectOptions]="[]">
-              <option value="" disabled selected>Personen Zuordnen</option>
-              <option *ngFor="let option of dummyPersonen" [value]="option.uid">{{option.getTitle()}}</option>
-            </select>
-          </div>
-
-          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-        </div>
-        <div class="card-action">
-          <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat "><i
-            class="material-icons red-text">delete</i></a>
-        </div>
-      </div>
-    </div>
-    <div class="col s4">
-      <div class="card">
-        <div class="card-content">
-
-          <div class="input-field">
-            <select multiple materialize="material_select" [materializeSelectOptions]="[]">
-              <option value="" disabled selected>Personen Zuordnen</option>
-              <option *ngFor="let option of dummyPersonen" [value]="option.uid">{{option.getTitle()}}</option>
-            </select>
-          </div>
-
-          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-        </div>
-        <div class="card-action">
-          <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat "><i
-            class="material-icons red-text">delete</i></a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <div class="row">
   <div class="col s12">

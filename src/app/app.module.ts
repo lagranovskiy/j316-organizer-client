@@ -15,6 +15,9 @@ import {GruppeViewComponent} from './gruppe-view/gruppe-view.component';
 import {GruppeEditorComponent} from './gruppe-editor/gruppe-editor.component';
 import {PlanEditorComponent} from './plan-editor/plan-editor.component';
 import {ViewCardComponent} from './view-card/view-card.component';
+import {ParticipantPersistenceService} from "./participant-persistence.service";
+import {ParticipantRefListViewComponent} from './participant-ref-list-view/participant-ref-list-view.component';
+import {ParticipantListSingleViewComponent} from './participant-list-single-view/participant-list-single-view.component';
 
 
 @NgModule({
@@ -27,10 +30,13 @@ import {ViewCardComponent} from './view-card/view-card.component';
     GruppeEditorComponent,
     PlanEditorComponent,
     MaterializeDirective,
-    ViewCardComponent
+    ViewCardComponent,
+    ParticipantRefListViewComponent,
+    ParticipantListSingleViewComponent
   ],
   providers: [
-    PlanPersistenceService
+    PlanPersistenceService,
+    ParticipantPersistenceService
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,6 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
 
-export enum NotificationType{
-  NONE,
-  SMS,
-  CALENDER
-}
 
 export class Participant extends J316Model implements DisplayableModel {
 
@@ -19,9 +14,38 @@ export class Participant extends J316Model implements DisplayableModel {
     phone: '',
     email: '',
     comment: '',
-    notificationType: NotificationType.NONE
+    notificationEmail: true,
+    notificationSMS: false,
+    notificationCal: true
   }) {
     super(data);
+  }
+
+
+  get notificationEmail(): boolean {
+    return this.data.notificationEmail
+  }
+
+  set notificationEmail(notification: boolean) {
+    this.data.notificationEmail = notification;
+  }
+
+
+  get notificationSMS(): boolean {
+    return this.data.notificationSMS
+  }
+
+  set notificationSMS(notification: boolean) {
+    this.data.notificationSMS = notification;
+  }
+
+
+  get notificationCal(): boolean {
+    return this.data.notificationCal
+  }
+
+  set notificationCal(notification: boolean) {
+    this.data.notificationCal = notification;
   }
 
 
@@ -71,14 +95,6 @@ export class Participant extends J316Model implements DisplayableModel {
 
   set comment(comment: string) {
     this.data.comment = comment;
-  }
-
-  get notificationType(): NotificationType {
-    return this.data.comment;
-  }
-
-  set notificationType(notificationType: NotificationType) {
-    this.data.comment = notificationType;
   }
 
   getTitle() {

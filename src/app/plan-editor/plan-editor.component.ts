@@ -7,6 +7,7 @@ import {GruppeEditorComponent} from "../gruppe-editor/gruppe-editor.component";
 import {Participant} from "../model/Participant";
 import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
 import any = jasmine.any;
+import {ParticipantPersistenceService} from "../participant-persistence.service";
 
 @Component({
   selector: 'plan-editor',
@@ -26,29 +27,16 @@ export class PlanEditorComponent implements OnInit {
   @ViewChild(GruppeEditorComponent)
   private gruppeEditor: GruppeEditorComponent;
 
-  private dummyPersonen: Array<Participant> = [
-    new Participant({
-      forename: 'Leonid',
-      surname: 'Agranovskiy'
-    }), new Participant({forename: 'Max', surname: 'Loos'}), new Participant({
-      forename: 'Vitalij',
-      surname: 'Funk'
-    }), new Participant({forename: 'Mark', surname: 'Gorlicj'})];
 
-
-  constructor(private service: PlanPersistenceService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private service: PlanPersistenceService,
+              private personService: ParticipantPersistenceService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     this.plan.planInformation.planName = 'Neue Plan';
-
-
   }
 
   getGroups() {
     return this.plan.groupList;
-  }
-
-  addTeilgruppe(gruppe) {
-    let newDienstPlanTeilgruppe = new DienstPlanTeilgruppe();
-    gruppe.sections.push(newDienstPlanTeilgruppe);
   }
 
   addDienstPlanGruppe() {
@@ -56,10 +44,6 @@ export class PlanEditorComponent implements OnInit {
 
     this.plan.groupList.push(newGroup);
     this.selectedGroup = newGroup;
-  }
-
-  openDienstPlanGruppe(gruppe) {
-    this.selectedGroup = gruppe;
   }
 
   removeDienstPlanGruppe(gruppe) {

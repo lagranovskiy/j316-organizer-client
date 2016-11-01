@@ -1,7 +1,7 @@
 <form materialize class="groupForm" id="groupForm" #groupEditForm="ngForm">
 
   <div class="row">
-    <div class="col s12">
+    <div class="col s6">
       <input placeholder="Gruppenname" name="groupName" [(ngModel)]="model.name" id="groupName"
              type="text" class="validate" required #groupName="ngModel">
       <div [hidden]="groupName.valid || groupName.pristine"
@@ -9,12 +9,19 @@
         Gruppenname ist leer
       </div>
 
-
-      <input type="text" placeholder="Ort" name="groupLocation" [(ngModel)]="model.location" id="groupLocation"
-             #groupLocation="ngModel">
+      <div class="form-group">
+        <input [(ngModel)]="model.location" name="groupLocation" placeholder="search for location" autocorrect="off"
+               autocapitalize="off" spellcheck="off" type="text" class="form-control" #search>
+      </div>
 
       <textarea placeholder="Kommentar" name="groupComment" id="groupComment" [(ngModel)]="model.comment"
                 class="materialize-textarea" #groupComment="ngModel"></textarea>
+    </div>
+
+    <div class="col s6">
+      <sebm-google-map [latitude]="model.latitude" [longitude]="model.longitude" [zoom]="zoom">
+        <sebm-google-map-marker [latitude]="model.latitude" [longitude]="model.longitude"></sebm-google-map-marker>
+      </sebm-google-map>
     </div>
   </div>
 
@@ -22,14 +29,13 @@
     class="material-icons left">reply</i>Neue Teilgruppe</a>
 
   <div class="row">
-    <div class="col s6" *ngFor="let teilgruppe of model.sections; let i = index">
+    <div class="col s6" *ngFor="let teilgruppe of model.sections; let i=index;">
       <div class="card">
         <div class="card-content">
-
+          <h5>Gruppe {{i+1}}</h5>
           <div class="input-field">
-            {{$i}}
             <select [(ngModel)]="teilgruppe.participantsArray"
-                    name="teilgruppenSelect"
+                    name="teilgruppenSelect{{i}}"
                     multiple
                     [materializeSelectOptions]="personList"
                     materialize="material_select">

@@ -6,6 +6,8 @@ import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
 
+import { AgmCoreModule } from 'angular2-google-maps/core';
+
 import {PlanPersistenceService} from './plan-persistence.service';
 
 import {PlanDashboardComponent} from './plan-dashboard/plan-dashboard.component';
@@ -41,8 +43,12 @@ import {ParticipantListSingleViewComponent} from './participant-list-single-view
   imports: [
     BrowserModule,
     FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDxEGs76p175F19pK8Vf_rEzsJaP_BKoes',
+      libraries: ["places"]
+    }),
     HttpModule,
-    routing
+    routing,
   ],
   bootstrap: [AppComponent]
 })

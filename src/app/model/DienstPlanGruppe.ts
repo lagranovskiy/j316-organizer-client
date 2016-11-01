@@ -9,6 +9,8 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
     uid: '',
     name: 'Neue Gruppe',
     location: '',
+    latitude: 0,
+    longitude: 0,
     comment: '',
     sections: [],
   }) {
@@ -33,6 +35,22 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
 
   set location(location: string) {
     this.data.location = location;
+  }
+
+  set longitude(longitude: number) {
+    this.data.longitude = longitude;
+  }
+
+  get latitude() {
+  return this.data.latitude;
+  }
+
+  set latitude(latitude: number) {
+    this.data.latitude = latitude;
+  }
+
+  get longitude() {
+    return this.data.longitude;
   }
 
   get comment() {

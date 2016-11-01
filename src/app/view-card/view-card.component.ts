@@ -15,13 +15,13 @@ export class ViewCardComponent implements OnInit {
   private clonable: boolean;
 
   @Output()
-  private openClicked: EventEmitter<DisplayableModel> = new EventEmitter();
+  private openClicked: EventEmitter<DisplayableModel> = new EventEmitter<DisplayableModel>();
 
   @Output()
-  private removeClicked: EventEmitter<DisplayableModel> = new EventEmitter();
+  private removeClicked: EventEmitter<DisplayableModel> = new EventEmitter<DisplayableModel>();
 
   @Output()
-  private cloneClicked: EventEmitter<DisplayableModel> = new EventEmitter();
+  private cloneClicked: EventEmitter<DisplayableModel> = new EventEmitter<DisplayableModel>();
 
   constructor() {
   }

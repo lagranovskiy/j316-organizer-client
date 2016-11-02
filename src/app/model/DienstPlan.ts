@@ -1,19 +1,15 @@
 import {DisplayableModel} from "./DisplayableModel";
-import * as moment from "moment";
 import {J316Model} from "./J316Model";
 import {DienstPlanGruppe} from "./DienstPlanGruppe";
+import {DienstPlanCalenderInfo} from "./DienstPlanCalenderInfo";
 
 export class DienstPlan extends J316Model implements DisplayableModel {
 
   constructor(data: any = {
     uid: '',
+    planName: '',
     groupList: [],
-    planInformation: {
-      planName: '',
-      planStart: moment().format('DD.MM.YYYY'),
-      planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
-      planWeekday: 6
-    },
+    planInformation: {},
     plan: {}
   }) {
     super(data);
@@ -21,6 +17,18 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     if (this.data.groupList) {
       this.data.groupList = this.data.groupList.map(group=> new DienstPlanGruppe(group.data));
     }
+
+    if (this.data.planInformation) {
+      this.data.planInformation = new DienstPlanCalenderInfo(data.planInformation.data);
+    }
+  }
+
+  get planName(): string {
+    return this.data.planName;
+  }
+
+  set planName(planName: string) {
+    this.data.planName = planName;
   }
 
 
@@ -28,7 +36,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return this.data.groupList;
   }
 
-  get planInformation() {
+  get planInformation() : DienstPlanCalenderInfo{
     return this.data.planInformation;
   }
 
@@ -37,8 +45,9 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   }
 
   getTitle() {
-    return this.data.planInformation.planName;
+    return this.data.planName;
   }
+
 
   getDescription() {
     let start = this.data.planInformation.planStart;
@@ -52,7 +61,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
      */
     let clonedData: any = super.cloneData();
     clonedData.uid = super.getUniqueIdentifier();
-    clonedData.planInformation.planName = clonedData.planInformation.planName + '(Cloned)';
+    clonedData.planName = clonedData.planName + '(Cloned)';
 
     let retVal: DienstPlan = new DienstPlan(clonedData);
 

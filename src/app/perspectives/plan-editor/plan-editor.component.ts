@@ -15,12 +15,10 @@ import any = jasmine.any;
 export class PlanEditorComponent implements OnInit {
 
   private planUID: string;
-  private plan: DienstPlan = new DienstPlan();
+  private plan: DienstPlan = null;
   private paramsSub;
 
   private selectedGroup: DienstPlanGruppe;
-
-  private selectedOption: Array<string> = [];
 
   @ViewChild(GruppeEditorComponent)
   private gruppeEditor: GruppeEditorComponent;
@@ -30,7 +28,8 @@ export class PlanEditorComponent implements OnInit {
               private personService: ParticipantPersistenceService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
-    this.plan.planInformation.planName = 'Neue Plan';
+
+
   }
 
   getGroups() {
@@ -68,6 +67,9 @@ export class PlanEditorComponent implements OnInit {
 
       if (this.planUID) {
         this.plan = this.service.fetchPlanById(this.planUID);
+      } else {
+        this.plan = new DienstPlan();
+        this.plan.planName = 'Neue Plan';
       }
     });
   }

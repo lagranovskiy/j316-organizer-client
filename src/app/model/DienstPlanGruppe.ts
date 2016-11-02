@@ -1,9 +1,10 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
 import {DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
+import {LocationBasedModel} from "./LocationBasedModel";
 
 
-export class DienstPlanGruppe extends J316Model implements DisplayableModel {
+export class DienstPlanGruppe extends J316Model implements DisplayableModel, LocationBasedModel {
 
   constructor(data: any = {
     uid: '',

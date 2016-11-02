@@ -1,8 +1,10 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
+import {LocationBasedModel} from "./LocationBasedModel";
 
 
-export class Participant extends J316Model implements DisplayableModel {
+export class Participant extends J316Model implements DisplayableModel,LocationBasedModel {
+
 
   constructor(data: any = {
     uid: '',
@@ -11,6 +13,9 @@ export class Participant extends J316Model implements DisplayableModel {
     surname: '',
 
     location: '',
+    latitude: 0,
+    longitude: 0,
+
     phone: '',
     email: '',
     comment: '',
@@ -71,6 +76,23 @@ export class Participant extends J316Model implements DisplayableModel {
 
   set location(location: string) {
     this.data.location = location;
+  }
+
+
+  set longitude(longitude: number) {
+    this.data.longitude = longitude;
+  }
+
+  get latitude() {
+    return this.data.latitude;
+  }
+
+  set latitude(latitude: number) {
+    this.data.latitude = latitude;
+  }
+
+  get longitude() {
+    return this.data.longitude;
   }
 
   get phone(): string {

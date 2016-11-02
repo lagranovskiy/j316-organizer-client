@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {AppStore} from "angular2-redux-util";
 import {Router} from "@angular/router";
 
 

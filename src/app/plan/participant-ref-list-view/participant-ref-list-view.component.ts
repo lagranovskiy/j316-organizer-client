@@ -1,7 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {Participant} from "../model/Participant";
-import {ParticipantRef} from "../model/ParticipantRef";
-import {ParticipantPersistenceService} from "../participant-persistence.service";
+import {Component, OnInit, Input} from "@angular/core";
+import {ParticipantRef} from "../../model/ParticipantRef";
+import {ParticipantPersistenceService} from "../../participant-persistence.service";
 
 @Component({
   selector: 'participant-ref-list-view',

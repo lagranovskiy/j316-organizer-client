@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, ElementRef} from "@angular/core";
-import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Input} from "@angular/core/src/metadata/directives";
-import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
-import {ParticipantPersistenceService} from "../participant-persistence.service";
+import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
+import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {MapsAPILoader} from "angular2-google-maps/core";
 import {FormControl} from "@angular/forms";
 

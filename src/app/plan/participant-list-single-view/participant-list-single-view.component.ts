@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Participant} from "../model/Participant";
+import {Participant} from "../../model/Participant";
 
 @Component({
   selector: 'participant-list-single-view',

@@ -1,7 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
-import { MapsAPILoader } from 'angular2-google-maps/core';
-
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 
 @Component({
   selector: 'gruppe-view',
@@ -19,7 +17,6 @@ export class GruppeViewComponent implements OnInit {
   private isEditing: boolean = false;
 
   constructor() {
-
   }
 
   toggleEditing() {

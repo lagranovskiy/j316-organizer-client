@@ -5,29 +5,25 @@ import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
+import {AgmCoreModule} from "angular2-google-maps/core";
 
-import { AgmCoreModule } from 'angular2-google-maps/core';
+import {PlanDashboardComponent} from "./perspectives/plan-dashboard/plan-dashboard.component";
+import {PlanEditorComponent} from "./perspectives/plan-editor/plan-editor.component";
 
-import {PlanPersistenceService} from './plan-persistence.service';
+import {ViewCardComponent} from "./commons/view-card/view-card.component";
 
-import {PlanDashboardComponent} from './plan-dashboard/plan-dashboard.component';
-import {PersonViewComponent} from './person-view/person-view.component';
-import {PersonEditorComponent} from './person-editor/person-editor.component';
-import {GruppeViewComponent} from './gruppe-view/gruppe-view.component';
-import {GruppeEditorComponent} from './gruppe-editor/gruppe-editor.component';
-import {PlanEditorComponent} from './plan-editor/plan-editor.component';
-import {ViewCardComponent} from './view-card/view-card.component';
+import {GruppeViewComponent} from "./plan/gruppe-view/gruppe-view.component";
+import {GruppeEditorComponent} from "./plan/gruppe-editor/gruppe-editor.component";
+import {ParticipantRefListViewComponent} from "./plan/participant-ref-list-view/participant-ref-list-view.component";
+import {ParticipantListSingleViewComponent} from "./plan/participant-list-single-view/participant-list-single-view.component";
+
+import {PlanPersistenceService} from "./plan-persistence.service";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
-import {ParticipantRefListViewComponent} from './participant-ref-list-view/participant-ref-list-view.component';
-import {ParticipantListSingleViewComponent} from './participant-list-single-view/participant-list-single-view.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     PlanDashboardComponent,
-    PersonViewComponent,
-    PersonEditorComponent,
     GruppeViewComponent,
     GruppeEditorComponent,
     PlanEditorComponent,

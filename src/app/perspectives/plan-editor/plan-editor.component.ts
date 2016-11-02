@@ -1,13 +1,11 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PlanPersistenceService} from "../plan-persistence.service";
-import {DienstPlan} from "../model/DienstPlan";
-import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
-import {GruppeEditorComponent} from "../gruppe-editor/gruppe-editor.component";
-import {Participant} from "../model/Participant";
-import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
+import {PlanPersistenceService} from "../../plan-persistence.service";
+import {DienstPlan} from "../../model/DienstPlan";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
+import {GruppeEditorComponent} from "../../plan/gruppe-editor/gruppe-editor.component";
+import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import any = jasmine.any;
-import {ParticipantPersistenceService} from "../participant-persistence.service";
 
 @Component({
   selector: 'plan-editor',

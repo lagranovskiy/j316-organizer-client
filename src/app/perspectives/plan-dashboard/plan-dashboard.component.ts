@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {PlanPersistenceService} from "../plan-persistence.service";
-import {DienstPlan} from "../model/DienstPlan";
+import {PlanPersistenceService} from "../../plan-persistence.service";
+import {DienstPlan} from "../../model/DienstPlan";
 import {Router} from "@angular/router";
 
 

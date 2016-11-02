@@ -1,6 +1,6 @@
 import {Routes, RouterModule} from "@angular/router";
-import {PlanDashboardComponent} from "./plan-dashboard/plan-dashboard.component";
-import {PlanEditorComponent} from "./plan-editor/plan-editor.component";
+import {PlanDashboardComponent} from "./perspectives/plan-dashboard/plan-dashboard.component";
+import {PlanEditorComponent} from "./perspectives/plan-editor/plan-editor.component";
 
 const routes: Routes = [
   {

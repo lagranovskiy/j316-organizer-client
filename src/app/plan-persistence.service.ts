@@ -21,7 +21,7 @@ export class PlanPersistenceService {
     let planArray = JSON.parse(persistentInfo) as Array<any>;
     planArray.forEach((value) => {
       retVal.push(new DienstPlan(value));
-    })
+    });
 
     return retVal
   }
@@ -65,7 +65,7 @@ export class PlanPersistenceService {
 
   /**
    * Inserts or replace plan
-   * @param plan
+   * @param newPlanVersion
    */
   public upsertPlan(newPlanVersion: DienstPlan) {
     let allPersistentPlans = this.fetchPlansFromStorage();

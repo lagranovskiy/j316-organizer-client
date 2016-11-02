@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChildren, QueryList} from "@angular/core";
+import {Component, OnInit, ViewChildren, QueryList, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
+import {PlanTableComponent} from "../../plan/plan-table/plan-table.component";
 import any = jasmine.any;
 
 @Component({
@@ -21,6 +22,9 @@ export class PlanEditorComponent implements OnInit {
 
   @ViewChildren(GruppeViewComponent)
   private groupViews: QueryList<GruppeViewComponent>;
+
+  @ViewChild(PlanTableComponent)
+  private planTable: PlanTableComponent;
 
   constructor(private service: PlanPersistenceService,
               private personService: ParticipantPersistenceService,
@@ -50,6 +54,7 @@ export class PlanEditorComponent implements OnInit {
 
   saveChanges() {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
+    this.planTable.completeBesetzungArrays();
 
     this.service.upsertPlan(this.plan);
   }

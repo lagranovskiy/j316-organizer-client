@@ -28,6 +28,10 @@ export class DienstPlanCalenderInfo {
     this.data.eventDates.push('17.02.16');
     this.data.eventDates.push('27.02.16');
     this.data.eventDates.push('17.03.16');
+    this.data.eventDates.push('27.04.16');
+    this.data.eventDates.push('17.04.16');
+    this.data.eventDates.push('27.05.16');
+    this.data.eventDates.push('17.05.16');
   }
 
   get planStart() {

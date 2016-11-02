@@ -34,40 +34,44 @@
 
   <plan-calender-info-editor [model]="plan.planInformation"></plan-calender-info-editor>
 
-</form>
+
+  <div class="row" style="position: relative;">
+    <div class="col s4">
+      <h4>Plangruppen</h4>
+    </div>
+    <div class="col s8 right-align">
+      <a (click)="addDienstPlanGruppe()" class="btn-floating btn-small waves-effect waves-light red"><i
+        class="material-icons">add</i></a>
+    </div>
 
 
-<div class="row" style="position: relative;">
-  <div class="col s4">
-    <h4>Plangruppen</h4>
   </div>
-  <div class="col s8 right-align">
-    <a (click)="addDienstPlanGruppe()" class="btn-floating btn-small waves-effect waves-light red"><i
-      class="material-icons">add</i></a>
+  <div class="row">
+    <div class="col s12">
+      <div *ngFor="let dienstPlanGruppe of plan.groupList">
+
+        <gruppe-view [model]="dienstPlanGruppe" (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
+        <!--  <view-card [model]="dienstPlanGruppe" (openClicked)="openDienstPlanGruppe($event)"></view-card>-->
+      </div>
+    </div>
+
   </div>
 
 
-</div>
-<div class="row">
-  <div class="col s12">
-    <div *ngFor="let dienstPlanGruppe of plan.groupList">
-
-      <gruppe-view [model]="dienstPlanGruppe" (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
-      <!--  <view-card [model]="dienstPlanGruppe" (openClicked)="openDienstPlanGruppe($event)"></view-card>-->
+  <div class="row">
+    <div class="col s4">
+      <h4>Besetzung</h4>
+    </div>
+    <div class="col s8 right-align">
+      <a (click)="plan.planInformation.generateEventDates()"
+         class="btn-floating btn-small waves-effect waves-light blue"><i
+        class="material-icons">cached</i></a>
     </div>
   </div>
 
-</div>
-
-
-<div class="row">
-  <div class="col s12">
-    <h4>Besetzung</h4>
+  <div class="row">
+    <div class="col s12">
+      <app-plan-table [planCalenderInfo]="plan.planInformation" [planGroups]="plan.groupList"></app-plan-table>
+    </div>
   </div>
-</div>
-
-<div class="row">
-  <div class="col s12">
-    <app-plan-table [planCalenderInfo]="plan.planInformation" [planGroups]="plan.groupList"></app-plan-table>
-  </div>
-</div>
+</form>

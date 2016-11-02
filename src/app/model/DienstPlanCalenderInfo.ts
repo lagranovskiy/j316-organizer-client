@@ -22,12 +22,12 @@ export class DienstPlanCalenderInfo {
 
 
   generateEventDates() {
-    this.eventDates.splice(0, this.eventDates.length);
-    this.eventDates.push('17.01.16');
-    this.eventDates.push('27.01.16');
-    this.eventDates.push('17.02.16');
-    this.eventDates.push('27.02.16');
-    this.eventDates.push('17.03.16');
+    this.data.eventDates = [];
+    this.data.eventDates.push('17.01.16');
+    this.data.eventDates.push('27.01.16');
+    this.data.eventDates.push('17.02.16');
+    this.data.eventDates.push('27.02.16');
+    this.data.eventDates.push('17.03.16');
   }
 
   get planStart() {

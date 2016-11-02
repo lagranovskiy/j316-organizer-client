@@ -7,10 +7,9 @@ export class DienstPlanCalenderInfo {
     planStart: moment().format('DD.MM.YYYY'),
     planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
 
-    eventWeekday: 6,
     eventRecurringDays: 7,
     eventStartTime: '10:00',
-    eventEndTime: '10:00'
+    eventEndTime: '12:00'
   }) {
 
   }
@@ -35,15 +34,6 @@ export class DienstPlanCalenderInfo {
     this.data.planEnd = planEnd;
   }
 
-  get eventWeekday(): number {
-    return this.data.eventWeekday;
-  }
-
-  set eventWeekday(eventWeekday: number) {
-    this.data.eventWeekday = eventWeekday;
-  }
-
-
   get eventRecurringDays(): number {
     return this.data.eventRecurringDays;
   }
@@ -62,7 +52,7 @@ export class DienstPlanCalenderInfo {
   }
 
   get eventEndTime() {
-    return this.data.eventStartTime;
+    return this.data.eventEndTime;
   }
 
   set eventEndTime(eventEndTime: string) {

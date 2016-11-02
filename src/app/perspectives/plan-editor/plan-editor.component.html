@@ -30,22 +30,8 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col s6">
-      <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planInformation.planStart"
-             id="planStart"
-             materialize="pickadate"
-             [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
-      <label for="planStart">Planbeginn</label>
-    </div>
 
-    <div class="input-field col s6">
-      <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planInformation.planEnd" id="planEnd"
-             materialize="pickadate"
-             [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
-      <label for="planStart">Planende</label>
-    </div>
-  </div>
+  <plan-calender-info-editor [model]="plan.planInformation"></plan-calender-info-editor>
 
 </form>
 

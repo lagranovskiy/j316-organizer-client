@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChildren, QueryList} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
-import {GruppeEditorComponent} from "../../plan/gruppe-editor/gruppe-editor.component";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
+import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
 import any = jasmine.any;
 
 @Component({
@@ -16,31 +16,23 @@ export class PlanEditorComponent implements OnInit {
 
   private planUID: string;
   private plan: DienstPlan = null;
+
   private paramsSub;
 
-  private selectedGroup: DienstPlanGruppe;
-
-  @ViewChild(GruppeEditorComponent)
-  private gruppeEditor: GruppeEditorComponent;
-
+  @ViewChildren(GruppeViewComponent)
+  private groupViews: QueryList<GruppeViewComponent>;
 
   constructor(private service: PlanPersistenceService,
               private personService: ParticipantPersistenceService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
-
-
   }
 
-  getGroups() {
-    return this.plan.groupList;
-  }
 
   addDienstPlanGruppe() {
     let newGroup = new DienstPlanGruppe();
 
     this.plan.groupList.push(newGroup);
-    this.selectedGroup = newGroup;
   }
 
   removeDienstPlanGruppe(gruppe) {
@@ -57,6 +49,8 @@ export class PlanEditorComponent implements OnInit {
   }
 
   saveChanges() {
+    this.groupViews.toArray().forEach(view=>view.stopEditing());
+
     this.service.upsertPlan(this.plan);
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 
 @Component({
@@ -23,8 +23,12 @@ export class GruppeViewComponent implements OnInit {
     this.isEditing = !this.isEditing;
   }
 
+  stopEditing() {
+    this.isEditing = false;
+  }
 
-  sendRemoveEvent(){
+
+  sendRemoveEvent() {
     this.removeClicked.emit(this.model);
   }
 

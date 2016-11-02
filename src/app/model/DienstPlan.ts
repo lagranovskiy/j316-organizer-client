@@ -56,9 +56,6 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   }
 
   clone() {
-    /**
-     * TODO: Eventually deep cloninig of groups need to be implemented
-     */
     let clonedData: any = super.cloneData();
     clonedData.uid = super.getUniqueIdentifier();
     clonedData.planName = clonedData.planName + '(Cloned)';

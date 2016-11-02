@@ -8,9 +8,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   constructor(data: any = {
     uid: '',
     planName: '',
-    groupList: [],
     planInformation: {},
-    plan: {}
+    groupList: []
   }) {
     super(data);
 
@@ -23,26 +22,24 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     }
   }
 
+
   get planName(): string {
     return this.data.planName;
   }
+
 
   set planName(planName: string) {
     this.data.planName = planName;
   }
 
+  get planInformation(): DienstPlanCalenderInfo {
+    return this.data.planInformation;
+  }
 
   get groupList(): Array<DienstPlanGruppe> {
     return this.data.groupList;
   }
 
-  get planInformation() : DienstPlanCalenderInfo{
-    return this.data.planInformation;
-  }
-
-  get plan() {
-    return this.data.plan;
-  }
 
   getTitle() {
     return this.data.planName;

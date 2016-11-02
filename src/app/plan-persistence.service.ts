@@ -39,6 +39,7 @@ export class PlanPersistenceService {
 
     if (retVal.length > 1) {
       console.error('Illegal state.. multiple plans with same uid');
+      return null;
     }
 
     if (retVal.length == 0) {
@@ -70,9 +71,12 @@ export class PlanPersistenceService {
   public upsertPlan(newPlanVersion: DienstPlan) {
     let allPersistentPlans = this.fetchPlansFromStorage();
 
-    let persistentPlan = this.fetchPlanById(newPlanVersion.uid);
-    if (persistentPlan != null) {
-      allPersistentPlans.splice(allPersistentPlans.indexOf(persistentPlan), 1);
+    let persistentPlan = allPersistentPlans.filter((plan: DienstPlan)=> {
+      return plan.uid === newPlanVersion.uid
+    });
+
+    if (persistentPlan.length && persistentPlan.length === 1) {
+      allPersistentPlans.splice(allPersistentPlans.indexOf(persistentPlan[0]), 1);
     }
 
     allPersistentPlans.push(newPlanVersion);

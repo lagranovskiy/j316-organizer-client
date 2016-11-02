@@ -7,6 +7,8 @@ export class DienstPlanCalenderInfo {
     planStart: moment().format('DD.MM.YYYY'),
     planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
 
+    eventDates: [],
+
     eventRecurringDays: 7,
     eventStartTime: '10:00',
     eventEndTime: '12:00'
@@ -16,6 +18,16 @@ export class DienstPlanCalenderInfo {
 
   getData() {
     return this.data
+  }
+
+
+  generateEventDates() {
+    this.eventDates.splice(0, this.eventDates.length);
+    this.eventDates.push('17.01.16');
+    this.eventDates.push('27.01.16');
+    this.eventDates.push('17.02.16');
+    this.eventDates.push('27.02.16');
+    this.eventDates.push('17.03.16');
   }
 
   get planStart() {
@@ -42,7 +54,6 @@ export class DienstPlanCalenderInfo {
     this.data.eventRecurringDays = eventRecurringDays;
   }
 
-
   get eventStartTime() {
     return this.data.eventStartTime;
   }
@@ -58,6 +69,11 @@ export class DienstPlanCalenderInfo {
   set eventEndTime(eventEndTime: string) {
     this.data.eventEndTime = eventEndTime;
   }
+
+  get eventDates() {
+    return this.data.eventDates;
+  }
+
 
   clone() {
     let clonedData = Immutable.Map(this.data).toObject();

@@ -12,7 +12,8 @@
         Übersicht</a>
       <a class="waves-effect waves-light btn red" (click)="removePlan()"><i
         class="material-icons left ">delete_sweep</i>Löschen</a>
-      <a class="waves-effect waves-light btn" (click)="saveChanges()" [ngClass]="{'disabled': !planForm.form.valid}"><i
+      <a class="waves-effect waves-light btn" (click)="saveChanges()"
+         [ngClass]="{'disabled': !planForm.form.valid}"><i
         class="material-icons left">send</i>Sichern</a>
     </div>
   </div>
@@ -49,7 +50,7 @@
 </div>
 <div class="row">
   <div class="col s12">
-    <div  *ngFor="let dienstPlanGruppe of plan.groupList">
+    <div *ngFor="let dienstPlanGruppe of plan.groupList">
 
       <gruppe-view [model]="dienstPlanGruppe" (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
       <!--  <view-card [model]="dienstPlanGruppe" (openClicked)="openDienstPlanGruppe($event)"></view-card>-->
@@ -65,156 +66,8 @@
   </div>
 </div>
 
-
 <div class="row">
   <div class="col s12">
-    <table class="striped" border="1">
-      <thead>
-      <tr>
-        <th data-field="id" width="40%">Gruppe1</th>
-        <th data-field="name">01.01</th>
-        <th data-field="price">07.01</th>
-        <th data-field="price">14.01</th>
-        <th data-field="price">21.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">12.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">12.01</th>
-        <th data-field="price">19.01</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr>
-
-        <td>
-          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
-        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
-        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
-        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
-        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
-        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
-        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
-      </tr>
-      <tr>
-
-        <td>
-          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
-        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
-        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
-        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
-        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
-        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
-        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
-      </tr>
-      <tr>
-
-        <td>
-          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test1"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test2"/><label for="test2"></label></td>
-        <td data-field="price"><input type="checkbox" id="test3"/><label for="test3"></label></td>
-        <td data-field="price"><input type="checkbox" id="test4"/><label for="test4"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test6"/><label for="test6"></label></td>
-        <td data-field="price"><input type="checkbox" id="test7"/><label for="test7"></label></td>
-        <td data-field="price"><input type="checkbox" id="test8"/><label for="test8"></label></td>
-        <td data-field="price"><input type="checkbox" id="test9"/><label for="test9"></label></td>
-        <td data-field="price"><input type="checkbox" id="test10"/><label for="test10"></label></td>
-      </tr>
-      </tbody>
-
-      <thead>
-      <tr>
-
-        <th data-field="id" width="40%">Gruppe2</th>
-        <th data-field="name">01.01</th>
-        <th data-field="price">07.01</th>
-        <th data-field="price">14.01</th>
-        <th data-field="price">21.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">12.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">19.01</th>
-        <th data-field="price">12.01</th>
-        <th data-field="price">19.01</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr>
-
-        <td>
-          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-      </tr>
-      <tr>
-
-        <td>
-          <div class="chip">Dennis Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-          <div class="chip">Jakob Wulf<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-      </tr>
-      <tr>
-
-        <td>
-          <div class="chip">Max Loos<i class="close material-icons">close</i></div>
-          <div class="chip">Niki Wulf<i class="close material-icons">close</i></div>
-        </td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-        <td data-field="price"><input type="checkbox" id="test5"/><label for="test5"></label></td>
-      </tr>
-      </tbody>
-    </table>
-
-
+    <app-plan-table [planCalenderInfo]="plan.planInformation" [planGroups]="plan.groupList"></app-plan-table>
   </div>
 </div>
-

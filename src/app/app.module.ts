@@ -20,6 +20,7 @@ import {ParticipantListSingleViewComponent} from "./plan/participant-list-single
 import {PlanPersistenceService} from "./plan-persistence.service";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
 import { PlanCalenderInfoEditorComponent } from './plan/plan-calender-info-editor/plan-calender-info-editor.component';
+import { PlanTableComponent } from './plan/plan-table/plan-table.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { PlanCalenderInfoEditorComponent } from './plan/plan-calender-info-edito
     ViewCardComponent,
     ParticipantRefListViewComponent,
     ParticipantListSingleViewComponent,
-    PlanCalenderInfoEditorComponent
+    PlanCalenderInfoEditorComponent,
+    PlanTableComponent
   ],
   providers: [
     PlanPersistenceService,

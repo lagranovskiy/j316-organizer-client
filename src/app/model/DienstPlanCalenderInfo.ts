@@ -23,15 +23,13 @@ export class DienstPlanCalenderInfo {
 
   generateEventDates() {
     this.data.eventDates = [];
-    this.data.eventDates.push('17.01.16');
-    this.data.eventDates.push('27.01.16');
-    this.data.eventDates.push('17.02.16');
-    this.data.eventDates.push('27.02.16');
-    this.data.eventDates.push('17.03.16');
-    this.data.eventDates.push('27.04.16');
-    this.data.eventDates.push('17.04.16');
-    this.data.eventDates.push('27.05.16');
-    this.data.eventDates.push('17.05.16');
+    let planIterator = moment(this.planStart, 'DD.MM.YYYY');
+
+    while (planIterator.isBefore(moment(this.planEnd, 'DD.MM.YYYY'))) {
+      this.data.eventDates.push(planIterator.format('DD.MM'));
+      planIterator.add(this.eventRecurringDays, 'days');
+    }
+
   }
 
   get planStart() {

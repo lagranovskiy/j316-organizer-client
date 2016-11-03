@@ -36,7 +36,7 @@ export class PlanEditorComponent implements OnInit {
   addDienstPlanGruppe() {
     let newGroup = new DienstPlanGruppe();
 
-    this.plan.groupList.push(newGroup);
+    this.plan.groupList.unshift(newGroup);
   }
 
   removeDienstPlanGruppe(gruppe) {

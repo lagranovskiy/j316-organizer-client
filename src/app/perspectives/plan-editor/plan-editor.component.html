@@ -32,7 +32,7 @@
   </div>
 
 
-  <plan-calender-info-editor [model]="plan.planInformation"></plan-calender-info-editor>
+  <plan-calender-info-editor [model]="plan"></plan-calender-info-editor>
 
 
   <div class="row" style="position: relative;">
@@ -63,7 +63,7 @@
       <h4>Besetzung</h4>
     </div>
     <div class="col s8 right-align">
-      <a (click)="plan.planInformation.generateEventDates()"
+      <a (click)="plan.generateEventDates()"
          class="btn-floating btn-small waves-effect waves-light blue"><i
         class="material-icons">cached</i></a>
     </div>
@@ -71,7 +71,7 @@
 
   <div class="row">
     <div class="col s12">
-      <app-plan-table [planCalenderInfo]="plan.planInformation" [planGroups]="plan.groupList"></app-plan-table>
+      <app-plan-table [plan]="plan"></app-plan-table>
     </div>
   </div>
 </form>

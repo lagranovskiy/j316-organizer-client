@@ -1,15 +1,23 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
 import {DienstPlanGruppe} from "./DienstPlanGruppe";
-import {DienstPlanCalenderInfo} from "./DienstPlanCalenderInfo";
+import * as moment from "moment";
 
 export class DienstPlan extends J316Model implements DisplayableModel {
 
   constructor(data: any = {
     uid: '',
     planName: '',
-    planInformation: {},
-    groupList: []
+    groupList: [],
+
+    planStart: moment().format('DD.MM.YYYY'),
+    planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
+
+    eventDates: [],
+
+    eventRecurringDays: 7,
+    eventStartTime: '10:00',
+    eventEndTime: '12:00'
   }) {
     super(data);
 
@@ -17,9 +25,6 @@ export class DienstPlan extends J316Model implements DisplayableModel {
       this.data.groupList = this.data.groupList.map(group=> new DienstPlanGruppe(group.data));
     }
 
-    if (this.data.planInformation) {
-      this.data.planInformation = new DienstPlanCalenderInfo(data.planInformation.data);
-    }
   }
 
 
@@ -32,9 +37,6 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     this.data.planName = planName;
   }
 
-  get planInformation(): DienstPlanCalenderInfo {
-    return this.data.planInformation;
-  }
 
   get groupList(): Array<DienstPlanGruppe> {
     return this.data.groupList;
@@ -46,9 +48,54 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   }
 
 
+  get planStart() {
+    return this.data.planStart;
+  }
+
+  set planStart(planStart: string) {
+    this.data.planStart = planStart;
+  }
+
+  get planEnd() {
+    return this.data.planEnd;
+  }
+
+  set planEnd(planEnd: string) {
+    this.data.planEnd = planEnd;
+  }
+
+  get eventRecurringDays(): number {
+    return this.data.eventRecurringDays;
+  }
+
+  set eventRecurringDays(eventRecurringDays: number) {
+    this.data.eventRecurringDays = eventRecurringDays;
+  }
+
+  get eventStartTime() {
+    return this.data.eventStartTime;
+  }
+
+  set eventStartTime(eventStartTime: string) {
+    this.data.eventStartTime = eventStartTime;
+  }
+
+  get eventEndTime() {
+    return this.data.eventEndTime;
+  }
+
+  set eventEndTime(eventEndTime: string) {
+    this.data.eventEndTime = eventEndTime;
+  }
+
+  get eventDates() {
+    return this.data.eventDates;
+  }
+
+
   getDescription() {
-    let start = this.data.planInformation.planStart;
-    let end = this.data.planInformation.planEnd;
+    let start = this.data.planStart;
+    let end = this.data.planEnd;
     return 'Von ' + start + ' bis ' + end;
   }
 

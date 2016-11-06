@@ -1,9 +1,9 @@
 <table class="striped" border="1">
-  <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="planGroups">
+  <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
     <thead>
     <tr>
       <th data-field="participants" width="40%">{{gruppe.getTitle()}}</th>
-      <th class="center-align" data-field="name" *ngFor="let eventDate of planCalenderInfo.eventDates">{{eventDate}}</th>
+      <th class="center-align" data-field="name" *ngFor="let eventDate of eventDates">{{eventDate}}</th>
     </tr>
     </thead>
     <tbody>
@@ -11,7 +11,7 @@
       <td data-field="participants">
         <div class="chip" *ngFor="let participantRef of teilgruppe.participants">{{getRelatedParticipant(participantRef).getTitle()}}</div>
       </td>
-      <td data-field="price" class="center-align" *ngFor="let eventDate of planCalenderInfo.eventDates; let dayIndex=index">
+      <td data-field="price" class="center-align" *ngFor="let eventDate of eventDates; let dayIndex=index">
         <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox" name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}" id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
         <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}" ></label>
       </td>

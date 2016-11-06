@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {DienstPlanCalenderInfo} from "../../model/DienstPlanCalenderInfo";
+import {DienstPlan} from "../../model/DienstPlan";
 
 @Component({
   selector: 'plan-calender-info-editor',
@@ -10,9 +10,10 @@ export class PlanCalenderInfoEditorComponent implements OnInit {
 
 
   @Input()
-  private model: DienstPlanCalenderInfo;
+  private model: DienstPlan;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

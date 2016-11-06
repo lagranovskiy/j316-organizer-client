@@ -1,7 +1,7 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {HttpModule, RequestOptions} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
@@ -21,6 +21,14 @@ import {PlanPersistenceService} from "./plan-persistence.service";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
 import { PlanCalenderInfoEditorComponent } from './plan/plan-calender-info-editor/plan-calender-info-editor.component';
 import { PlanTableComponent } from './plan/plan-table/plan-table.component';
+import {AppRequestOptions} from "./AppRequestOptions";
+
+import { OpaqueToken } from '@angular/core';
+import {J316_CONFIG} from "./app-config";
+
+export let APP_CONFIG = new OpaqueToken('app.config');
+
+
 
 @NgModule({
   declarations: [
@@ -38,7 +46,9 @@ import { PlanTableComponent } from './plan/plan-table/plan-table.component';
   ],
   providers: [
     PlanPersistenceService,
-    ParticipantPersistenceService
+    ParticipantPersistenceService,
+    {provide: APP_CONFIG, useValue: J316_CONFIG},
+    {provide: RequestOptions, useClass: AppRequestOptions}
   ],
   imports: [
     BrowserModule,

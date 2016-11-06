@@ -1,8 +1,26 @@
 import {Injectable} from "@angular/core";
 import {DienstPlan} from "./model/DienstPlan";
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class PlanPersistenceService {
+
+  constructor(private http: Http) {
+
+  }
+
+  /**
+   * Fetches all Plans from server
+   */
+  public fetchFromServer(): Observable<DienstPlan[]> {
+    return this.http.get('/api/serviceplan')
+      .map((response: Response)=> {
+        console.info(response.json());
+        return [];
+      })
+      .catch(this.handleError);
+  }
 
   /**
    * Fetches a list of persistent dienstplans
@@ -103,7 +121,9 @@ export class PlanPersistenceService {
   }
 
 
-  constructor() {
+  private handleError(error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
   }
 
 }

@@ -15,7 +15,7 @@ export class PlanDashboardComponent implements OnInit {
 
   constructor(private service: PlanPersistenceService, private router: Router) {
     this.planList = service.fetchPlansFromStorage();
-    service.fetchFromServer();
+    service.fetchFromServer().subscribe(x=>{});
   }
 
   private createNewDienstplan() {

@@ -1,12 +1,12 @@
-import {BaseRequestOptions, RequestOptionsArgs, RequestOptions} from "@angular/http";
+import {RequestOptionsArgs, RequestOptions, Http} from "@angular/http";
 import {Injectable, Inject} from "@angular/core";
-import {AppConfig} from "./app-config";
-import {APP_CONFIG} from "./app.module";
+import {AppConfig} from "./app.config";
+import {APP_CONFIG} from "./const";
 
 @Injectable()
-export class AppRequestOptions extends BaseRequestOptions {
+export class AppRequestOptions extends RequestOptions {
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig ) {
+  constructor( @Inject(APP_CONFIG) private config: AppConfig) {
     super();
   }
 

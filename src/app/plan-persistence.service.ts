@@ -1,25 +1,29 @@
-import {Injectable} from "@angular/core";
+import {Injectable, Inject} from "@angular/core";
 import {DienstPlan} from "./model/DienstPlan";
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
+import {APP_CONFIG} from "./config/const";
+import {AppConfig} from "./config/app.config";
 
 @Injectable()
 export class PlanPersistenceService {
 
-  constructor(private http: Http) {
-
+  constructor(private http: Http, @Inject(APP_CONFIG) private config: AppConfig) {
+    console.info(config.apiEndpoint);
   }
 
   /**
    * Fetches all Plans from server
    */
-  public fetchFromServer(): Observable<DienstPlan[]> {
+  public fetchFromServer(): Observable<Response> {
     return this.http.get('/api/serviceplan')
-      .map((response: Response)=> {
-        console.info(response.json());
-        return [];
-      })
+      .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body.data || {};
   }
 
   /**
@@ -120,10 +124,18 @@ export class PlanPersistenceService {
     return persistentArray;
   }
 
-
-  private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+  private handleError(error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 
 }

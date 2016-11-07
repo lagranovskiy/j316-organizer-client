@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://j316-organizer.herokuapp.com",
-    "secure": true
+    "target": "https://j316-organizer.herokuapp.com/",
+    "secure": false
   }
 }

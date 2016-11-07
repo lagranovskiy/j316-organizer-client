@@ -19,6 +19,8 @@ import {PlanCalenderInfoEditorComponent} from "./plan/plan-calender-info-editor/
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import {AppRequestOptions} from "./config/AppRequestOptions";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
+import { PersonDashboardComponent } from './perspectives/person-dashboard/person-dashboard.component';
+import { PersonEditorComponent } from './perspectives/person-editor/person-editor.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import {APP_CONFIG, J316_CONFIG} from "./config/const";
     ParticipantRefListViewComponent,
     ParticipantListSingleViewComponent,
     PlanCalenderInfoEditorComponent,
-    PlanTableComponent
+    PlanTableComponent,
+    PersonDashboardComponent,
+    PersonEditorComponent
   ],
   providers: [
     PlanPersistenceService,

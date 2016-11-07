@@ -15,8 +15,8 @@ import any = jasmine.any;
 })
 export class PlanEditorComponent implements OnInit {
 
-  private planUID: string;
-  private plan: DienstPlan = null;
+  private planUUID: string;
+  private plan: DienstPlan = new DienstPlan();
 
   private paramsSub;
 
@@ -48,7 +48,7 @@ export class PlanEditorComponent implements OnInit {
   }
 
   removePlan() {
-    this.service.removePlan(this.plan);
+    this.service.removePlan(this.plan.uuid).subscribe(()=>this.navDashboard());
     this.navDashboard();
   }
 
@@ -56,19 +56,17 @@ export class PlanEditorComponent implements OnInit {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
     this.planTable.completeBesetzungArrays();
 
-    this.service.upsertPlan(this.plan);
+    this.service.savePlan(this.plan).subscribe(savedPlan => this.plan = savedPlan);
   }
 
   ngOnInit() {
     this.paramsSub = this.activatedRoute.params.subscribe(params => {
-      let test = params["uid"];
-      this.planUID = test;
+      this.planUUID = params["uuid"];
 
-      if (this.planUID) {
-        this.plan = this.service.fetchPlanById(this.planUID);
-      } else {
-        this.plan = new DienstPlan();
-        this.plan.planName = 'Neue Plan';
+      if (this.planUUID) {
+        this.service.fetchPlan(this.planUUID).subscribe(plan=> {
+          this.plan = plan
+        });
       }
     });
   }

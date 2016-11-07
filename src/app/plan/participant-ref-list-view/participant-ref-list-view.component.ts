@@ -16,7 +16,7 @@ export class ParticipantRefListViewComponent implements OnInit {
   }
 
   getRelatedParticipant(rel: ParticipantRef) {
-    return this.personService.fetchParticipantById(rel.participantUID);
+    return this.personService.fetchParticipantById(rel.participantUUID);
   }
 
   ngOnInit() {

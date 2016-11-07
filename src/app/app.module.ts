@@ -39,7 +39,6 @@ import {APP_CONFIG, J316_CONFIG} from "./config/const";
     PlanPersistenceService,
     ParticipantPersistenceService,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
-  //  {provide: RequestOptions, useClass: AppRequestOptions}
   ],
   imports: [
     BrowserModule,

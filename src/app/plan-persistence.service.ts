@@ -15,62 +15,58 @@ export class PlanPersistenceService {
   /**
    * Fetches all Plans from server
    */
-  public fetchFromServer(): Observable<Response> {
+  public fetchPlans(): Observable<DienstPlan[]> {
     return this.http.get('/api/serviceplan')
-      .map(this.extractData)
+      .map(data => {
+          let body = data.json();
+          let retVal: DienstPlan[] = [];
+          body.map(planData => retVal.push(new DienstPlan(planData)));
+          return retVal;
+        }
+      )
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || {};
+  /**
+   * Fetches all Plans from server
+   */
+  public fetchPlan(uuid: string): Observable<DienstPlan> {
+    return this.http.get(`/api/serviceplan/${uuid}`)
+      .map(data => {
+          return new DienstPlan(data.json());
+        }
+      )
+      .catch(this.handleError);
   }
 
   /**
-   * Fetches a list of persistent dienstplans
-   *
-   * @returns {DienstPlan[]}
+   * Fetches all Plans from server
    */
-  public fetchPlansFromStorage() {
-    let persistentInfo = localStorage.getItem('j316-plans');
-
-    if (persistentInfo == null || persistentInfo === '') {
-      return [];
-    }
-
-    let retVal: Array<DienstPlan> = [];
-
-    let planArray = JSON.parse(persistentInfo) as Array<any>;
-    planArray.forEach((value) => {
-      retVal.push(new DienstPlan(value));
-    });
-
-    return retVal
+  public removePlan(uuid: string): Observable<DienstPlan> {
+    return this.http.delete(`/api/serviceplan/${uuid}`)
+      .map(data => {
+          return new DienstPlan(data.json());
+        }
+      )
+      .catch(this.handleError);
   }
 
   /**
-   * Fetches a plan information by the given uid
-   *
-   * @param uid
+   * Saves a given plan
+   * @param plan
+   * @return {Observable<R>}
    */
-  public fetchPlanById(uid: string) {
-    let persistentPlans = this.fetchPlansFromStorage();
-    let retVal = persistentPlans.filter((plan: DienstPlan)=> {
-      return plan.uid === uid
-    });
-
-    if (retVal.length > 1) {
-      console.error('Illegal state.. multiple plans with same uid');
-      return null;
-    }
-
-    if (retVal.length == 0) {
-      console.info('No Plans with give UID found');
-      return null;
-    }
-
-    return retVal[0];
+  public savePlan(plan: DienstPlan): Observable<DienstPlan> {
+    let data = plan.getData();
+    return this.http.post('/api/serviceplan', data)
+      .map(data => {
+        return new DienstPlan(data.json());
+      })
+      .catch(this.handleError);
   }
+
+
+/*
 
   public removePlan(planForRemoval: DienstPlan) {
     let allPersistentPlans = this.fetchPlansFromStorage();
@@ -85,44 +81,9 @@ export class PlanPersistenceService {
     allPersistentPlans.splice(allPersistentPlans.indexOf(foundDienstplan), 1);
     this.savePlansToStorage(allPersistentPlans);
   }
-
-  /**
-   * Inserts or replace plan
-   * @param newPlanVersion
-   */
-  public upsertPlan(newPlanVersion: DienstPlan) {
-    let allPersistentPlans = this.fetchPlansFromStorage();
-
-    let persistentPlan = allPersistentPlans.filter((plan: DienstPlan)=> {
-      return plan.uid === newPlanVersion.uid
-    });
-
-    if (persistentPlan.length && persistentPlan.length === 1) {
-      allPersistentPlans.splice(allPersistentPlans.indexOf(persistentPlan[0]), 1);
-    }
-
-    allPersistentPlans.push(newPlanVersion);
-    this.savePlansToStorage(allPersistentPlans);
-  }
+*/
 
 
-  /**
-   * Saves given list of plans to the storage
-   * @param plans
-   */
-  public savePlansToStorage(plans: Array<DienstPlan>) {
-    console.info('Saving current state to the storage');
-
-    let persistentArray: Array<any> = [];
-
-    plans.forEach((dienstPlan: DienstPlan)=> {
-      persistentArray.push(dienstPlan.getData());
-    });
-
-    localStorage.setItem('j316-plans', JSON.stringify(persistentArray));
-
-    return persistentArray;
-  }
 
   private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure

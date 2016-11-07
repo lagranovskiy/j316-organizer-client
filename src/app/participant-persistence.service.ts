@@ -7,7 +7,7 @@ export class ParticipantPersistenceService {
   constructor() {
     let participantsDummy: Array<Participant> = [];
     participantsDummy.push(new Participant({
-      uid: 'qqaaee1',
+      uuid: 'qqaaee1',
       forename: 'Leonid',
       surname: 'Agranovskiy',
       location: 'Max-Plank Uni 12  65820 Bischofsheim am Rhein',
@@ -17,7 +17,7 @@ export class ParticipantPersistenceService {
       notificationCal: true
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee2',
+      uuid: 'qqaaee2',
       forename: 'Max',
       surname: 'Tooms',
       location: 'MAlbert-Plank Uni 12 65820 Kelkheim',
@@ -27,7 +27,7 @@ export class ParticipantPersistenceService {
       notificationCal: true
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee3',
+      uuid: 'qqaaee3',
       forename: 'Leonid',
       surname: 'Poters',
       location: 'Max-Plank Uni 12',
@@ -37,7 +37,7 @@ export class ParticipantPersistenceService {
       notificationCal: false
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee4',
+      uuid: 'qqaaee4',
       forename: 'Edik',
       surname: 'Nelson',
       location: 'Max-Plank Uni 12',
@@ -47,7 +47,7 @@ export class ParticipantPersistenceService {
       notificationCal: true
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee5',
+      uuid: 'qqaaee5',
       forename: 'Kin',
       surname: 'Kun',
       location: 'Max-Plank 12',
@@ -57,7 +57,7 @@ export class ParticipantPersistenceService {
       notificationCal: true
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee6',
+      uuid: 'qqaaee6',
       forename: 'Mike',
       surname: 'Mustermann',
       location: 'Max-Plank Uni 12',
@@ -67,7 +67,7 @@ export class ParticipantPersistenceService {
       notificationCal: true
     }));
     participantsDummy.push(new Participant({
-      uid: 'qqaaee7',
+      uuid: 'qqaaee7',
       forename: 'Daniel',
       surname: 'Makster',
       location: 'Max-Plank Uni 2',
@@ -125,12 +125,12 @@ export class ParticipantPersistenceService {
   /**
    * Fetches a plan information by the given uid
    *
-   * @param uid
+   * @param uuid
    */
-  public fetchParticipantById(uid: string) {
+  public fetchParticipantById(uuid: string) {
     let persistentPlans = this.fetchParticipantFromStorage();
     let retVal = persistentPlans.filter((participant: Participant)=> {
-      return participant.uid === uid
+      return participant.uuid === uuid
     });
 
     if (retVal.length > 1) {

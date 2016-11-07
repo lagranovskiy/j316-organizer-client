@@ -7,7 +7,7 @@ export class Participant extends J316Model implements DisplayableModel,LocationB
 
 
   constructor(data: any = {
-    uid: '',
+    uuid: '',
 
     forename: '',
     surname: '',

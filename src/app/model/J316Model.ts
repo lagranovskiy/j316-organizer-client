@@ -8,21 +8,21 @@ export class J316Model {
   constructor(data: any) {
     this.data = data;
 
-    if (!this.data.uid) {
-      this.data.uid = this.getUniqueIdentifier();
+    if (!this.data.uuid) {
+      this.data.uuid = this.getUniqueIdentifier();
     }
 
   }
 
-  get uid() {
-    return this.data.uid;
+  get uuid() {
+    return this.data.uuid;
   }
 
   getUniqueIdentifier() {
     return UUID.UUID();
   }
 
-  getData() {
+  public getData() {
     return this.data;
   }
 

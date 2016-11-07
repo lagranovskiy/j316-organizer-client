@@ -5,8 +5,9 @@ import * as moment from "moment";
 
 export class DienstPlan extends J316Model implements DisplayableModel {
 
+
   constructor(data: any = {
-    uid: '',
+    uuid: '',
     planName: '',
     groupList: [],
 
@@ -21,8 +22,14 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   }) {
     super(data);
 
+    if (this.data.planJSON) {
+      this.data.groupList = JSON.parse(this.data.planJSON);
+    }
+
     if (this.data.groupList) {
       this.data.groupList = this.data.groupList.map(group=> new DienstPlanGruppe(group.data));
+    } else {
+      this.data.groupList = [];
     }
 
   }
@@ -92,6 +99,11 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return this.data.eventDates;
   }
 
+  getData() : any{
+    var retVal = super.getData();
+    retVal.planJSON = JSON.stringify(this.groupList);
+    return retVal;
+  }
 
   getDescription() {
     let start = this.data.planStart;
@@ -101,7 +113,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
   clone() {
     let clonedData: any = super.cloneData();
-    clonedData.uid = super.getUniqueIdentifier();
+    clonedData.uuid = super.getUniqueIdentifier();
     clonedData.planName = clonedData.planName + '(Cloned)';
 
     let retVal: DienstPlan = new DienstPlan(clonedData);

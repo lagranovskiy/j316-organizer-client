@@ -39,7 +39,7 @@
                     multiple
                     [materializeSelectOptions]="personList"
                     materialize="material_select">
-              <option *ngFor="let option of personList" [value]="option.uid">{{option.getTitle()}}</option>
+              <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
             </select>
           </div>
 

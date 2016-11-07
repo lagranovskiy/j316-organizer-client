@@ -7,7 +7,7 @@ import {LocationBasedModel} from "./LocationBasedModel";
 export class DienstPlanGruppe extends J316Model implements DisplayableModel, LocationBasedModel {
 
   constructor(data: any = {
-    uid: '',
+    uuid: '',
     name: 'Neue Gruppe',
     location: '',
     latitude: 0,
@@ -84,7 +84,7 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel, Loc
 
   clone(): DienstPlanGruppe {
     let clonedData: any = super.cloneData();
-    clonedData.uid = super.getUniqueIdentifier();
+    clonedData.uuid = super.getUniqueIdentifier();
 
     return new DienstPlanGruppe(clonedData);
   }

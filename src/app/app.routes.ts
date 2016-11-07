@@ -15,7 +15,7 @@ const routes: Routes = [
 
   {
     component: PlanEditorComponent,
-    path: 'plan/:uid'
+    path: 'plan/:uuid'
   }
 
 ];

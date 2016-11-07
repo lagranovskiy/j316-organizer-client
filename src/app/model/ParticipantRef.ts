@@ -4,20 +4,20 @@ import {J316Model} from "./J316Model";
 export class ParticipantRef extends J316Model {
 
   constructor(data: any = {
-    uid: '',
-    participantUID: ''
+    uuid: '',
+    participantUUID: ''
   }) {
     super(data);
   }
 
 
-  get participantUID() {
-    return this.data.participantUID;
+  get participantUUID() {
+    return this.data.participantUUID;
   }
 
 
-  set participantUID(participantUID: string) {
-    this.data.participantUID = participantUID;
+  set participantUID(participantUUID: string) {
+    this.data.participantUUID = participantUUID;
   }
 
 

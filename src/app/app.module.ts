@@ -19,7 +19,7 @@ import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
 import { PersonDashboardComponent } from './perspectives/person-dashboard/person-dashboard.component';
 import { PersonEditorComponent } from './perspectives/person-editor/person-editor.component';
-import { AddressEditorComponent } from './person/address-editor/address-editor.component';
+import { AddressEditorComponent } from './commons/address-editor/address-editor.component';
 
 
 @NgModule({

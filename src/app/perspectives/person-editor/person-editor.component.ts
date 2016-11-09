@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Participant} from "../../model/Participant";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-person-editor',
@@ -9,19 +10,36 @@ import {ParticipantPersistenceService} from "../../participant-persistence.servi
 })
 export class PersonEditorComponent implements OnInit {
 
-  private person: Participant;
+  private person: Participant = new Participant();
 
-  constructor(private service: ParticipantPersistenceService) {
+  private paramsSub;
 
-  }
+  constructor(private service: ParticipantPersistenceService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
-  ngOnInit() {
   }
 
 
   navDashboard() {
+    this.router.navigate(['/person/all']);
   }
 
   saveChanges() {
+    this.service.saveParticipant(this.person).subscribe(saved => this.person = saved);
+  }
+
+  ngOnInit() {
+    this.paramsSub = this.activatedRoute.params.subscribe(params => {
+      let personUUID = params["uuid"];
+
+      if (personUUID) {
+        this.service.fetchParticipant(personUUID).subscribe(person=> this.person = person);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.paramsSub.unsubscribe();
   }
 }

@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {Participant} from "../../model/Participant";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-person-dashboard',
@@ -11,23 +12,28 @@ export class PersonDashboardComponent implements OnInit {
 
   private personList: Array<Participant>;
 
-  constructor(service: ParticipantPersistenceService) {
-    this.personList = service.fetchParticipantFromStorage();
+  constructor(private service: ParticipantPersistenceService, private router: Router) {
+
   }
 
+
   ngOnInit() {
-    this.service.fetchParticipants();
+    this.refreshParticipants();
+  }
+
+  refreshParticipants() {
+    this.service.fetchParticipants().subscribe(result => this.personList = result);
   }
 
   createNewParticipant() {
-
+    this.router.navigate([`/person`]);
   }
 
-  openPerson() {
-
+  openPerson(participant: Participant) {
+    this.router.navigate([`/person/${participant.uuid}`]);
   }
 
-  removePerson() {
-
+  removePerson(participant: Participant) {
+    this.service.removeParticipant(participant.uuid).subscribe(result => this.refreshParticipants());
   }
 }

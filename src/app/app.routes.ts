@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     component: PersonEditorComponent,
-    path: 'person/'
+    path: 'person'
   },
   {
     component: PersonEditorComponent,

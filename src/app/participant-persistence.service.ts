@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Participant} from "./model/Participant";
 import {Observable} from "rxjs";
+import {Http, Response} from "@angular/http";
 
 @Injectable()
 export class ParticipantPersistenceService {
 
-  constructor() {
+  constructor(private http:Http) {
     let participantsDummy: Array<Participant> = [];
     participantsDummy.push(new Participant({
       uuid: 'qqaaee1',
@@ -82,7 +83,7 @@ export class ParticipantPersistenceService {
   }
 
   /**
-   * Fetches all Plans from server
+   * Fetches all participants from server
    */
   public fetchParticipants(): Observable<Participant[]> {
     return this.http.get('/api/person')
@@ -97,7 +98,7 @@ export class ParticipantPersistenceService {
   }
 
   /**
-   * Fetches all Plans from server
+   * Fetches all participant from server
    */
   public fetchParticipant(uuid: string): Observable<Participant> {
     return this.http.get(`/api/person/${uuid}`)
@@ -109,7 +110,7 @@ export class ParticipantPersistenceService {
   }
 
   /**
-   * Fetches all Plans from server
+   * Fetches all participant from server
    */
   public removeParticipant(uuid: string): Observable<Participant> {
     return this.http.delete(`/api/person/${uuid}`)
@@ -121,11 +122,11 @@ export class ParticipantPersistenceService {
   }
 
   /**
-   * Saves a given plan
+   * Saves a given participant
    * @param plan
    * @return {Observable<R>}
    */
-  public savePlan(plan: Participant): Observable<Participant> {
+  public saveParticipant(plan: Participant): Observable<Participant> {
     let data = plan.getData();
     return this.http.post('/api/person', data)
       .map(data => {
@@ -203,6 +204,21 @@ export class ParticipantPersistenceService {
     }
 
     return retVal[0];
+  }
+
+
+  private handleError(error: Response | any) {
+    // In a real world app, we might use a remote logging infrastructure
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg);
   }
 
 }

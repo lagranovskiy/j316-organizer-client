@@ -15,7 +15,7 @@ import any = jasmine.any;
 })
 export class PlanEditorComponent implements OnInit {
 
-  private planUUID: string;
+
   private plan: DienstPlan = new DienstPlan();
 
   private paramsSub;
@@ -61,10 +61,10 @@ export class PlanEditorComponent implements OnInit {
 
   ngOnInit() {
     this.paramsSub = this.activatedRoute.params.subscribe(params => {
-      this.planUUID = params["uuid"];
+      let planUUID = params["uuid"];
 
-      if (this.planUUID) {
-        this.service.fetchPlan(this.planUUID).subscribe(plan=> {
+      if (planUUID) {
+        this.service.fetchPlan(planUUID).subscribe(plan=> {
           this.plan = plan
         });
       }

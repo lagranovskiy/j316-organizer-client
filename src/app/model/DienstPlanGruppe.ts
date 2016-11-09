@@ -1,17 +1,15 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
 import {DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
-import {LocationBasedModel} from "./LocationBasedModel";
+import {PostalAddress} from "./PostalAddress";
 
 
-export class DienstPlanGruppe extends J316Model implements DisplayableModel, LocationBasedModel {
+export class DienstPlanGruppe extends J316Model implements DisplayableModel {
 
   constructor(data: any = {
     uuid: '',
     name: 'Neue Gruppe',
-    location: '',
-    latitude: 0,
-    longitude: 0,
+    address: new PostalAddress(),
     comment: '',
     sections: [],
   }) {
@@ -19,6 +17,10 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel, Loc
 
     if (this.data.sections) {
       this.data.sections = this.data.sections.map(section=> new DienstPlanTeilgruppe(section.data));
+    }
+
+    if(this.data.address){
+      this.data.address = new PostalAddress(this.data.address);
     }
   }
 
@@ -30,28 +32,12 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel, Loc
     this.data.name = name;
   }
 
-  get location() {
-    return this.data.location;
+  get address(): PostalAddress {
+    return this.data.address;
   }
 
-  set location(location: string) {
-    this.data.location = location;
-  }
-
-  set longitude(longitude: number) {
-    this.data.longitude = longitude;
-  }
-
-  get latitude() {
-  return this.data.latitude;
-  }
-
-  set latitude(latitude: number) {
-    this.data.latitude = latitude;
-  }
-
-  get longitude() {
-    return this.data.longitude;
+  set address(address: PostalAddress) {
+    this.data.address = address;
   }
 
   get comment() {

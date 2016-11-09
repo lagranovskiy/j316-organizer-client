@@ -1,12 +1,14 @@
-<div class="row">
-  <div class="col s12">
-    <h2>Dienstplan: {{plan.planName}}</h2>
-  </div>
-</div>
-
-
 <form materialize class="col s12" #planForm="ngForm">
-  <div class="row">
+
+  <div class="row valign-wrapper">
+    <div class="col s1">
+      <i class="large material-icons">border_clear</i>
+    </div>
+
+    <div class="col s7">
+      <h3>{{plan.planName}}</h3>
+    </div>
+
     <div class="col s12 right-align">
       <a class="waves-effect waves-light btn" (click)="navDashboard()"><i class="material-icons left">reply</i>Zum
         Übersicht</a>
@@ -18,68 +20,66 @@
     </div>
   </div>
 
+  <div class="card-panel">
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Planbezeichnung" name="planName" [(ngModel)]="plan.planName" id="planName"
+               type="text" class="validate" required #planName="ngModel">
+        <label for="planName">Planbezeichnung</label>
+        <div [hidden]="planName.valid || planName.pristine"
+             class="red-text">
+          Planbezeichnung muss angegeben werden
+        </div>
+      </div>
+    </div>
 
-  <div class="row">
-    <div class="input-field col s12">
-      <input placeholder="Planbezeichnung" name="planName" [(ngModel)]="plan.planName" id="planName"
-             type="text" class="validate" required #planName="ngModel">
-      <label for="planName">Planbezeichnung</label>
-      <div [hidden]="planName.valid || planName.pristine"
-           class="red-text">
-        Planbezeichnung muss angegeben werden
+
+    <div class="row">
+      <div class="input-field col s6">
+        <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planStart"
+               id="planStart"
+               materialize="pickadate"
+               [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
+        <label for="planStart">Planbeginn</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planEnd" id="planEnd"
+               materialize="pickadate"
+               [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
+        <label for="planStart">Planende</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s4">
+        <input placeholder="Begin Uhrzeit"
+               name="eventStartTime"
+               type="text" [(ngModel)]="plan.eventStartTime"
+               id="eventStartTime"
+               materialize=""/>
+        <label for="planStart">Begin Uhrzeit</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input placeholder="Ende Uhrzeit"
+               name="eventEndTime"
+               type="text" [(ngModel)]="plan.eventEndTime"
+               id="eventEndTime"
+               materialize=""/>
+        <label for="eventEndTime">Ende Uhrzeit</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input placeholder="Wiederholung (Tage)"
+               name="eventEndTime"
+               type="text" [(ngModel)]="plan.eventRecurringDays"
+               id="eventRecurringDays"
+               materialize=""/>
+        <label for="eventEndTime">Wiederholung (Tage)</label>
       </div>
     </div>
   </div>
-
-
-  <div class="row">
-    <div class="input-field col s6">
-      <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planStart"
-             id="planStart"
-             materialize="pickadate"
-             [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
-      <label for="planStart">Planbeginn</label>
-    </div>
-
-    <div class="input-field col s6">
-      <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planEnd" id="planEnd"
-             materialize="pickadate"
-             [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
-      <label for="planStart">Planende</label>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s4">
-      <input placeholder="Begin Uhrzeit"
-             name="eventStartTime"
-             type="text" [(ngModel)]="plan.eventStartTime"
-             id="eventStartTime"
-             materialize=""/>
-      <label for="planStart">Begin Uhrzeit</label>
-    </div>
-
-    <div class="input-field col s4">
-      <input placeholder="Ende Uhrzeit"
-             name="eventEndTime"
-             type="text" [(ngModel)]="plan.eventEndTime"
-             id="eventEndTime"
-             materialize=""/>
-      <label for="eventEndTime">Ende Uhrzeit</label>
-    </div>
-
-    <div class="input-field col s4">
-      <input placeholder="Wiederholung (Tage)"
-             name="eventEndTime"
-             type="text" [(ngModel)]="plan.eventRecurringDays"
-             id="eventRecurringDays"
-             materialize=""/>
-      <label for="eventEndTime">Wiederholung (Tage)</label>
-    </div>
-  </div>
-
-
-
 
   <div class="row" style="position: relative;">
     <div class="col s4">

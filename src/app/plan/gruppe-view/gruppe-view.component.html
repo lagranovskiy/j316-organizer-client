@@ -9,12 +9,12 @@
           <div class="row">
             <div class="col s5">
               <span class="card-title"> <h4>{{model.getTitle()}}</h4></span>
-              <p><b>{{model.location}}</b></p>
+              <p><b>{{model.address.location}}</b></p>
               <p>{{model.comment}}</p>
             </div>
-            <div class="col s7" *ngIf="model.latitude">
-              <sebm-google-map [latitude]="model.latitude" [longitude]="model.longitude">
-                <sebm-google-map-marker [latitude]="model.latitude" [longitude]="model.longitude"></sebm-google-map-marker>
+            <div class="col s7" *ngIf="model.address.latitude">
+              <sebm-google-map [latitude]="model.address.latitude" [longitude]="model.address.longitude">
+                <sebm-google-map-marker [latitude]="model.address.latitude" [longitude]="model.address.longitude"></sebm-google-map-marker>
               </sebm-google-map>
             </div>
           </div>

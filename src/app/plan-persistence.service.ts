@@ -66,23 +66,6 @@ export class PlanPersistenceService {
   }
 
 
-/*
-
-  public removePlan(planForRemoval: DienstPlan) {
-    let allPersistentPlans = this.fetchPlansFromStorage();
-    let found = allPersistentPlans.filter(plan=>plan.uid === planForRemoval.uid);
-
-    if (found.length == 0) {
-      console.info('No Plans with give UID found. Cannot remove plan');
-      return null;
-    }
-
-    let foundDienstplan = found[0];
-    allPersistentPlans.splice(allPersistentPlans.indexOf(foundDienstplan), 1);
-    this.savePlansToStorage(allPersistentPlans);
-  }
-*/
-
 
 
   private handleError(error: Response | any) {

@@ -16,6 +16,7 @@ export class PersonDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.fetchParticipants();
   }
 
   createNewParticipant() {

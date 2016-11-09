@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Participant} from "./model/Participant";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class ParticipantPersistenceService {
@@ -79,6 +80,65 @@ export class ParticipantPersistenceService {
 
     this.saveParticipantsToStorage(participantsDummy);
   }
+
+  /**
+   * Fetches all Plans from server
+   */
+  public fetchParticipants(): Observable<Participant[]> {
+    return this.http.get('/api/person')
+      .map(data => {
+          let body = data.json();
+          let retVal: Participant[] = [];
+          body.map(planData => retVal.push(new Participant(planData)));
+          return retVal;
+        }
+      )
+      .catch(this.handleError);
+  }
+
+  /**
+   * Fetches all Plans from server
+   */
+  public fetchParticipant(uuid: string): Observable<Participant> {
+    return this.http.get(`/api/person/${uuid}`)
+      .map(data => {
+          return new Participant(data.json());
+        }
+      )
+      .catch(this.handleError);
+  }
+
+  /**
+   * Fetches all Plans from server
+   */
+  public removeParticipant(uuid: string): Observable<Participant> {
+    return this.http.delete(`/api/person/${uuid}`)
+      .map(data => {
+          return new Participant(data.json());
+        }
+      )
+      .catch(this.handleError);
+  }
+
+  /**
+   * Saves a given plan
+   * @param plan
+   * @return {Observable<R>}
+   */
+  public savePlan(plan: Participant): Observable<Participant> {
+    let data = plan.getData();
+    return this.http.post('/api/person', data)
+      .map(data => {
+        return new Participant(data.json());
+      })
+      .catch(this.handleError);
+  }
+
+
+
+
+
+
 
 
   /**

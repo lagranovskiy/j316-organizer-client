@@ -1,7 +1,7 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule, RequestOptions} from "@angular/http";
+import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
@@ -15,12 +15,11 @@ import {ParticipantRefListViewComponent} from "./plan/participant-ref-list-view/
 import {ParticipantListSingleViewComponent} from "./plan/participant-list-single-view/participant-list-single-view.component";
 import {PlanPersistenceService} from "./plan-persistence.service";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
-import {PlanCalenderInfoEditorComponent} from "./plan/plan-calender-info-editor/plan-calender-info-editor.component";
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
-import {AppRequestOptions} from "./config/AppRequestOptions";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
 import { PersonDashboardComponent } from './perspectives/person-dashboard/person-dashboard.component';
 import { PersonEditorComponent } from './perspectives/person-editor/person-editor.component';
+import { AddressEditorComponent } from './person/address-editor/address-editor.component';
 
 
 @NgModule({
@@ -34,10 +33,10 @@ import { PersonEditorComponent } from './perspectives/person-editor/person-edito
     ViewCardComponent,
     ParticipantRefListViewComponent,
     ParticipantListSingleViewComponent,
-    PlanCalenderInfoEditorComponent,
     PlanTableComponent,
     PersonDashboardComponent,
-    PersonEditorComponent
+    PersonEditorComponent,
+    AddressEditorComponent
   ],
   providers: [
     PlanPersistenceService,

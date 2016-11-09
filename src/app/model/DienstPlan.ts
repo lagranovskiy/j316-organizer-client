@@ -32,6 +32,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
       this.data.groupList = [];
     }
 
+    this.generateEventDates();
+
   }
 
 
@@ -61,6 +63,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
   set planStart(planStart: string) {
     this.data.planStart = planStart;
+    this.generateEventDates();
   }
 
   get planEnd() {
@@ -69,6 +72,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
   set planEnd(planEnd: string) {
     this.data.planEnd = planEnd;
+    this.generateEventDates();
   }
 
   get eventRecurringDays(): number {
@@ -99,7 +103,17 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return this.data.eventDates;
   }
 
-  getData() : any{
+  public generateEventDates() {
+    this.data.eventDates = [];
+    let planIterator = moment(this.planStart, 'DD.MM.YYYY');
+
+    while (planIterator.isBefore(moment(this.planEnd, 'DD.MM.YYYY'))) {
+      this.data.eventDates.push(planIterator.format('DD.MM'));
+      planIterator.add(this.eventRecurringDays, 'days');
+    }
+  }
+
+  getData(): any {
     var retVal = super.getData();
     retVal.planJSON = JSON.stringify(this.groupList);
     return retVal;

@@ -3,10 +3,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
-import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
 import {PlanTableComponent} from "../../plan/plan-table/plan-table.component";
-import any = jasmine.any;
+import {isUndefined} from "util";
 
 @Component({
   selector: 'plan-editor',
@@ -23,19 +22,16 @@ export class PlanEditorComponent implements OnInit {
   @ViewChildren(GruppeViewComponent)
   private groupViews: QueryList<GruppeViewComponent>;
 
-  @ViewChild(PlanTableComponent)
-  private planTable: PlanTableComponent;
 
   constructor(private service: PlanPersistenceService,
-              private personService: ParticipantPersistenceService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
 
 
+
   addDienstPlanGruppe() {
     let newGroup = new DienstPlanGruppe();
-
     this.plan.groupList.unshift(newGroup);
   }
 
@@ -54,9 +50,22 @@ export class PlanEditorComponent implements OnInit {
 
   saveChanges() {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
-    this.planTable.completeBesetzungArrays();
+    this.completeBesetzungArrays();
 
     this.service.savePlan(this.plan).subscribe(savedPlan => this.plan = savedPlan);
+  }
+
+
+  completeBesetzungArrays() {
+    this.plan.groupList.map(gruppe=> {
+      gruppe.sections.map(teilgruppe=> {
+        for (let index = 0; index < this.plan.eventDates.length; index++) {
+          if (isUndefined(teilgruppe.besetzung[index]) || teilgruppe.besetzung[index] == null) {
+            teilgruppe.besetzung[index] = false;
+          }
+        }
+      })
+    });
   }
 
   ngOnInit() {

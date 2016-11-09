@@ -1,13 +1,17 @@
-<div class="row">
-  <div class="col s12">
-    <h2>Person: {{person.forename + ' ' + person.surname}}</h2>
-  </div>
-</div>
 
 
 <form materialize class="col s12" #planForm="ngForm">
+
   <div class="row">
-    <div class="col s12 right-align">
+    <div class="col s1">
+      <i class="large material-icons">account_box</i>
+    </div>
+
+    <div class="col s7">
+      <h2>{{person.forename + ' ' + person.surname}}</h2>
+    </div>
+
+    <div class="col s4 right-align">
       <a class="waves-effect waves-light btn" (click)="navDashboard()"><i class="material-icons left">reply</i>Zum
         Übersicht</a>
       <a class="waves-effect waves-light btn" (click)="saveChanges()"
@@ -15,4 +19,116 @@
         class="material-icons left">send</i>Sichern</a>
     </div>
   </div>
+
+  <h4 class="header">Persönliche Daten</h4>
+
+  <div class="row">
+    <div class="input-field col s12 m6">
+      <input placeholder="Max" name="forename" [(ngModel)]="person.forename" id="forename"
+             type="text" class="validate" required #forename="ngModel">
+      <label for="forename">Vorname</label>
+      <div [hidden]="forename.valid || forename.pristine"
+           class="red-text">
+        Vorname muss angegeben werden
+      </div>
+    </div>
+
+    <div class="input-field col s12 m6">
+      <input placeholder="Mustermann" name="surname" [(ngModel)]="person.surname" id="surname"
+             type="text" class="validate" required #surname="ngModel">
+      <label for="surname">Nachname</label>
+      <div [hidden]="surname.valid || surname.pristine"
+           class="red-text">
+        Nachname muss angegeben werden
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12 m6">
+      <select placeholder="Max" id="gender" name="gender" [(ngModel)]="person.gender"
+              materialize="material_select"
+              type="text" class="validate" required #gender="ngModel">
+        <option value="male">männlich</option>
+        <option value="female">weiblich</option>
+      </select>
+      <label for="gender">Geschlecht</label>
+      <div [hidden]="gender.valid || gender.pristine"
+           class="red-text">
+        Geschlecht muss angegeben werden
+      </div>
+    </div>
+
+    <div class="input-field col s12 m6">
+      <input placeholder="z.B. 01.05.1980" name="planStart" type="text" [(ngModel)]="person.dob"
+             id="dob" materialize="pickadate"
+             [materializeParams]="[{selectMonths: true, selectYears: 60, format:'dd.mm.yyyy'}]" required/>
+      <label for="dob">Geburtdatum</label>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="input-field col s12 m4">
+      <input placeholder="0176 1234567" name="mobilePhone" [(ngModel)]="person.mobilePhone" id="mobilePhone"
+             type="text">
+      <label for="mobilePhone">Handy</label>
+    </div>
+
+    <div class="input-field col s12 m4">
+      <input placeholder="06172 1234567" name="phone1" [(ngModel)]="person.phone1" id="phone1" type="text">
+      <label for="phone1">Festnetz</label>
+    </div>
+
+    <div class="input-field col s12 m4">
+      <input name="email" id="email" type="email" class="validate" placeholder="test@gmx.de" [(ngModel)]="person.email" >
+      <label for="email">Email</label>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea id="comment" name="comment" class="materialize-textarea" [(ngModel)]="person.comment"
+                placeholder="zur Zeit im Elternzeit"></textarea>
+      <label for="comment">Kommentar</label>
+    </div>
+  </div>
+
+
+  <h4 class="header">Benachrichtigungseinstellungen</h4>
+
+
+  <div class="row">
+
+    <div class="input-field col s12 m4">
+      <input id="notificationEmail" name="notificationEmail" [(ngModel)]="person.notificationEmail" type="checkbox">
+      <label for="notificationEmail">Email Benachrichtigung</label>
+    </div>
+
+    <div class="input-field col s12 m4">
+      <input id="notificationSMS" name="notificationSMS" [(ngModel)]="person.notificationSMS" type="checkbox">
+      <label for="notificationSMS">SMS Benachrichtigung</label>
+    </div>
+
+    <div class="input-field col s12 m4">
+      <input id="notificationCal" name="notificationCal" [(ngModel)]="person.notificationCal" type="checkbox">
+      <label for="notificationCal">Kalendareinladungen</label>
+    </div>
+
+  </div>
+
+  <h4 class="header">Anschrift</h4>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <address-editor [address]="person.address"></address-editor>
+    </div>
+  </div>
+
+
+
+
+
+
 </form>

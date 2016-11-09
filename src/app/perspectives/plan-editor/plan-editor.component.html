@@ -32,7 +32,53 @@
   </div>
 
 
-  <plan-calender-info-editor [model]="plan"></plan-calender-info-editor>
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planStart"
+             id="planStart"
+             materialize="pickadate"
+             [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
+      <label for="planStart">Planbeginn</label>
+    </div>
+
+    <div class="input-field col s6">
+      <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planEnd" id="planEnd"
+             materialize="pickadate"
+             [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
+      <label for="planStart">Planende</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s4">
+      <input placeholder="Begin Uhrzeit"
+             name="eventStartTime"
+             type="text" [(ngModel)]="plan.eventStartTime"
+             id="eventStartTime"
+             materialize=""/>
+      <label for="planStart">Begin Uhrzeit</label>
+    </div>
+
+    <div class="input-field col s4">
+      <input placeholder="Ende Uhrzeit"
+             name="eventEndTime"
+             type="text" [(ngModel)]="plan.eventEndTime"
+             id="eventEndTime"
+             materialize=""/>
+      <label for="eventEndTime">Ende Uhrzeit</label>
+    </div>
+
+    <div class="input-field col s4">
+      <input placeholder="Wiederholung (Tage)"
+             name="eventEndTime"
+             type="text" [(ngModel)]="plan.eventRecurringDays"
+             id="eventRecurringDays"
+             materialize=""/>
+      <label for="eventEndTime">Wiederholung (Tage)</label>
+    </div>
+  </div>
+
+
 
 
   <div class="row" style="position: relative;">
@@ -61,11 +107,6 @@
   <div class="row">
     <div class="col s4">
       <h4>Besetzung</h4>
-    </div>
-    <div class="col s8 right-align">
-      <a (click)="plan.generateEventDates()"
-         class="btn-floating btn-small waves-effect waves-light blue"><i
-        class="material-icons">cached</i></a>
     </div>
   </div>
 

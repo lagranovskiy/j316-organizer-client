@@ -1,22 +1,22 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
-import {LocationBasedModel} from "./LocationBasedModel";
+import {PostalAddress} from "./PostalAddress";
 
 
-export class Participant extends J316Model implements DisplayableModel,LocationBasedModel {
-
+export class Participant extends J316Model implements DisplayableModel {
 
   constructor(data: any = {
     uuid: '',
 
     forename: '',
     surname: '',
+    gender: 'male',
+    dob: '',
 
-    location: '',
-    latitude: 0,
-    longitude: 0,
+    address: new PostalAddress(),
 
-    phone: '',
+    mobilePhone: '',
+    phone1: '',
     email: '',
     comment: '',
     notificationEmail: true,
@@ -24,6 +24,12 @@ export class Participant extends J316Model implements DisplayableModel,LocationB
     notificationCal: true
   }) {
     super(data);
+
+    if (data.address) {
+      this.data.address = new PostalAddress(data.address);
+    } else {
+      data.address = new PostalAddress();
+    }
   }
 
 
@@ -70,37 +76,45 @@ export class Participant extends J316Model implements DisplayableModel,LocationB
     this.data.surname = surname;
   }
 
-  get location(): string {
-    return this.data.location;
+  get gender(): string {
+    return this.data.gender;
   }
 
-  set location(location: string) {
-    this.data.location = location;
+  set gender(gender: string) {
+    this.data.gender = gender;
   }
 
 
-  set longitude(longitude: number) {
-    this.data.longitude = longitude;
+  get dob(): string {
+    return this.data.dob;
   }
 
-  get latitude() {
-    return this.data.latitude;
+  set dob(dob: string) {
+    this.data.dob = dob;
   }
 
-  set latitude(latitude: number) {
-    this.data.latitude = latitude;
+  get address(): PostalAddress {
+    return this.data.address;
   }
 
-  get longitude() {
-    return this.data.longitude;
+  set address(address: PostalAddress) {
+    this.data.address = address;
   }
 
-  get phone(): string {
-    return this.data.phone;
+  get phone1(): string {
+    return this.data.phone1;
   }
 
-  set phone(phone: string) {
-    this.data.phone = phone;
+  set phone1(phone1: string) {
+    this.data.phone1 = phone1;
+  }
+
+  get mobilePhone(): string {
+    return this.data.mobilePhone;
+  }
+
+  set mobilePhone(mobilePhone: string) {
+    this.data.mobilePhone = mobilePhone;
   }
 
   get email(): string {

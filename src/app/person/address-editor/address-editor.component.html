@@ -1,0 +1,28 @@
+<form materialize class="groupForm" id="groupForm" #addressEditForm="ngForm">
+
+  <div class="row">
+    <div class="col s6">
+
+      <div class="input-field">
+        <input [(ngModel)]="address.location" name="personLocation" id="personLocation"
+               placeholder="search for location" autocorrect="off"
+               autocapitalize="off" spellcheck="off" type="text" class="form-control" #search>
+        <label for="personLocation">Anschrift</label>
+      </div>
+      <div class="input-field">
+          <textarea  name="groupComment" id="groupComment" [(ngModel)]="address.comment"
+                class="materialize-textarea" #groupComment="ngModel"></textarea>
+        <label for="groupComment">Addressbeschreibung</label>
+      </div>
+    </div>
+
+    <div class="col s6">
+      <sebm-google-map [latitude]="address.latitude" [longitude]="address.longitude" [zoom]="zoom">
+        <sebm-google-map-marker [latitude]="address.latitude" [longitude]="address.longitude"></sebm-google-map-marker>
+      </sebm-google-map>
+    </div>
+
+  </div>
+
+
+</form>

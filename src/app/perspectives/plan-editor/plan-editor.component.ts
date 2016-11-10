@@ -52,7 +52,7 @@ export class PlanEditorComponent implements OnInit {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
     this.completeBesetzungArrays();
 
-    this.service.savePlan(this.plan).subscribe(savedPlan => this.plan = savedPlan);
+    this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}`]));
   }
 
 

@@ -28,7 +28,7 @@ export class Participant extends J316Model implements DisplayableModel {
     if (data.address) {
       this.data.address = new PostalAddress(data.address);
     } else {
-      data.address = new PostalAddress();
+      this.data.address = new PostalAddress();
     }
   }
 

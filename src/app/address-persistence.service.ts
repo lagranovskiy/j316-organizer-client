@@ -41,7 +41,7 @@ export class AddressPersistenceService {
    */
   public savePostalAddress(address: PostalAddress): Observable<PostalAddress> {
     let data = address.getData();
-    return this.http.post('/api/postal', data)
+    return this.http.put('/api/postal', data)
       .map(data => {
         return new PostalAddress(data.json());
       })

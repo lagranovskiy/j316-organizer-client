@@ -20,6 +20,7 @@ import {APP_CONFIG, J316_CONFIG} from "./config/const";
 import { PersonDashboardComponent } from './perspectives/person-dashboard/person-dashboard.component';
 import { PersonEditorComponent } from './perspectives/person-editor/person-editor.component';
 import { AddressEditorComponent } from './commons/address-editor/address-editor.component';
+import {AddressPersistenceService} from "./address-persistence.service";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { AddressEditorComponent } from './commons/address-editor/address-editor.
   providers: [
     PlanPersistenceService,
     ParticipantPersistenceService,
+    AddressPersistenceService,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [

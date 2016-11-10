@@ -10,11 +10,15 @@
     </div>
 
     <div class="col s4 right-align">
-      <a class="waves-effect waves-light btn" (click)="navDashboard()"><i class="material-icons left">reply</i>Zum
-        Übersicht</a>
-      <a class="waves-effect waves-light btn" (click)="saveChanges()"
-         [ngClass]="{'disabled': !planForm.form.valid}"><i
-        class="material-icons left">send</i>Sichern</a>
+      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
+         (click)="navDashboard()"
+         data-position="bottom" data-delay="50" data-tooltip="Zurück zu Personen"><i
+        class="material-icons left">reply</i></a>
+      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
+         (click)="saveChanges()"
+         data-position="bottom" data-delay="50" data-tooltip="Änderugnen speichern"
+         [ngClass]="{'disabled': !planForm.form.valid}">
+        <i class="material-icons left">send</i></a>
     </div>
   </div>
 

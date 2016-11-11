@@ -3,6 +3,7 @@ import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Input} from "@angular/core/src/metadata/directives";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
+import {Participant} from "../../model/Participant";
 
 
 @Component({
@@ -15,9 +16,10 @@ export class GruppeEditorComponent implements OnInit {
   @Input()
   private model: DienstPlanGruppe;
 
-  private personList = this.personService.fetchParticipantFromStorage();
+  private personList: Array<Participant> = [];
 
   constructor(private personService: ParticipantPersistenceService) {
+    this.personService.fetchParticipants().subscribe(personList => this.personList = personList);
   }
 
   addTeilgruppe() {

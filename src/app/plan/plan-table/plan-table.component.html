@@ -9,11 +9,15 @@
     <tbody>
     <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
       <td data-field="participants">
-        <div class="chip" *ngFor="let participantRef of teilgruppe.participants">{{getRelatedParticipant(participantRef).getTitle()}}</div>
+        <div class="chip" *ngFor="let participantRef of teilgruppe.participants">
+          {{ getRelatedParticipant(participantRef)?.getTitle()}}
+        </div>
       </td>
       <td data-field="price" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
-        <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox" name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}" id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
-        <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}" ></label>
+        <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox"
+               name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
+               id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
+        <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"></label>
       </td>
     </tr>
     </tbody>

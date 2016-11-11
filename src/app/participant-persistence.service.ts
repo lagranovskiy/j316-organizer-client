@@ -9,79 +9,6 @@ import {AddressPersistenceService} from "./address-persistence.service";
 export class ParticipantPersistenceService {
 
   constructor(private http: Http, private addressService: AddressPersistenceService) {
-    let participantsDummy: Array<Participant> = [];
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee1',
-      forename: 'Leonid',
-      surname: 'Agranovskiy',
-      location: 'Max-Plank Uni 12  65820 Bischofsheim am Rhein',
-      email: 'test@agranovskiy.de',
-      notificationEmail: true,
-      notificationSMS: false,
-      notificationCal: true
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee2',
-      forename: 'Max',
-      surname: 'Tooms',
-      location: 'MAlbert-Plank Uni 12 65820 Kelkheim',
-      email: 'test@agranovskiy.de',
-      notificationEmail: false,
-      notificationSMS: true,
-      notificationCal: true
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee3',
-      forename: 'Leonid',
-      surname: 'Poters',
-      location: 'Max-Plank Uni 12',
-      email: 'te1st@agranovskiy.de',
-      notificationEmail: true,
-      notificationSMS: true,
-      notificationCal: false
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee4',
-      forename: 'Edik',
-      surname: 'Nelson',
-      location: 'Max-Plank Uni 12',
-      email: 'te12st@agranovskiy.de',
-      notificationEmail: false,
-      notificationSMS: true,
-      notificationCal: true
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee5',
-      forename: 'Kin',
-      surname: 'Kun',
-      location: 'Max-Plank 12',
-      email: 'tes2t@agranovskiy.de',
-      notificationEmail: true,
-      notificationSMS: true,
-      notificationCal: true
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee6',
-      forename: 'Mike',
-      surname: 'Mustermann',
-      location: 'Max-Plank Uni 12',
-      email: 'tes12t@agranovskiy.de',
-      notificationEmail: true,
-      notificationSMS: true,
-      notificationCal: true
-    }));
-    participantsDummy.push(new Participant({
-      uuid: 'qqaaee7',
-      forename: 'Daniel',
-      surname: 'Makster',
-      location: 'Max-Plank Uni 2',
-      email: 'te12st@agranovskiy.de',
-      notificationEmail: true,
-      notificationSMS: true,
-      notificationCal: true
-    }));
-
-    this.saveParticipantsToStorage(participantsDummy);
   }
 
   /**
@@ -104,11 +31,7 @@ export class ParticipantPersistenceService {
    */
   public fetchParticipant(uuid: string): Observable<Participant> {
     return this.http.get(`/api/person/${uuid}`)
-      .map(data => {
-        let resolvedParticipant = new Participant(data.json());
-
-        return resolvedParticipant;
-      })
+      .map(data => new Participant(data.json()))
       .flatMap((participant: Participant)=>this.http.get(`/api/person/${participant.uuid}/address`)
         .map((addressArrayData: Response) => {
           let addressDataList = addressArrayData.json();
@@ -121,6 +44,7 @@ export class ParticipantPersistenceService {
           }
           return participant;
         })
+
         .catch(this.handleError))
       .catch(this.handleError);
   }
@@ -129,6 +53,7 @@ export class ParticipantPersistenceService {
    * Fetches all participant from server
    */
   public removeParticipant(uuid: string): Observable<Participant> {
+    // TODO: remove the address of person as well as the relation to it
     return this.http.delete(`/api/person/${uuid}`)
       .map(data => {
           return new Participant(data.json());
@@ -153,7 +78,10 @@ export class ParticipantPersistenceService {
       let savedAddress: PostalAddress = persistentSet[0];
 
 
-     return this.http.put(`/api/person/${savedPerson.uuid}/address/`, {relationUUID: savedAddress.uuid, ref: savedAddress.getData()}).map(() => {
+      return this.http.put(`/api/person/${savedPerson.uuid}/address/`, {
+        relationUUID: savedAddress.uuid,
+        ref: savedAddress.getData()
+      }).map(() => {
         savedPerson.address = savedAddress;
         return savedPerson;
       });
@@ -165,70 +93,11 @@ export class ParticipantPersistenceService {
 
 
   /**
-   * Saves given list of plans to the storage
-   * @param persons persons
+   * Handlers errors occured by requests
+   * @param error error object
+   * @param action action text
+   * @return {ErrorObservable}
    */
-  public saveParticipantsToStorage(persons: Array<Participant>) {
-    console.info('Saving current state to the storage');
-
-    let persistentArray: Array<any> = [];
-
-    persons.forEach((person: Participant)=> {
-      persistentArray.push(person.getData());
-    });
-
-    localStorage.setItem('j316-persons', JSON.stringify(persistentArray));
-
-    return persistentArray;
-  }
-
-
-  /**
-   * Fetches a list of persistent dienstplans
-   *
-   * @returns {DienstPlan[]}
-   */
-  public fetchParticipantFromStorage() {
-    let persistentInfo = localStorage.getItem('j316-persons');
-
-    if (persistentInfo == null || persistentInfo === '') {
-      return [];
-    }
-
-    let retVal: Array<Participant> = [];
-
-    let planArray = JSON.parse(persistentInfo) as Array<any>;
-    planArray.forEach((value) => {
-      retVal.push(new Participant(value));
-    });
-
-    return retVal
-  }
-
-  /**
-   * Fetches a plan information by the given uid
-   *
-   * @param uuid
-   */
-  public fetchParticipantById(uuid: string) {
-    let persistentPlans = this.fetchParticipantFromStorage();
-    let retVal = persistentPlans.filter((participant: Participant)=> {
-      return participant.uuid === uuid
-    });
-
-    if (retVal.length > 1) {
-      console.error('Illegal state.. multiple participants with same uid');
-    }
-
-    if (retVal.length == 0) {
-      console.info('No Participant with give UID found');
-      return null;
-    }
-
-    return retVal[0];
-  }
-
-
   private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
@@ -237,9 +106,9 @@ export class ParticipantPersistenceService {
       const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
-      errMsg = error.message ? error.message : error.toString();
+      errMsg = error.toString();
     }
-    console.error(errMsg);
+    console.error(`Problem occured :: ${errMsg}`);
     return Observable.throw(errMsg);
   }
 

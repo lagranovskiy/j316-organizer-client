@@ -18,7 +18,15 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
     eventRecurringDays: 7,
     eventStartTime: '10:00',
-    eventEndTime: '12:00'
+    eventEndTime: '12:00',
+
+    notificationEmail: true,
+    notificationSMS: true,
+    notificationCal: true,
+
+    smsText: 'Hallo am Samstag gehts los',
+    emailText: 'Hallo am Samstag gehts los',
+    emailSubject: 'Dienst am Samstag'
   }) {
     super(data);
 
@@ -27,10 +35,11 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     }
 
     if (this.data.groupList) {
-      this.data.groupList = this.data.groupList.map(group=> new DienstPlanGruppe(group.data));
+      this.data.groupList = this.data.groupList.map(group=> new DienstPlanGruppe(group));
     } else {
       this.data.groupList = [];
     }
+
 
     this.generateEventDates();
 
@@ -115,7 +124,13 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
   getData(): any {
     var retVal = super.getData();
-    retVal.planJSON = JSON.stringify(this.groupList);
+    var groupList: Array<any> = [];
+
+    this.groupList.map(function (group) {
+      groupList.push(group.getData())
+    });
+
+    retVal.planJSON = JSON.stringify(groupList);
     return retVal;
   }
 

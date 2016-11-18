@@ -13,7 +13,7 @@ export class Participant extends J316Model implements DisplayableModel {
     gender: 'male',
     dob: '',
 
-    address: new PostalAddress(),
+    address: {},
 
     mobilePhone: '',
     phone1: '',
@@ -27,6 +27,8 @@ export class Participant extends J316Model implements DisplayableModel {
 
     if (!data.address) {
       this.data.address = new PostalAddress();
+    } else {
+      this.data.address = new PostalAddress(data.address);
     }
   }
 

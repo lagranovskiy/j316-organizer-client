@@ -15,9 +15,9 @@ export class DienstPlanTeilgruppe extends J316Model {
     if (this.data.participants) {
 
       // Workaround for multiselect initialization
-      this.participantArray = this.data.participants.map(participant=> participant.data.participantUUID);
+      this.participantArray = this.data.participants.map(participant=> participant.participantUUID);
 
-      this.data.participants = this.data.participants.map(participant=> new ParticipantRef(participant.data));
+      this.data.participants = this.data.participants.map(participant=> new ParticipantRef(participant));
     }
   }
 
@@ -40,6 +40,21 @@ export class DienstPlanTeilgruppe extends J316Model {
     this.participantArray = refList;
     this.data.participants = [];
     this.data.participants = refList.map(refId => new ParticipantRef({participantUUID: refId}));
+  }
+
+
+  getData(): any {
+    var retVal = super.getData();
+
+    var participantList: Array<any> = [];
+
+    this.data.participants.map(function (participantRef) {
+      participantList.push(participantRef.getData())
+    });
+
+    // No serialization needed, whole object will be json serialized one level higher
+    retVal.participants = participantList;
+    return retVal;
   }
 
   get besetzung(): Array<boolean> {

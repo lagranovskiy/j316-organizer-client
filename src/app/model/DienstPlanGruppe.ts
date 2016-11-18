@@ -9,17 +9,17 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
   constructor(data: any = {
     uuid: '',
     name: 'Neue Gruppe',
-    address: new PostalAddress(),
+    address: {},
     comment: '',
     sections: [],
   }) {
     super(data);
 
     if (this.data.sections) {
-      this.data.sections = this.data.sections.map(section=> new DienstPlanTeilgruppe(section.data));
+      this.data.sections = this.data.sections.map(section=> new DienstPlanTeilgruppe(section));
     }
 
-    if(this.data.address){
+    if (this.data.address) {
       this.data.address = new PostalAddress(this.data.address);
     }
   }
@@ -66,6 +66,21 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
    */
   getDescription() {
     return this.data.location;
+  }
+
+  getData(): any {
+    var retVal = super.getData();
+
+    retVal.address = retVal.address.getData();
+    var sectionList: Array<any> = [];
+
+    this.sections.map(function (section) {
+      sectionList.push(section.getData())
+    });
+
+    // No serialization needed, whole object will be json serialized one level higher
+    retVal.sections = sectionList;
+    return retVal;
   }
 
   clone(): DienstPlanGruppe {

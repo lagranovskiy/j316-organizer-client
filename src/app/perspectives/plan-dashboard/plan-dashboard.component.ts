@@ -26,7 +26,7 @@ export class PlanDashboardComponent implements OnInit {
   }
 
   private openPlan(plan) {
-    this.router.navigate([`/plan/${plan.uuid}`]);
+    this.router.navigate([`/plan/${plan.uuid}/edit`]);
   }
 
   private removePlan(plan) {

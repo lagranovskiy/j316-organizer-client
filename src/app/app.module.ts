@@ -21,6 +21,8 @@ import { PersonDashboardComponent } from './perspectives/person-dashboard/person
 import { PersonEditorComponent } from './perspectives/person-editor/person-editor.component';
 import { AddressEditorComponent } from './commons/address-editor/address-editor.component';
 import {AddressPersistenceService} from "./address-persistence.service";
+import { PlanViewComponent } from './perspectives/plan-view/plan-view.component';
+import { PlanNotificationViewComponent } from './perspectives/plan-notification-view/plan-notification-view.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import {AddressPersistenceService} from "./address-persistence.service";
     PlanTableComponent,
     PersonDashboardComponent,
     PersonEditorComponent,
-    AddressEditorComponent
+    AddressEditorComponent,
+    PlanViewComponent,
+    PlanNotificationViewComponent
   ],
   providers: [
     PlanPersistenceService,

@@ -6,7 +6,23 @@ import * as moment from "moment";
 export class DienstPlan extends J316Model implements DisplayableModel {
 
 
-  constructor(data: any = {
+  constructor(data: {uuid: string,
+    planName: string,
+    groupList: Array<DienstPlanGruppe>,
+    planStart: string,
+    planEnd: string,
+    eventDates: Array<string>,
+    eventRecurringDays: number,
+    eventStartTime: string,
+    eventEndTime: string,
+    notificationEmail: boolean,
+    notificationSMS: boolean,
+    notificationCal: boolean,
+    smsText: string,
+    emailText: string,
+    emailSubject: string,
+    calEventName: string
+  } = {
     uuid: '',
     planName: '',
     groupList: [],
@@ -26,7 +42,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
     smsText: 'Hallo am Samstag gehts los',
     emailText: 'Hallo am Samstag gehts los',
-    emailSubject: 'Dienst am Samstag'
+    emailSubject: 'Dienst am Samstag',
+    calEventName: ''
   }) {
     super(data);
 
@@ -111,6 +128,65 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   get eventDates() {
     return this.data.eventDates;
   }
+
+
+  get notificationEmail(): boolean {
+    return this.data.notificationEmail;
+  }
+
+  set notificationEmail(value: boolean) {
+    this.data.notificationEmail = value;
+  }
+
+  get notificationSMS(): boolean {
+    return this.data.notificationSMS;
+  }
+
+  set notificationSMS(value: boolean) {
+    this.data.notificationSMS = value;
+  }
+
+
+  get notificationCal(): boolean {
+    return this.data.notificationCal;
+  }
+
+  set notificationCal(value: boolean) {
+    this.data.notificationCal = value;
+  }
+
+  get smsText(): string {
+    return this.data.smsText;
+  }
+
+  set smsText(value: string) {
+    this.data.smsText = value;
+  }
+
+  get emailText(): string {
+    return this.data.emailText;
+  }
+
+  set emailText(value: string) {
+    this.data.emailText = value;
+  }
+
+  get emailSubject(): string {
+    return this.data.emailSubject;
+  }
+
+  set emailSubject(value: string) {
+    this.data.emailSubject = value;
+  }
+
+  get calEventName(): string {
+    return this.data.calEventName;
+  }
+
+  set calEventName(value: string) {
+    this.data.calEventName = value;
+  }
+
 
   public generateEventDates() {
     this.data.eventDates = [];

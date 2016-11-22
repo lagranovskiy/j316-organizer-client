@@ -10,36 +10,39 @@
     </div>
 
     <div class="col s12 right-align">
-      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
-         (click)="navDashboard()" data-position="bottom" data-delay="50" data-tooltip="Zurück zu Plänen"><i
-        class="material-icons left">reply</i></a>
-      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light red tooltipped"
-         (click)="removePlan()" data-position="bottom" data-delay="50" data-tooltip="Plan löschen"><i
-        class="material-icons left ">delete_sweep</i></a>
-      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
-         (click)="saveChanges()" data-position="bottom" data-delay="50" data-tooltip="Plan speichern"
-         [ngClass]="{'disabled': !planForm.form.valid}"><i
-        class="material-icons left">send</i></a>
+      <plan-navigation-toolbar [isSaveAllowed]="isSaveAllowed" [isPersistent]="isSaveAllowed" (saveClicked)="savePlan()"
+                               (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
+      <!--    <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
+             (click)="navDashboard()" data-position="bottom" data-delay="50" data-tooltip="Zurück zu Plänen"><i
+            class="material-icons left">reply</i></a>
+          <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light red tooltipped"
+             (click)="removePlan()" data-position="bottom" data-delay="50" data-tooltip="Plan löschen"><i
+            class="material-icons left ">delete_sweep</i></a>
+          <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
+             (click)="savePlan()" data-position="bottom" data-delay="50" data-tooltip="Plan speichern"
+             [ngClass]="{'disabled': !planForm.form.valid}"><i
+            class="material-icons left">send</i></a>
 
-      <!-- SideNav -->
-      <ul id="slide-out" class="side-nav">
-        <li><a href="#!"><i class="material-icons">border_color</i>Druckeinstellungen</a></li>
-        <li><a href="#!"><i class="material-icons">print</i>Drucken</a></li>
+          &lt;!&ndash; SideNav &ndash;&gt;
+          <ul id="slide-out" class="side-nav">
+            <li><a href="#!"><i class="material-icons">border_color</i>Druckeinstellungen</a></li>
+            <li><a href="#!"><i class="material-icons">print</i>Drucken</a></li>
 
-        <li>
-          <div class="divider"></div>
-        </li>
-        <li><a class="subheader">Benachrichtigung</a></li>
-        <li><a href="#"><i class="material-icons">phonelink_setup</i>Anpassen</a></li>
-        <li><a href="#"><i class="material-icons green-text">phonelink_ring</i>Starten</a></li>
-        <li><a href="#"><i class="material-icons red-text">phonelink_erase</i>Vorzeitig beenden</a></li>
-      </ul>
+            <li>
+              <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Benachrichtigung</a></li>
+            <li><a href="#"><i class="material-icons">phonelink_setup</i>Anpassen</a></li>
+            <li><a href="#"><i class="material-icons green-text">phonelink_ring</i>Starten</a></li>
+            <li><a href="#"><i class="material-icons red-text">phonelink_erase</i>Vorzeitig beenden</a></li>
+          </ul>
 
-      <a materialize="sideNav" data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light"><i
-        class="material-icons">tune</i></a>
+          <a materialize="sideNav" data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light"><i
+            class="material-icons">tune</i></a>
 
-      <!-- End of SideNav -->
+          &lt;!&ndash; End of SideNav &ndash;&gt;-->
     </div>
+
   </div>
 
   <div class="card-panel">

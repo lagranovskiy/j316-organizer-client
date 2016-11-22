@@ -1,0 +1,44 @@
+<a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
+   (click)="callGoBack()" data-position="bottom" data-delay="50" data-tooltip="Zurück zu Plänen"><i
+  class="material-icons left">reply</i></a>
+
+<a materialize="leanModal" href="#planRemovalDialog"
+   [ngClass]="{'disabled': !isPersistent()}"
+   class="btn-floating btn-large waves-effect waves-light red tooltipped"
+   [materializeParams]="[{dismissible: false}]" data-position="bottom" data-delay="50" data-tooltip="Plan löschen"><i
+  class="material-icons left ">delete_sweep</i></a>
+
+<a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
+   (click)="callSaveClicked()" data-position="bottom" data-delay="50" data-tooltip="Plan speichern"
+   [ngClass]="{'disabled': !isSaveAllowed()}"><i
+  class="material-icons left">send</i></a>
+
+<!-- SideNav -->
+<ul id="slide-out" class="side-nav">
+  <li><a href="#!" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">border_color</i>Druckeinstellungen</a></li>
+  <li><a href="#!" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">print</i>Drucken</a></li>
+
+  <li>
+    <div class="divider"></div>
+  </li>
+  <li><a class="subheader">Benachrichtigung</a></li>
+  <li><a [routerLink]="['notifications']" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">phonelink_setup</i>Anpassen</a></li>
+  <li><a href="#" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons green-text">phonelink_ring</i>Starten</a></li>
+  <li><a href="#" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons red-text">phonelink_erase</i>Vorzeitig beenden</a></li>
+</ul>
+
+<a materialize="sideNav" data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light"><i
+  class="material-icons">tune</i></a>
+
+<!-- End of SideNav -->
+
+
+<div id="planRemovalDialog" class="modal" materialize>
+  <div class="modal-content">
+    <h4>Bitte bestätigen Sie die Löschung?</h4>
+  </div>
+  <div class="modal-footer">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text" (click)="callRemoveClicked()">Ja</a>
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
+  </div>
+</div>

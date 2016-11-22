@@ -23,6 +23,7 @@ import { AddressEditorComponent } from './commons/address-editor/address-editor.
 import {AddressPersistenceService} from "./address-persistence.service";
 import { PlanViewComponent } from './perspectives/plan-view/plan-view.component';
 import { PlanNotificationViewComponent } from './perspectives/plan-notification-view/plan-notification-view.component';
+import { PlanNavigationToolbarComponent } from './plan/plan-navigation-toolbar/plan-navigation-toolbar.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PlanNotificationViewComponent } from './perspectives/plan-notification-
     PersonEditorComponent,
     AddressEditorComponent,
     PlanViewComponent,
-    PlanNotificationViewComponent
+    PlanNotificationViewComponent,
+    PlanNavigationToolbarComponent
   ],
   providers: [
     PlanPersistenceService,

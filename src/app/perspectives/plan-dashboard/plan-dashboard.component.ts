@@ -22,7 +22,7 @@ export class PlanDashboardComponent implements OnInit {
   }
 
   private createNewDienstplan() {
-    this.router.navigate([`/plan/`]);
+    this.router.navigate([`/plan/new/edit`]);
   }
 
   private openPlan(plan) {

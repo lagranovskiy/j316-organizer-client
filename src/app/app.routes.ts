@@ -13,8 +13,9 @@ const routes: Routes = [
   },
   {
     component: PlanDashboardComponent,
-    path: 'plan/all'
+    path: 'plans/'
   },
+
 
   {
     component: PlanViewComponent,

@@ -104,6 +104,24 @@
           Bitte Bezeichnung für Kalendereintrag auswählen
         </div>
       </div>
+
+      <div class="input-field col s6">
+        <input placeholder="Begin Uhrzeit"
+               name="eventStartTime"
+               type="text" [(ngModel)]="plan.eventStartTime"
+               id="eventStartTime"
+               materialize=""/>
+        <label for="eventStartTime">Begin Uhrzeit</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input placeholder="Ende Uhrzeit"
+               name="eventEndTime"
+               type="text" [(ngModel)]="plan.eventEndTime"
+               id="eventEndTime"
+               materialize=""/>
+        <label for="eventEndTime">Ende Uhrzeit</label>
+      </div>
     </div>
   </div>
 

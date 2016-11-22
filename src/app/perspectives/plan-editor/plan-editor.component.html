@@ -31,7 +31,7 @@
 
 
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s4">
         <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planStart"
                id="planStart"
                materialize="pickadate"
@@ -39,32 +39,13 @@
         <label for="planStart">Planbeginn</label>
       </div>
 
-      <div class="input-field col s6">
+      <div class="input-field col s4">
         <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planEnd" id="planEnd"
                materialize="pickadate"
                [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
         <label for="planStart">Planende</label>
       </div>
-    </div>
-
-    <div class="row">
-      <div class="input-field col s4">
-        <input placeholder="Begin Uhrzeit"
-               name="eventStartTime"
-               type="text" [(ngModel)]="plan.eventStartTime"
-               id="eventStartTime"
-               materialize=""/>
-        <label for="planStart">Begin Uhrzeit</label>
-      </div>
-
-      <div class="input-field col s4">
-        <input placeholder="Ende Uhrzeit"
-               name="eventEndTime"
-               type="text" [(ngModel)]="plan.eventEndTime"
-               id="eventEndTime"
-               materialize=""/>
-        <label for="eventEndTime">Ende Uhrzeit</label>
-      </div>
+   
 
       <div class="input-field col s4">
         <input placeholder="Wiederholung (Tage)"

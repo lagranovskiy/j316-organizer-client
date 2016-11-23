@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
+import {NotificationControlService} from "../../notification-control-service.service";
 
 @Component({
   selector: 'app-plan-notification-view',
@@ -14,18 +15,20 @@ export class PlanNotificationViewComponent implements OnInit {
 
   private paramsSub;
 
+
   constructor(private service: PlanPersistenceService,
+              private notificationService: NotificationControlService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
 
 
-
-  isSaveAllowed(){
+  isSaveAllowed() {
     return true;
   }
+
   savePlan() {
-    this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}`]));
+    this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}/notification`]));
 
   }
 
@@ -47,6 +50,10 @@ export class PlanNotificationViewComponent implements OnInit {
 
   navDashboard() {
     this.router.navigate(['/']);
+  }
+
+  refreshNotifications() {
+
   }
 
   ngOnDestroy() {

@@ -29,6 +29,8 @@ import {PlanPersistenceService} from "./plan-persistence.service";
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import { AddressEditorComponent } from './commons/address-editor/address-editor.component';
 import { PlanNavigationToolbarComponent } from './plan/plan-navigation-toolbar/plan-navigation-toolbar.component';
+import { PlanNotificationProcessorComponent } from './plan/plan-notification-processor/plan-notification-processor.component';
+import { OrderByPipe } from './order-by.pipe';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { PlanNavigationToolbarComponent } from './plan/plan-navigation-toolbar/p
     AddressEditorComponent,
     PlanViewComponent,
     PlanNotificationViewComponent,
-    PlanNavigationToolbarComponent
+    PlanNavigationToolbarComponent,
+    PlanNotificationProcessorComponent,
+    OrderByPipe
   ],
   providers: [
     PlanPersistenceService,

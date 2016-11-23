@@ -11,9 +11,6 @@ import {NotificationEntry} from "../../model/NotificationEntry";
 export class PlanNavigationToolbarComponent implements OnInit {
 
   @Input()
-  planUUID: string;
-
-  @Input()
   isSaveAllowed: Function;
 
   @Input()
@@ -29,10 +26,7 @@ export class PlanNavigationToolbarComponent implements OnInit {
   backClicked: EventEmitter<any> = new EventEmitter<any>();
 
 
-  sentReport: Array<NotificationEntry> =[];
-
-
-  constructor(private notificationService: NotificationControlService) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -46,15 +40,8 @@ export class PlanNavigationToolbarComponent implements OnInit {
     this.removeClicked.emit('');
   }
 
-
   callGoBack() {
     this.backClicked.emit('');
   }
 
-  startPlanNotifications() {
-    this.notificationService.startPlanNotification(this.planUUID).subscribe((data)=> {
-      this.sentReport = data;
-      // Display Data
-    });
-  }
 }

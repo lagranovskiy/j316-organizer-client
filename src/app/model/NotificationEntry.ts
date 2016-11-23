@@ -58,6 +58,9 @@ export class NotificationEntry {
     return this.data._id;
   }
 
+  get scheduledDateIndexed() :string{
+    return moment(this.data.scheduledDate).format('YYYY.MM.DD');
+  }
   get scheduledDate(): string {
     return moment(this.data.scheduledDate).format('DD.MM.YYYY');
   }

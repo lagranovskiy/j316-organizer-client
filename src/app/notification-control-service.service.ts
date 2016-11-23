@@ -15,14 +15,19 @@ export class NotificationControlService {
    * @return {Observable<NotificationEntry>}
    */
   public startPlanNotification(uuid: string): Observable<any> {
-    return this.http.post(`/api/serviceplan/${uuid}/notifications/start`,{})
+    return this.http.post(`/api/serviceplan/${uuid}/notifications/start`, {})
       .map(data => {
           let body = data.json();
           let retVal: NotificationEntry[] = [];
           body.map(planData => {
             let planSourceData = planData.request;
-            planSourceData._id=planData.result.data;
-            planSourceData.status=planData.result.result + ' ' + planData.success;
+            if (planData.success) {
+              planSourceData._id = planData.result.data;
+              planSourceData.status = planData.result.result + ' ' + planData.success;
+            } else {
+              planSourceData._id = 'noid';
+              planSourceData.status = planData.errorMessage + ' ' + planData.success;
+            }
             retVal.push(new NotificationEntry(planSourceData))
           });
           return retVal;

@@ -1,4 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
+import {NotificationControlService} from "../../notification-control-service.service";
+import {NotificationEntry} from "../../model/NotificationEntry";
 
 
 @Component({
@@ -7,6 +9,9 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
   styleUrls: ['./plan-navigation-toolbar.component.css']
 })
 export class PlanNavigationToolbarComponent implements OnInit {
+
+  @Input()
+  planUUID: string;
 
   @Input()
   isSaveAllowed: Function;
@@ -24,7 +29,10 @@ export class PlanNavigationToolbarComponent implements OnInit {
   backClicked: EventEmitter<any> = new EventEmitter<any>();
 
 
-  constructor() {
+  sentReport: Array<NotificationEntry> =[];
+
+
+  constructor(private notificationService: NotificationControlService) {
   }
 
   ngOnInit() {
@@ -41,5 +49,12 @@ export class PlanNavigationToolbarComponent implements OnInit {
 
   callGoBack() {
     this.backClicked.emit('');
+  }
+
+  startPlanNotifications() {
+    this.notificationService.startPlanNotification(this.planUUID).subscribe((data)=> {
+      this.sentReport = data;
+      // Display Data
+    });
   }
 }

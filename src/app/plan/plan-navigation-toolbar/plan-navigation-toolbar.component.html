@@ -15,15 +15,20 @@
 
 <!-- SideNav -->
 <ul id="slide-out" class="side-nav">
-  <li><a href="#!" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">border_color</i>Druckeinstellungen</a></li>
+  <li><a href="#!" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">border_color</i>Druckeinstellungen</a>
+  </li>
   <li><a href="#!" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">print</i>Drucken</a></li>
 
   <li>
     <div class="divider"></div>
   </li>
   <li><a class="subheader">Benachrichtigung</a></li>
-  <li><a [routerLink]="['../notification']" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">phonelink_setup</i>Konfiguration</a></li>
-  <li><a href="#" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons green-text">phonelink_ring</i>Versenden</a></li>
+  <li><a [routerLink]="['../notification']" [ngClass]="{'disabled': !isPersistent()}"><i class="material-icons">phonelink_setup</i>Konfiguration</a>
+  </li>
+  <li><a (click)="startPlanNotifications()" [ngClass]="{'disabled': !isPersistent()}"
+         materialize="leanModal" href="#notificationReport"
+  ><i
+    class="material-icons green-text">phonelink_ring</i>Versenden</a></li>
 </ul>
 
 <a materialize="sideNav" data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light"><i
@@ -39,5 +44,38 @@
   <div class="modal-footer">
     <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text" (click)="callRemoveClicked()">Ja</a>
     <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
+  </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="notificationReport" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Benachrichtungsbericht</h4>
+
+
+    <div class="row">
+      <div class="col s6 m3" *ngFor="let reportItem of sentReport">
+        <div class="card horizontal">
+          <div class="card-image text-darken-2">
+            <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'cal'">event</i>
+            <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'email'">email</i>
+            <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'sms'">call</i>
+          </div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <h5>{{reportItem.recipient}}</h5>
+              <p>Geplannt am: {{reportItem.scheduledDate}}</p>
+              <p>Status: {{reportItem.status}}</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
   </div>
 </div>

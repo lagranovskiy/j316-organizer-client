@@ -10,7 +10,7 @@
     </div>
 
     <div class="col s12 right-align">
-      <plan-navigation-toolbar [isSaveAllowed]="isSaveAllowed" [isPersistent]="isSaveAllowed" (saveClicked)="savePlan()"
+      <plan-navigation-toolbar [planUUID]="plan.uuid" [isSaveAllowed]="isSaveAllowed" [isPersistent]="isSaveAllowed" (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
 
@@ -45,7 +45,7 @@
                [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
         <label for="planStart">Planende</label>
       </div>
-   
+
 
       <div class="input-field col s4">
         <input placeholder="Wiederholung (Tage)"

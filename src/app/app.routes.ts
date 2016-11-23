@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     component: PlanDashboardComponent,
-    path: 'plans/'
+    path: 'plans'
   },
 
 

@@ -9,119 +9,124 @@
       <h3>{{plan.planName}}</h3>
     </div>
 
-    <div class="col s12 right-align">
+    <div class="col s4 right-align">
       <plan-navigation-toolbar [planUUID]="plan.uuid" [isSaveAllowed]="isSaveAllowed" [isPersistent]="isSaveAllowed"
                                (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
   </div>
 
+  <div class="row">
+    <div class="col m4 l4 s12">
+      <div class="card-panel">
 
-  <div class="card-panel">
+        <div class="row">
+          <div class="switch  col s12 ">
+            <label>
+              <input name="notificationEmail" type="checkbox" materialize="" [(ngModel)]="plan.notificationEmail">
+              <span class="lever"></span> Email Versand erlaubt
+            </label>
+          </div>
 
-    <div class="row">
-      <div class="switch  col s12 ">
-        <label>
-          <input name="notificationEmail" type="checkbox" materialize="" [(ngModel)]="plan.notificationEmail">
-          <span class="lever"></span> Email Versand erlaubt
-        </label>
-      </div>
-
-    </div>
-
-    <div class="row" *ngIf="plan.notificationEmail">
-      <div class="input-field col s12">
-        <input placeholder="Email Betreff" name="emailSubject" [(ngModel)]="plan.emailSubject" id="emailSubject"
-               type="text" class="validate" required #emailSubject="ngModel" materialize="">
-        <label for="emailSubject">Betreff</label>
-        <div [hidden]="emailSubject.valid || emailSubject.pristine"
-             class="red-text">
-          Betreff muss angegeben sein
         </div>
-      </div>
-    </div>
-    <div class="row" *ngIf="plan.notificationEmail">
-      <div class="input-field col s12">
+
+        <div class="row" *ngIf="plan.notificationEmail">
+          <div class="input-field col s12">
+            <input placeholder="Email Betreff" name="emailSubject" [(ngModel)]="plan.emailSubject" id="emailSubject"
+                   type="text" class="validate" required #emailSubject="ngModel" materialize="">
+            <label for="emailSubject">Betreff</label>
+            <div [hidden]="emailSubject.valid || emailSubject.pristine"
+                 class="red-text">
+              Betreff muss angegeben sein
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="plan.notificationEmail">
+          <div class="input-field col s12">
             <textarea class="materialize-textarea validate" placeholder="Email Text" name="emailText"
                       [(ngModel)]="plan.emailText" id="emailText"
                       type="text" required #emailText="ngModel" materialize="">
               </textarea>
-        <label for="emailText">Email Text</label>
-        <div [hidden]="emailText.valid || emailText.pristine"
-             class="red-text">
-          Text muss angegeben sein
+            <label for="emailText">Email Text</label>
+            <div [hidden]="emailText.valid || emailText.pristine"
+                 class="red-text">
+              Text muss angegeben sein
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <div class="col m4 l4 s12">
+      <div class="card-panel">
 
-  <div class="card-panel">
+        <div class="row">
+          <div class="switch  col s12">
+            <label>
+              <input name="notificationSMS" type="checkbox" materialize="" [(ngModel)]="plan.notificationSMS">
+              <span class="lever"></span> SMS Versand erlaubt
+            </label>
+          </div>
 
-    <div class="row">
-      <div class="switch  col s12">
-        <label>
-          <input name="notificationSMS" type="checkbox" materialize="" [(ngModel)]="plan.notificationSMS">
-          <span class="lever"></span> SMS Versand erlaubt
-        </label>
-      </div>
-
-    </div>
-
-    <div class="row" *ngIf="plan.notificationSMS">
-      <div class="input-field col s12">
-        <input placeholder="SMS Text" name="smsText" [(ngModel)]="plan.smsText" id="smsText"
-               type="text" class="validate" required #smsText="ngModel" [maxlength]="160" materialize="">
-        <label for="smsText">SMS Text</label>
-        <!-- TODO: Fix it to evaluate max Length correctly-->
-        <div [hidden]="smsText.valid || smsText.pristine || smsText.errors.maxlength"
-             class="red-text">
-          SMS Text bitte angeben (max 160 Zeichen lang)
         </div>
-      </div>
-    </div>
-  </div>
 
-
-  <div class="card-panel">
-
-    <div class="row">
-      <div class="switch  col s12">
-        <label>
-          <input name="notificationCal" type="checkbox" materialize="" [(ngModel)]="plan.notificationCal">
-          <span class="lever"></span> Versand von Kalendereinträgen erlaubt
-        </label>
-      </div>
-
-    </div>
-
-    <div class="row" *ngIf="plan.notificationCal">
-      <div class="input-field col s12">
-        <input placeholder="Büchertisch Q2" name="calEventName" [(ngModel)]="plan.calEventName"
-               id="calEventName"
-               type="text" class="validate" required #calEventName="ngModel" maxlength="160" materialize="">
-        <label for="calEventName">Bezeichnung im Kalender</label>
-        <div [hidden]="calEventName.valid || calEventName.pristine"
-             class="red-text">
-          Bitte Bezeichnung für Kalendereintrag auswählen
+        <div class="row" *ngIf="plan.notificationSMS">
+          <div class="input-field col s12">
+            <input placeholder="SMS Text" name="smsText" [(ngModel)]="plan.smsText" id="smsText"
+                   type="text" class="validate" required #smsText="ngModel" [maxlength]="160" materialize="">
+            <label for="smsText">SMS Text</label>
+            <!-- TODO: Fix it to evaluate max Length correctly-->
+            <div [hidden]="smsText.valid || smsText.pristine || smsText.errors.maxlength"
+                 class="red-text">
+              SMS Text bitte angeben (max 160 Zeichen lang)
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="input-field col s6">
-        <input placeholder="Begin Uhrzeit"
-               name="eventStartTime"
-               type="text" [(ngModel)]="plan.eventStartTime"
-               id="eventStartTime"
-               materialize=""/>
-        <label for="eventStartTime">Begin Uhrzeit</label>
-      </div>
+    </div>
+    <div class="col m4 l4 s12">
+      <div class="card-panel  ">
 
-      <div class="input-field col s6">
-        <input placeholder="Ende Uhrzeit"
-               name="eventEndTime"
-               type="text" [(ngModel)]="plan.eventEndTime"
-               id="eventEndTime"
-               materialize=""/>
-        <label for="eventEndTime">Ende Uhrzeit</label>
+        <div class="row">
+          <div class="switch  col s12">
+            <label>
+              <input name="notificationCal" type="checkbox" materialize="" [(ngModel)]="plan.notificationCal">
+              <span class="lever"></span> Versand von Kalendereinträgen erlaubt
+            </label>
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="plan.notificationCal">
+          <div class="input-field col s12">
+            <input placeholder="Büchertisch Q2" name="calEventName" [(ngModel)]="plan.calEventName"
+                   id="calEventName"
+                   type="text" class="validate" required #calEventName="ngModel" maxlength="160" materialize="">
+            <label for="calEventName">Bezeichnung im Kalender</label>
+            <div [hidden]="calEventName.valid || calEventName.pristine"
+                 class="red-text">
+              Bitte Bezeichnung für Kalendereintrag auswählen
+            </div>
+          </div>
+
+          <div class="input-field col s6">
+            <input placeholder="Begin Uhrzeit"
+                   name="eventStartTime"
+                   type="text" [(ngModel)]="plan.eventStartTime"
+                   id="eventStartTime"
+                   materialize=""/>
+            <label for="eventStartTime">Begin Uhrzeit</label>
+          </div>
+
+          <div class="input-field col s6">
+            <input placeholder="Ende Uhrzeit"
+                   name="eventEndTime"
+                   type="text" [(ngModel)]="plan.eventEndTime"
+                   id="eventEndTime"
+                   materialize=""/>
+            <label for="eventEndTime">Ende Uhrzeit</label>
+          </div>
+        </div>
       </div>
     </div>
   </div>

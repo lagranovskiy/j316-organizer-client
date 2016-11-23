@@ -10,7 +10,7 @@
     </div>
 
     <div class="col s4 right-align">
-      <plan-navigation-toolbar [isSaveAllowed]="isSaveAllowed" [isPersistent]="isSaveAllowed" (saveClicked)="savePlan()"
+      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
 

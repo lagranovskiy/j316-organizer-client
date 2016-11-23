@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChildren, QueryList} from "@angular/core";
+import {Component, OnInit, ViewChildren, QueryList, ViewChild} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
 import {isUndefined} from "util";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {Router, ActivatedRoute} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -16,12 +17,15 @@ export class PlanEditorComponent implements OnInit {
 
 
   private plan: DienstPlan = new DienstPlan();
+  private isPersistent = false;
 
   private paramsSub;
 
   @ViewChildren(GruppeViewComponent)
   private groupViews: QueryList < GruppeViewComponent >;
 
+  @ViewChild(NgForm)
+  public planForm: NgForm;
 
   constructor(private service: PlanPersistenceService,
               private router: Router,
@@ -29,9 +33,7 @@ export class PlanEditorComponent implements OnInit {
   }
 
 
-  isSaveAllowed(){
-    return true;
-  }
+
   savePlan() {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
     this.completeBesetzungArrays();
@@ -65,7 +67,8 @@ export class PlanEditorComponent implements OnInit {
     this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
       let planUUID = params["uuid"];
 
-      if (planUUID) {
+      if (planUUID && planUUID != 'new') {
+        this.isPersistent=true;
         this.service.fetchPlan(planUUID).subscribe(plan=> {
           this.plan = plan;
         });

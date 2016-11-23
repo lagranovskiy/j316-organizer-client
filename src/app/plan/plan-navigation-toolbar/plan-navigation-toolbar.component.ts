@@ -11,10 +11,10 @@ import {NotificationEntry} from "../../model/NotificationEntry";
 export class PlanNavigationToolbarComponent implements OnInit {
 
   @Input()
-  isSaveAllowed: Function;
+  isSaveAllowed: boolean;
 
   @Input()
-  isPersistent: Function;
+  isPersistent: boolean;
 
   @Output()
   saveClicked: EventEmitter<any> = new EventEmitter<any>();

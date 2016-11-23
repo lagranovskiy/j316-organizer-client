@@ -1,8 +1,12 @@
 <div class="row">
 
-  <a materialize="leanModal" href="#notificationReport" class="waves-effect waves-light btn-large"
+  <a *ngIf="!notificationsActive" materialize="leanModal" href="#notificationReport" class="waves-effect waves-light btn-large"
      (click)="startPlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
     versenden</a>
+
+  <a *ngIf="notificationsActive" materialize="leanModal" href="#notificationCancelReport" class="waves-effect waves-light btn-large red"
+     (click)="removePlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
+    löschen</a>
 
 </div>
 
@@ -38,6 +42,26 @@
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="notificationCancelReport" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h4>Benachrichtungsbericht</h4>
+
+    <div class="row" *ngIf="error != null">
+      Es ist eine Fehler aufgetreten :(
+      <p class="text-darken-2 red"> {{error}} </p>
+    </div>
+    <div class="row" *ngIf="error == null">
+      Gelöscht <b> {{cancelReport.n}}</b> Benachrichtigungen
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
   </div>
 </div>

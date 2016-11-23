@@ -17,7 +17,6 @@ export class PlanDashboardComponent implements OnInit {
 
 
   constructor(private service: PlanPersistenceService, private router: Router) {
-    //this.planList = service.fetchPlansFromStorage();
     this.refreshPlans = service.fetchPlans();
   }
 
@@ -33,15 +32,10 @@ export class PlanDashboardComponent implements OnInit {
     this.service.removePlan(plan.uuid).subscribe(()=>this.refreshData());
   }
 
-  private refreshData() {
-    this.refreshPlans.subscribe(planList=> {
-      this.planList = planList
-    });
-  }
 
-  private clonePlan(plan) {
-    let newPlan = plan.clone();
-    this.service.savePlan(newPlan).map(savedPlan => {
+  private clonePlan(duplicatePlan) {
+    let newPlan = duplicatePlan.clone();
+    this.service.savePlan(newPlan).subscribe(savedPlan => {
       this.planList.unshift(savedPlan)
       this.openPlan(savedPlan);
     });
@@ -50,6 +44,13 @@ export class PlanDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.refreshData();
+  }
+
+
+  private refreshData() {
+    this.refreshPlans.subscribe(planList=> {
+      this.planList = planList
+    });
   }
 
 }

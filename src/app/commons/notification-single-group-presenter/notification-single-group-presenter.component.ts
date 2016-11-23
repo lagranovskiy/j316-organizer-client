@@ -10,7 +10,7 @@ import {Input} from "@angular/core/src/metadata/directives";
 export class NotificationSingleGroupPresenterComponent implements OnInit {
 
   @Input()
-  private groupName: string;
+  private groupName: string = '';
 
   @Input()
   private notificationList: Array<NotificationEntry> = [];

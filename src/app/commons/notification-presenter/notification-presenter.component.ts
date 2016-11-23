@@ -26,6 +26,11 @@ export class NotificationPresenterComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (
+      (!changes['notificationList'] || changes['notificationList'] && changes['notificationList'].currentValue.length == changes['notificationList'].previousValue.length) &&
+      (!changes['groupByFuncList'] || changes['groupByFuncList'] && changes['groupByFuncList'].currentValue.length == changes['groupByFuncList'].previousValue.length)) {
+      return;
+    }
     this.createComposite();
   }
 

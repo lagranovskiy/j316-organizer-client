@@ -92,36 +92,6 @@ export class PlanNotificationViewComponent implements OnInit {
 
   }
 
-
-  getGroupedNotifications() {
-    var retVal = {};
-    this.groups = [];
-
-    var groupDict = {};
-    this.plan.groupList.forEach(group=> {
-      groupDict[group.uuid] = group;
-    });
-
-    this.notifications.forEach((notification: NotificationEntry)=> {
-      if (!retVal[notification.category[1]]) {
-        retVal[notification.category[1]] = {};
-        retVal[notification.category[1]].persons = [];
-        retVal[notification.category[1]].notificationMap = {};
-        retVal[notification.category[1]].group = groupDict[notification.category[1]];
-        this.groups.push(notification.category[1]);
-      }
-
-      if (retVal[notification.category[1]].persons.indexOf(notification.recipientUUID) == -1) {
-        retVal[notification.category[1]].persons.push(notification.recipientUUID);
-        retVal[notification.category[1]].notificationMap[notification.recipientUUID] = [];
-      }
-      retVal[notification.category[1]].notificationMap[notification.recipientUUID].push(notification);
-    });
-
-    this.notificationGroups = retVal;
-
-  }
-
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
   }

@@ -29,12 +29,12 @@ export class PlanNotificationProcessorComponent implements OnInit {
 
 
   startPlanNotifications() {
-    this.sentReport=[];
+    this.sentReport = [];
     this.error = null;
     this.notificationService.startPlanNotification(this.plan.uuid)
       .subscribe((data)=> {
           this.sentReport = data;
-          if (data.success) {
+          if (data.length > 0 && data[0].success) {
             this.notificationsActive = true;
             this.notificationsUpdated.emit('updated')
           }
@@ -47,12 +47,12 @@ export class PlanNotificationProcessorComponent implements OnInit {
 
   removePlanNotifications() {
     this.error = null;
-    this.cancelReport= {};
+    this.cancelReport = {};
 
     this.notificationService.cancelGroupNotifications(this.plan.uuid)
       .subscribe((data)=> {
           this.cancelReport = data;
-          if (data.success) {
+          if (data.n >= 0) {
             this.notificationsActive = false;
             this.notificationsUpdated.emit('updated')
           } else {

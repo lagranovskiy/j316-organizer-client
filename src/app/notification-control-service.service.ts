@@ -23,10 +23,12 @@ export class NotificationControlService {
             let planSourceData = planData.request;
             if (planData.success) {
               planSourceData._id = planData.result.data;
-              planSourceData.status = planData.result.result + ' ' + planData.success;
+              planSourceData.success = planData.success;
+              planSourceData.status = planData.result.result;
             } else {
               planSourceData._id = 'noid';
-              planSourceData.status = planData.errorMessage + ' ' + planData.success;
+              planSourceData.success = false;
+              planSourceData.status = planData.errorMessage;
             }
             retVal.push(new NotificationEntry(planSourceData))
           });
@@ -47,8 +49,12 @@ export class NotificationControlService {
       .map(data => {
           let body = data.json();
           let retVal: NotificationEntry[] = [];
-          body.map(planData => retVal.push(new NotificationEntry(planData)));
-          return retVal;
+          if (body.length) {
+            body.map(planData => retVal.push(new NotificationEntry(planData)));
+            return retVal;
+          } else {
+            return [];
+          }
         }
       )
       .catch(this.handleError);
@@ -63,9 +69,13 @@ export class NotificationControlService {
     return this.http.get(`/api/person/${uuid}/notifications`)
       .map(data => {
           let body = data.json();
-          let retVal: NotificationEntry[] = [];
-          body.map(planData => retVal.push(new NotificationEntry(planData)));
-          return retVal;
+          if (body.success) {
+            let retVal: NotificationEntry[] = [];
+            body.map(planData => retVal.push(new NotificationEntry(planData)));
+            return retVal;
+          } else {
+            return [];
+          }
         }
       )
       .catch(this.handleError);

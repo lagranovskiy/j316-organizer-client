@@ -131,8 +131,44 @@
     </div>
   </div>
 
-  <plan-notification-processor [plan]="plan"
+  <plan-notification-processor [plan]="plan" [notificationsActive]="notifications.length>0"
                                (notificationsUpdated)="refreshNotifications()"></plan-notification-processor>
+
+
+  <div *ngFor="let groupUUID of groups">
+    <div class="row">
+      <h4>{{notificationGroups[groupUUID]?.group.getTitle()}}</h4>
+    </div>
+    <div class="row">
+      <div class=" col s12 m6 " *ngFor="let groupPersonUUID of notificationGroups[groupUUID]?.persons">
+        <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header" style="position: relative;"><i class="material-icons">filter_drama</i>{{notificationGroups[groupUUID].notificationMap[groupPersonUUID][0].recipient}}
+              <span class="badge">{{notificationGroups[groupUUID].notificationMap[groupPersonUUID].length}}</span></div>
+            <div class="collapsible-body">
+              <div
+                *ngFor="let reportItem of notificationGroups[groupUUID].notificationMap[groupPersonUUID] | orderBy:['scheduledDateIndexed', '_id']">
+                <h5>{{reportItem.recipient}}</h5>
+                <p>
+                  Geplannt am: {{reportItem.scheduledDate}}
+                  Status: {{reportItem.status}}
+                  <i class="material-icons right " *ngIf="reportItem.notificationType == 'cal'">event</i>
+                  <i class="material-icons right " *ngIf="reportItem.notificationType == 'email'">email</i>
+                  <i class="material-icons right " *ngIf="reportItem.notificationType == 'sms'">call</i>
+                </p>
+              </div>
+
+            </div>
+
+
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
 
 
 </form>

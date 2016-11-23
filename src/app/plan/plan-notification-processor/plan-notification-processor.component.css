@@ -1,0 +1,7 @@
+.card .success {
+  color: green;
+}
+
+.card .failed {
+  color: red;
+}

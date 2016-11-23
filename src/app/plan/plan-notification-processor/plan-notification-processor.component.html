@@ -1,10 +1,12 @@
 <div class="row">
 
-  <a *ngIf="!notificationsActive" materialize="leanModal" href="#notificationReport" class="waves-effect waves-light btn-large"
+  <a *ngIf="!notificationsActive" materialize="leanModal" href="#notificationReport"
+     class="waves-effect waves-light btn-large"
      (click)="startPlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
     versenden</a>
 
-  <a *ngIf="notificationsActive" materialize="leanModal" href="#notificationCancelReport" class="waves-effect waves-light btn-large red"
+  <a *ngIf="notificationsActive" materialize="leanModal" href="#notificationCancelReport"
+     class="waves-effect waves-light btn-large red"
      (click)="removePlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
     löschen</a>
 
@@ -20,7 +22,8 @@
       <p class="text-darken-2"> {{error}} </p>
     </div>
     <div class="row">
-      <div class="col s6 m3" *ngFor="let reportItem of sentReport | orderBy:['scheduledDateIndexed', 'recipient']">
+      <div class="col s6 m3"
+           *ngFor="let reportItem of sentReport | orderBy:['scheduledDateIndexed', 'recipient','_id']">
         <div class="card horizontal">
           <div class="card-image text-darken-2">
             <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'cal'">event</i>
@@ -32,7 +35,7 @@
             <div class="card-content">
               <h5>{{reportItem.recipient}}</h5>
               <p>Geplannt am: {{reportItem.scheduledDate}}</p>
-              <p>Status: {{reportItem.status}}</p>
+              <p [ngClass]="{success: reportItem.success, failed:!reportItem.success}">Status: {{reportItem.status}}</p>
 
             </div>
           </div>

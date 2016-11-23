@@ -13,6 +13,7 @@ export class NotificationEntry {
     isConfirmed: boolean,
     isSent: boolean,
     status: string,
+    success: boolean,
     category: Array<string>,
     notificationType: string,
     eventData: {
@@ -36,6 +37,7 @@ export class NotificationEntry {
     isConfirmed: boolean,
     isSent: boolean,
     status: string,
+    success: boolean,
     category: Array<string>,
     notificationType: string,
     eventData: {
@@ -58,9 +60,10 @@ export class NotificationEntry {
     return this.data._id;
   }
 
-  get scheduledDateIndexed() :string{
+  get scheduledDateIndexed(): string {
     return moment(this.data.scheduledDate).format('YYYY.MM.DD');
   }
+
   get scheduledDate(): string {
     return moment(this.data.scheduledDate).format('DD.MM.YYYY');
   }
@@ -76,6 +79,11 @@ export class NotificationEntry {
   get status(): string {
     return this.data.status;
   }
+
+  get success(): boolean {
+    return this.data.success;
+  }
+
 
   get recipient(): string {
     return this.data.recipient.name;

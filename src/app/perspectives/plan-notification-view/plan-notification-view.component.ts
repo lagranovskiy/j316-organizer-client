@@ -15,8 +15,10 @@ export class PlanNotificationViewComponent implements OnInit {
   plan: DienstPlan = new DienstPlan();
   notifications: Array<NotificationEntry> = [];
   private isPersistent = false;
-
   private paramsSub;
+
+  groups = [];
+  notificationGroups = {};
 
 
   constructor(private service: PlanPersistenceService,
@@ -24,8 +26,6 @@ export class PlanNotificationViewComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
-
-
 
 
   savePlan() {
@@ -37,10 +37,13 @@ export class PlanNotificationViewComponent implements OnInit {
       let planUUID = params["uuid"];
 
       if (planUUID && planUUID != 'new') {
-        this.isPersistent=true;
+        this.isPersistent = true;
 
-        this.service.fetchPlan(planUUID).subscribe(plan=> this.plan = plan);
-        this.notificationService.fetchGroupNotifications(planUUID).subscribe(notifications=>this.notifications = notifications);
+        this.service.fetchPlan(planUUID).subscribe(plan=> {
+          this.plan = plan;
+          this.refreshNotifications();
+        });
+
       }
     });
   }
@@ -54,6 +57,38 @@ export class PlanNotificationViewComponent implements OnInit {
   }
 
   refreshNotifications() {
+    this.notificationService.fetchGroupNotifications(this.plan.uuid).subscribe(notifications=> {
+      this.notifications = notifications;
+      this.getGroupedNotifications();
+    });
+  }
+
+  getGroupedNotifications() {
+    var retVal = {};
+    this.groups = [];
+
+    var groupDict = {};
+    this.plan.groupList.forEach(group=> {
+      groupDict[group.uuid] = group;
+    });
+
+    this.notifications.forEach((notification: NotificationEntry)=> {
+      if (!retVal[notification.category[1]]) {
+        retVal[notification.category[1]] = {};
+        retVal[notification.category[1]].persons = [];
+        retVal[notification.category[1]].notificationMap = {};
+        retVal[notification.category[1]].group = groupDict[notification.category[1]];
+        this.groups.push(notification.category[1]);
+      }
+
+      if (retVal[notification.category[1]].persons.indexOf(notification.recipientUUID) == -1) {
+        retVal[notification.category[1]].persons.push(notification.recipientUUID);
+        retVal[notification.category[1]].notificationMap[notification.recipientUUID] = [];
+      }
+      retVal[notification.category[1]].notificationMap[notification.recipientUUID].push(notification);
+    });
+
+    this.notificationGroups = retVal;
 
   }
 

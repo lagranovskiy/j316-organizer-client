@@ -13,7 +13,7 @@
           {{ getRelatedParticipant(participantRef)?.getTitle()}}
         </div>
       </td>
-      <td data-field="price" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
+      <td data-field="price" [class.verfuegbarday]="teilgruppe.verfuegbarkeit[dayIndex]" (click)="toggleVerfuegbarkeit(teilgruppe, dayIndex)" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
         <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox"
                name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
                id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>

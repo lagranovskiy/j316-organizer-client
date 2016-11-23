@@ -9,7 +9,8 @@ export class DienstPlanTeilgruppe extends J316Model {
   constructor(data: any = {
     uuid: '',
     participants: [],
-    besetzung: []
+    besetzung: [],
+    verfuegbarkeit: []
   }) {
     super(data);
     if (this.data.participants) {
@@ -61,4 +62,10 @@ export class DienstPlanTeilgruppe extends J316Model {
     return this.data.besetzung;
   }
 
+  get verfuegbarkeit(): Array<boolean> {
+    if (!this.data.verfuegbarkeit) {
+      this.data.verfuegbarkeit = []
+    }
+    return this.data.verfuegbarkeit;
+  }
 }

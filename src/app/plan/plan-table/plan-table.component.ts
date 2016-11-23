@@ -3,7 +3,7 @@ import {ParticipantPersistenceService} from "../../participant-persistence.servi
 import {ParticipantRef} from "../../model/ParticipantRef";
 import {DienstPlan} from "../../model/DienstPlan";
 import {Participant} from "../../model/Participant";
-import {Observable} from "rxjs";
+import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 
 @Component({
   selector: 'app-plan-table',
@@ -15,7 +15,7 @@ export class PlanTableComponent implements OnInit {
   @Input()
   private plan: DienstPlan;
 
-  private personList : Array<Participant> = [];
+  private personList: Array<Participant> = [];
 
 
   constructor(private personService: ParticipantPersistenceService) {
@@ -24,23 +24,20 @@ export class PlanTableComponent implements OnInit {
 
   getRelatedParticipant(rel: ParticipantRef): any {
 
-    let result = this.personList.filter((person)=>person.uuid==rel.participantUUID);
-    if(result.length>0){
+    let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
+    if (result.length > 0) {
       return result[0];
     }
     return null;
 
-   /* class ParticipantResolver {
-      private _participant: Participant;
+  }
 
-      constructor(private obsParticipant: Observable<Participant>){
-        obsParticipant.subscribe((participant => this._participant=participant));
-      }
-
-      get participant(){return this._participant};
+  toggleVerfuegbarkeit(teilGruppe: DienstPlanTeilgruppe, dayIndex: number) {
+    if (teilGruppe.verfuegbarkeit[dayIndex] === undefined) {
+      teilGruppe.verfuegbarkeit[dayIndex] = false;
     }
+    teilGruppe.verfuegbarkeit[dayIndex] = !teilGruppe.verfuegbarkeit[dayIndex];
 
-    return new ParticipantResolver(this.personService.fetchParticipant(rel.participantUUID))*/
   }
 
   ngOnInit() {

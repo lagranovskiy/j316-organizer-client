@@ -1,0 +1,24 @@
+<div *ngIf="groupByFuncList.length==2">
+  <div *ngFor="let level1 of groupedResult.children">
+    <div class="row">
+      <h4>{{level1.name}}</h4>
+    </div>
+    <div class="row">
+      <div class=" col s12 m6 " *ngFor="let level2 of level1.children">
+        <notification-single-group-presenter [groupName]="level2.name"
+                                             [notificationList]="level2.children"></notification-single-group-presenter>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="groupByFuncList.length==1">
+  <div *ngFor="let level1 of groupedResult.children">
+    <div class="row">
+      <notification-single-group-presenter [groupName]="level1.name"
+                                           [notificationList]="level1.children"></notification-single-group-presenter>
+    </div>
+  </div>
+</div>

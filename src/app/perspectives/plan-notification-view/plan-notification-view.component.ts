@@ -4,6 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {NotificationControlService} from "../../notification-control-service.service";
 import {NotificationEntry} from "../../model/NotificationEntry";
+import {DisplayableModel} from "../../model/DisplayableModel";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 
 @Component({
   selector: 'app-plan-notification-view',
@@ -59,9 +61,37 @@ export class PlanNotificationViewComponent implements OnInit {
   refreshNotifications() {
     this.notificationService.fetchGroupNotifications(this.plan.uuid).subscribe(notifications=> {
       this.notifications = notifications;
-      this.getGroupedNotifications();
     });
   }
+
+
+  groupByGroup(): (notification: NotificationEntry)=>DisplayableModel {
+    let _me = this;
+    return (notification: NotificationEntry): DisplayableModel=> {
+      let groupUUID = notification.category[1];
+      let foundGroups = _me.plan.groupList.filter((group: DienstPlanGruppe)=> group.uuid == groupUUID);
+      if (foundGroups.length == 0) {
+        console.error('Illegal State. Cannot find group where notifications exist for. Deleted?')
+        return null;
+      }
+      return foundGroups[0];
+    }
+
+  }
+
+  groupByPerson(): (notification: NotificationEntry)=>DisplayableModel {
+    return (notification: NotificationEntry): DisplayableModel=> {
+      let personUUID = notification.recipientUUID;
+      return <DisplayableModel>
+      {
+        uuid: personUUID,
+        getDescription: ()=>null,
+        getTitle: () => notification.recipient
+      }
+    }
+
+  }
+
 
   getGroupedNotifications() {
     var retVal = {};

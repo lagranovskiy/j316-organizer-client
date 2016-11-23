@@ -31,6 +31,8 @@ import { AddressEditorComponent } from './commons/address-editor/address-editor.
 import { PlanNavigationToolbarComponent } from './plan/plan-navigation-toolbar/plan-navigation-toolbar.component';
 import { PlanNotificationProcessorComponent } from './plan/plan-notification-processor/plan-notification-processor.component';
 import { OrderByPipe } from './order-by.pipe';
+import { NotificationPresenterComponent } from './commons/notification-presenter/notification-presenter.component';
+import { NotificationSingleGroupPresenterComponent } from './commons/notification-single-group-presenter/notification-single-group-presenter.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { OrderByPipe } from './order-by.pipe';
     PlanNotificationViewComponent,
     PlanNavigationToolbarComponent,
     PlanNotificationProcessorComponent,
-    OrderByPipe
+    OrderByPipe,
+    NotificationPresenterComponent,
+    NotificationSingleGroupPresenterComponent
   ],
   providers: [
     PlanPersistenceService,

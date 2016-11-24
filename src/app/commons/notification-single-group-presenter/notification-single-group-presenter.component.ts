@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {NotificationEntry} from "../../model/NotificationEntry";
-import {Input} from "@angular/core/src/metadata/directives";
+import { Component, group, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NotificationEntry } from '../../model/NotificationEntry';
+
 
 @Component({
   selector: 'notification-single-group-presenter',
@@ -12,10 +12,19 @@ export class NotificationSingleGroupPresenterComponent implements OnInit {
   @Input()
   private groupName: string = '';
 
+
   @Input()
   private notificationList: Array<NotificationEntry> = [];
 
+  @Output()
+  private removeGroup: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {
+  }
+
+
+  private removeClicked() {
+    this.removeGroup.emit(this.groupName);
   }
 
   ngOnInit() {

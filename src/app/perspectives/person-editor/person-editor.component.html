@@ -10,14 +10,11 @@
     </div>
 
     <div class="col s4 right-align">
-      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
-         (click)="navDashboard()"
-         data-position="bottom" data-delay="50" data-tooltip="Zurück zu Personen"><i
+      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped" (click)="navDashboard()" data-position="bottom"
+        data-delay="50" data-tooltip="Zurück zu Personen"><i
         class="material-icons left">reply</i></a>
-      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
-         (click)="saveChanges()"
-         data-position="bottom" data-delay="50" data-tooltip="Änderugnen speichern"
-         [ngClass]="{'disabled': !planForm.form.valid}">
+      <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped" (click)="saveChanges()"
+        data-position="bottom" data-delay="50" data-tooltip="Änderugnen speichern" [ngClass]="{'disabled': !planForm.form.valid}">
         <i class="material-icons left">send</i></a>
     </div>
   </div>
@@ -28,21 +25,19 @@
 
     <div class="row">
       <div class="input-field col s12 m6">
-        <input placeholder="Max" name="forename" [(ngModel)]="person.forename" id="forename"
-               type="text" class="validate" required #forename="ngModel">
+        <input placeholder="Max" name="forename" [(ngModel)]="person.forename" id="forename" type="text" class="validate" required
+          #forename="ngModel">
         <label for="forename">Vorname</label>
-        <div [hidden]="forename.valid || forename.pristine"
-             class="red-text">
+        <div [hidden]="forename.valid || forename.pristine" class="red-text">
           Vorname muss angegeben werden
         </div>
       </div>
 
       <div class="input-field col s12 m6">
-        <input placeholder="Mustermann" name="surname" [(ngModel)]="person.surname" id="surname"
-               type="text" class="validate" required #surname="ngModel">
+        <input placeholder="Mustermann" name="surname" [(ngModel)]="person.surname" id="surname" type="text" class="validate" required
+          #surname="ngModel">
         <label for="surname">Nachname</label>
-        <div [hidden]="surname.valid || surname.pristine"
-             class="red-text">
+        <div [hidden]="surname.valid || surname.pristine" class="red-text">
           Nachname muss angegeben werden
         </div>
       </div>
@@ -50,23 +45,20 @@
 
     <div class="row">
       <div class="input-field col s12 m6">
-        <select placeholder="Max" id="gender" name="gender" [(ngModel)]="person.gender"
-                materialize="material_select"
-                type="text" class="validate" required #gender="ngModel">
+        <select placeholder="Max" id="gender" name="gender" [(ngModel)]="person.gender" materialize="material_select" type="text"
+          class="validate" required #gender="ngModel">
           <option value="male">männlich</option>
           <option value="female">weiblich</option>
         </select>
         <label for="gender">Geschlecht</label>
-        <div [hidden]="gender.valid || gender.pristine"
-             class="red-text">
+        <div [hidden]="gender.valid || gender.pristine" class="red-text">
           Geschlecht muss angegeben werden
         </div>
       </div>
 
       <div class="input-field col s12 m6">
-        <input placeholder="z.B. 01.05.1980" name="planStart" type="text" [(ngModel)]="person.dob"
-               id="dob" materialize="pickadate"
-               [materializeParams]="[{selectMonths: true, selectYears: 60, format:'dd.mm.yyyy'}]" required/>
+        <input placeholder="z.B. 01.05.1980" name="planStart" type="text" [(ngModel)]="person.dob" id="dob" materialize="pickadate"
+          [materializeParams]="[{selectMonths: true, selectYears: 60, format:'dd.mm.yyyy'}]" required/>
         <label for="dob">Geburtdatum</label>
       </div>
     </div>
@@ -74,8 +66,7 @@
     <div class="row">
 
       <div class="input-field col s12 m4">
-        <input placeholder="0176 1234567" name="mobilePhone" [(ngModel)]="person.mobilePhone" id="mobilePhone"
-               type="text">
+        <input placeholder="0176 1234567" name="mobilePhone" [(ngModel)]="person.mobilePhone" id="mobilePhone" type="text">
         <label for="mobilePhone">Handy</label>
       </div>
 
@@ -85,8 +76,7 @@
       </div>
 
       <div class="input-field col s12 m4">
-        <input name="email" id="email" type="email" class="validate" placeholder="test@gmx.de"
-               [(ngModel)]="person.email">
+        <input name="email" id="email" type="email" class="validate" placeholder="test@gmx.de" [(ngModel)]="person.email">
         <label for="email">Email</label>
       </div>
 
@@ -94,8 +84,7 @@
 
     <div class="row">
       <div class="input-field col s12">
-      <textarea id="comment" name="comment" class="materialize-textarea" [(ngModel)]="person.comment"
-                placeholder="zur Zeit im Elternzeit"></textarea>
+        <textarea id="comment" name="comment" class="materialize-textarea" [(ngModel)]="person.comment" placeholder="zur Zeit im Elternzeit"></textarea>
         <label for="comment">Kommentar</label>
       </div>
     </div>
@@ -126,12 +115,15 @@
   </div>
   <div class="card-panel">
     <h4 class="header">Anschrift</h4>
-
     <div class="row">
       <div class="input-field col s12">
         <address-editor [address]="person.address"></address-editor>
       </div>
     </div>
   </div>
-
+  <div class="card-panel">
+    <h4 class="header">Benachrichtigungen</h4>
+    <p *ngIf="notifications.length==0">Keine Benachrichtigungen gefunden</p>
+    <notification-presenter [groupByFuncList]="[groupByPlan()]" (groupRemoveClicked)="groupNotifcationRemove($event)" [notificationList]="notifications"></notification-presenter>
+  </div>
 </form>

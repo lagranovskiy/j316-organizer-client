@@ -69,7 +69,7 @@ export class NotificationControlService {
     return this.http.get(`/api/person/${uuid}/notifications`)
       .map(data => {
           let body = data.json();
-          if (body.success) {
+          if (body.length) {
             let retVal: NotificationEntry[] = [];
             body.map(planData => retVal.push(new NotificationEntry(planData)));
             return retVal;
@@ -83,9 +83,9 @@ export class NotificationControlService {
 
 
   /**
-   * Fetches notifications of a group (plan or plan group)
+   * Removes notifications of a group (plan or plan group)
    *
-   * @return {Observable<NotificationEntry>}
+   * @return {Observable<any>}
    */
   public cancelGroupNotifications(uuid: string): Observable<any> {
     return this.http.delete(`/api/serviceplan/${uuid}/notifications`)
@@ -98,12 +98,28 @@ export class NotificationControlService {
   }
 
   /**
-   * Fetches notifications of a person
+   * Removes notifications of a person
    *
-   * @return {Observable<NotificationEntry>}
+   * @return {Observable<any>}
    */
   public cancelPersonNotifications(uuid: string): Observable<any> {
     return this.http.delete(`/api/person/${uuid}/notifications`)
+      .map(data => {
+          let body = data.json();
+          return body;
+        }
+      )
+      .catch(this.handleError);
+  }
+
+   /**
+   * Removes notifications of a person/group
+   *
+   * @return {Observable<any>}
+   */
+  public cancelPersonGroupNotifications(groupUUID: string, personUUID: string): Observable<any> {
+    // /serviceplan/:planUUID/person/:personUUID/notifications
+    return this.http.delete(`/api/serviceplan/${groupUUID}/person/${personUUID}/notifications`)
       .map(data => {
           let body = data.json();
           return body;

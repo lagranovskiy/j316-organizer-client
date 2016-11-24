@@ -7,7 +7,7 @@
 
   <a *ngIf="notificationsActive" materialize="leanModal" href="#notificationCancelReport"
      class="waves-effect waves-light btn-large red"
-     (click)="removePlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
+     (click)="removePlanNotifications()"><i class="material-icons right">phonelink_ring</i>Alle Benachrichtigungen
     löschen</a>
 
 </div>
@@ -26,9 +26,9 @@
            *ngFor="let reportItem of sentReport | orderBy:['scheduledDateIndexed', 'recipient','_id']">
         <div class="card horizontal">
           <div class="card-image text-darken-2">
-            <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'cal'">event</i>
-            <i class="material-icons right " style="font-size: 140px;" *ngIf="reportItem.notificationType == 'email'">email</i>
-            <i class="material-icons right " style="font-size: 140px;"
+            <i class="material-icons right " style="font-size: 100px;" *ngIf="reportItem.notificationType == 'cal'">event</i>
+            <i class="material-icons right " style="font-size: 100px;" *ngIf="reportItem.notificationType == 'email'">email</i>
+            <i class="material-icons right " style="font-size: 100px;"
                *ngIf="reportItem.notificationType == 'sms'">call</i>
           </div>
           <div class="card-stacked">

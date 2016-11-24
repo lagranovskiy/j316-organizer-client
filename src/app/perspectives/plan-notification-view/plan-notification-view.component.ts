@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {DienstPlan} from "../../model/DienstPlan";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PlanPersistenceService} from "../../plan-persistence.service";
-import {NotificationControlService} from "../../notification-control-service.service";
-import {NotificationEntry} from "../../model/NotificationEntry";
-import {DisplayableModel} from "../../model/DisplayableModel";
-import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
+import { Component, OnInit } from "@angular/core";
+import { DienstPlan } from "../../model/DienstPlan";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PlanPersistenceService } from "../../plan-persistence.service";
+import { NotificationControlService } from "../../notification-control-service.service";
+import { NotificationEntry } from "../../model/NotificationEntry";
+import { DisplayableModel } from "../../model/DisplayableModel";
+import { DienstPlanGruppe } from "../../model/DienstPlanGruppe";
 
 @Component({
   selector: 'app-plan-notification-view',
@@ -24,9 +24,9 @@ export class PlanNotificationViewComponent implements OnInit {
 
 
   constructor(private service: PlanPersistenceService,
-              private notificationService: NotificationControlService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+    private notificationService: NotificationControlService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
   }
 
 
@@ -41,7 +41,7 @@ export class PlanNotificationViewComponent implements OnInit {
       if (planUUID && planUUID != 'new') {
         this.isPersistent = true;
 
-        this.service.fetchPlan(planUUID).subscribe(plan=> {
+        this.service.fetchPlan(planUUID).subscribe(plan => {
           this.plan = plan;
           this.refreshNotifications();
         });
@@ -51,7 +51,7 @@ export class PlanNotificationViewComponent implements OnInit {
   }
 
   removePlan() {
-    this.service.removePlan(this.plan.uuid).subscribe(()=>this.navDashboard());
+    this.service.removePlan(this.plan.uuid).subscribe(() => this.navDashboard());
   }
 
   navDashboard() {
@@ -59,17 +59,17 @@ export class PlanNotificationViewComponent implements OnInit {
   }
 
   refreshNotifications() {
-    this.notificationService.fetchGroupNotifications(this.plan.uuid).subscribe(notifications=> {
+    this.notificationService.fetchGroupNotifications(this.plan.uuid).subscribe(notifications => {
       this.notifications = notifications;
     });
   }
 
 
-  groupByGroup(): (notification: NotificationEntry)=>DisplayableModel {
+  groupByGroup(): (notification: NotificationEntry) => DisplayableModel {
     let _me = this;
-    return (notification: NotificationEntry): DisplayableModel=> {
+    return (notification: NotificationEntry): DisplayableModel => {
       let groupUUID = notification.category[1];
-      let foundGroups = _me.plan.groupList.filter((group: DienstPlanGruppe)=> group.uuid == groupUUID);
+      let foundGroups = _me.plan.groupList.filter((group: DienstPlanGruppe) => group.uuid == groupUUID);
       if (foundGroups.length == 0) {
         console.error('Illegal State. Cannot find group where notifications exist for. Deleted?')
         return null;
@@ -79,17 +79,32 @@ export class PlanNotificationViewComponent implements OnInit {
 
   }
 
-  groupByPerson(): (notification: NotificationEntry)=>DisplayableModel {
-    return (notification: NotificationEntry): DisplayableModel=> {
+  groupByPerson(): (notification: NotificationEntry) => DisplayableModel {
+    return (notification: NotificationEntry): DisplayableModel => {
       let personUUID = notification.recipientUUID;
       return <DisplayableModel>
-      {
-        uuid: personUUID,
-        getDescription: ()=>null,
-        getTitle: () => notification.recipient
-      }
+        {
+          uuid: personUUID,
+          getDescription: () => null,
+          getTitle: () => notification.recipient
+        }
     }
 
+  }
+
+  /**
+   * Remove notifications from group=group1UUID and/or group=group1UUID && referenceId=group2UUID
+   */
+  groupNotifcationRemove(data: { group1UUID: string, group2UUID: string }) {
+    console.info("Removing: " + data.group1UUID + "   " + data.group2UUID);
+
+    if (data.group1UUID != null && data.group2UUID==null) {
+      // Remove all notifications of group
+      this.notificationService.cancelGroupNotifications(data.group1UUID).subscribe(() => this.refreshNotifications());
+    } else {
+      // Remove group/person combinations
+      this.notificationService.cancelPersonGroupNotifications(data.group1UUID, data.group2UUID).subscribe(() => this.refreshNotifications());
+    }
   }
 
   ngOnDestroy() {

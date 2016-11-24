@@ -135,7 +135,7 @@
                                (notificationsUpdated)="refreshNotifications()"></plan-notification-processor>
 
 
-  <notification-presenter [groupByFuncList]="[groupByGroup(), groupByPerson()]"
+  <notification-presenter [groupByFuncList]="[groupByGroup(), groupByPerson()]" (groupRemoveClicked)="groupNotifcationRemove($event)"
                           [notificationList]="notifications"></notification-presenter>
 
 

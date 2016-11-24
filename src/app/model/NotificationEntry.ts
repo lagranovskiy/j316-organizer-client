@@ -25,7 +25,8 @@ export class NotificationEntry {
       name: string,
       email: string,
       mobile: string
-    }};
+    }
+  };
 
   constructor(data: {
     _id: string,
@@ -60,6 +61,10 @@ export class NotificationEntry {
     return this.data._id;
   }
 
+  get subject(): string {
+    return this.data.subject
+  }
+
   get scheduledDateIndexed(): string {
     return moment(this.data.scheduledDate).format('YYYY.MM.DD');
   }
@@ -67,6 +72,21 @@ export class NotificationEntry {
   get scheduledDate(): string {
     return moment(this.data.scheduledDate).format('DD.MM.YYYY');
   }
+
+  /**
+   * Shows date difference according to now
+   */
+  get scheduledDateOrientation(): string {
+    return moment(this.data.scheduledDate).fromNow();
+  }
+
+  /**
+   * Shows if issue is in the past
+   */
+  get isInPast(): boolean {
+    return moment(this.data.scheduledDate).isBefore(new Date());
+  }
+
 
   get isSent(): boolean {
     return this.data.isSent;

@@ -1,11 +1,11 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectionStrategy} from "@angular/core";
 import {Participant} from "../../model/Participant";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'participant-list-single-view',
   templateUrl: './participant-list-single-view.component.html',
-  styleUrls: ['./participant-list-single-view.component.css']
+  styleUrls: ['./participant-list-single-view.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParticipantListSingleViewComponent implements OnInit {
 

@@ -6,6 +6,10 @@ import {isUndefined} from "util";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {Participant} from "../../model/Participant";
+import {List} from "immutable";
+import {Observable} from "rxjs";
+import {select} from "ng2-redux";
 
 
 @Component({
@@ -27,11 +31,15 @@ export class PlanEditorComponent implements OnInit {
   @ViewChild(NgForm)
   public planForm: NgForm;
 
+  private personList: Array<Participant>;
+
+  @select(['person', 'personList'])
+  private personList$: Observable<List<Participant>>;
+
   constructor(private service: PlanPersistenceService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
-
 
 
   savePlan() {
@@ -64,11 +72,13 @@ export class PlanEditorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.personList$.subscribe(personList=>personList ? this.personList = personList.toArray() : this.personList = [])
+
     this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
       let planUUID = params["uuid"];
 
       if (planUUID && planUUID != 'new') {
-        this.isPersistent=true;
+        this.isPersistent = true;
         this.service.fetchPlan(planUUID).subscribe(plan=> {
           this.plan = plan;
         });

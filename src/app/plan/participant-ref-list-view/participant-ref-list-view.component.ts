@@ -16,10 +16,10 @@ export class ParticipantRefListViewComponent implements OnInit {
   @Input()
   private participants: Array<ParticipantRef> = [];
 
-  private personList: List<Participant> = List<Participant>();
+  @Input()
+  private personList:Array<Participant> =[];
 
-  @select(['person', 'personList'])
-  private personList$: Observable<List<Participant>>;
+
 
 
   getRelatedParticipant(rel: ParticipantRef): Participant {
@@ -27,16 +27,13 @@ export class ParticipantRefListViewComponent implements OnInit {
       return null;
     }
     let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
-    if (result.size > 0) {
-      return result.first();
+    if (result.length > 0) {
+      return result[0];
     }
     return null;
   }
 
   ngOnInit() {
-    this.personList$.subscribe((data: List<Participant>)=> {
-      this.personList = data
-    });
   }
 
 }

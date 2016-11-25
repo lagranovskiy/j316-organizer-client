@@ -15,15 +15,14 @@ export class PlanTableComponent implements OnInit {
   @Input()
   private plan: DienstPlan;
 
+  @Input()
   private personList: Array<Participant> = [];
 
 
-  constructor(private personService: ParticipantPersistenceService) {
-    personService.fetchParticipants().subscribe(list => this.personList = list);
+  constructor() {
   }
 
   getRelatedParticipant(rel: ParticipantRef): any {
-
     let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
     if (result.length > 0) {
       return result[0];

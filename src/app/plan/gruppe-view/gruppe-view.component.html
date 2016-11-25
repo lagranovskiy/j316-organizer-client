@@ -21,13 +21,13 @@
           <div class="row">
             <div class="col s4" *ngFor="let section of model.sections; let i=index;">
               <h5>Gruppe {{i+1}}</h5>
-              <participant-ref-list-view [participants]="section.participants"></participant-ref-list-view>
+              <participant-ref-list-view [participants]="section.participants" [personList]="personList"></participant-ref-list-view>
             </div>
           </div>
         </div>
 
         <div *ngIf="isEditing">
-          <gruppe-editor [model]="model"></gruppe-editor>
+          <gruppe-editor [model]="model" [personList]="personList"></gruppe-editor>
 
         </div>
 

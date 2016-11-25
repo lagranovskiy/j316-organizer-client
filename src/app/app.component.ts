@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
+import {PersonActions} from "./actions/PersonActions";
 
 
 @Component({
@@ -9,9 +10,8 @@ import {Router} from "@angular/router";
 export class AppComponent {
 
 
-  constructor(private router: Router) {
-
-    console.info("Hey im AppComponent initialized")
+  constructor(personActions:PersonActions) {
+    personActions.loadPersons();
   }
 
 

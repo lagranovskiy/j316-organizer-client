@@ -11,6 +11,7 @@ export class GruppeViewComponent implements OnInit {
   @Input()
   private model: DienstPlanGruppe;
 
+
   @Output()
   private removeClicked: EventEmitter<DienstPlanGruppe> = new EventEmitter<DienstPlanGruppe>();
 

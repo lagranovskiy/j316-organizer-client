@@ -7,7 +7,6 @@ import {routing} from "./app.routes";
 import {MaterializeDirective} from "angular2-materialize";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {NgReduxModule, NgRedux} from "ng2-redux";
-import reduxLogger from "redux-logger";
 import {combineReducers} from "redux";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
@@ -32,12 +31,9 @@ import {PlanNotificationProcessorComponent} from "./plan/plan-notification-proce
 import {OrderByPipe} from "./order-by.pipe";
 import {NotificationPresenterComponent} from "./commons/notification-presenter/notification-presenter.component";
 import {NotificationSingleGroupPresenterComponent} from "./commons/notification-single-group-presenter/notification-single-group-presenter.component";
-import {PersonListReducer} from "./reducers/PersonListReducer";
-import {Participant} from "./model/Participant";
-
-export interface IAppState {
-  personList?: Array<Participant>
-}
+import {PersonReducer} from "./reducers/PersonReducer";
+import {IAppState, rootReducer} from "./reducers/index";
+import {PersonActions} from "./actions/PersonActions";
 
 @NgModule({
   declarations: [
@@ -67,6 +63,7 @@ export interface IAppState {
     ParticipantPersistenceService,
     NotificationControlService,
     AddressPersistenceService,
+    PersonActions,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [
@@ -86,9 +83,7 @@ export interface IAppState {
 export class AppModule {
 
   constructor(ngRedux: NgRedux<IAppState>) {
-    ngRedux.configureStore(combineReducers({
-      personList: PersonListReducer
-    }), {}, [reduxLogger()]);
+    ngRedux.configureStore(rootReducer, {}, []);
   }
 }
 

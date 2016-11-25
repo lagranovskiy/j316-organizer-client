@@ -1,43 +1,42 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, ChangeDetectionStrategy} from "@angular/core";
 import {ParticipantRef} from "../../model/ParticipantRef";
-import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {Participant} from "../../model/Participant";
-import {NgRedux, select} from "ng2-redux";
-import {IAppState} from "../../app.module";
+import {select} from "ng2-redux";
 import {Observable} from "rxjs";
+import {List} from "immutable";
 
 @Component({
   selector: 'participant-ref-list-view',
   templateUrl: './participant-ref-list-view.component.html',
-  styleUrls: ['./participant-ref-list-view.component.css']
+  styleUrls: ['./participant-ref-list-view.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParticipantRefListViewComponent implements OnInit {
 
   @Input()
-  private participants: Array<ParticipantRef>;
+  private participants: Array<ParticipantRef> = [];
 
-  private personList : Array<Participant> = [];
+  private personList: List<Participant> = List<Participant>();
 
-  @select('personList')
-  private personListObserver: Observable<Participant>;
-
-
-  constructor(private _ngRedux:NgRedux<IAppState>, private personService: ParticipantPersistenceService) {
+  @select(['person', 'personList'])
+  private personList$: Observable<List<Participant>>;
 
 
-    personService.fetchParticipants().subscribe(list => this.personList = list);
-  }
-
-  getRelatedParticipant(rel: ParticipantRef) : Participant{
-    let result = this.personList.filter((person)=>person.uuid==rel.participantUUID);
-    if(result.length>0){
-      return result[0];
+  getRelatedParticipant(rel: ParticipantRef): Participant {
+    if (!this.personList) {
+      return null;
+    }
+    let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
+    if (result.size > 0) {
+      return result.first();
     }
     return null;
   }
 
   ngOnInit() {
-    this.personListObserver  = this._ngRedux.select('personList');
+    this.personList$.subscribe((data: List<Participant>)=> {
+      this.personList = data
+    });
   }
 
 }

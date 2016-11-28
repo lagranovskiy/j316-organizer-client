@@ -1,6 +1,6 @@
 import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
-import {DienstPlanTeilgruppe, DienstPlanTeilgruppeData} from "./DienstPlanTeilgruppe";
+import {DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
 import {PostalAddress} from "./PostalAddress";
 import {List} from "immutable";
 
@@ -21,14 +21,6 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
     comment: '',
     sections: [],
   }) {
-
-   /* if (data.sections) {
-      data.sections = data.sections.map(section=> new DienstPlanTeilgruppe(<DienstPlanTeilgruppeData>section));
-    }*/
-
-    if (data.address) {
-      data.address = new PostalAddress(data.address);
-    }
 
     super(data);
   }
@@ -72,7 +64,7 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
   getData(): any {
     var retVal : DienstPlanGruppeData= <DienstPlanGruppeData>super.getData().toObject();
 
-    //retVal.address = retVal.address.getData();
+    retVal.address = retVal.address.getData();
     var sectionList: Array<any> = [];
 
     this.sections.map(function (section) {

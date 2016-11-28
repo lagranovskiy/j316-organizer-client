@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectionStrategy} from "@angular/core";
+import {Component, ViewChildren, QueryList, ViewChild, ChangeDetectionStrategy, AfterViewInit} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
 import {isUndefined} from "util";
-import {PlanPersistenceService} from "../../plan-persistence.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Participant} from "../../model/Participant";
@@ -12,19 +11,25 @@ import {Observable} from "rxjs";
 import {select} from "ng2-redux";
 import {DienstPlanActions} from "../../actions/DienstPlanActions";
 
-
+/**
+ * http://blog.thoughtram.io/angular/2016/02/22/angular-2-change-detection-explained.html
+ */
 @Component({
   selector: 'plan-editor',
   templateUrl: './plan-editor.component.html',
-  styleUrls: ['./plan-editor.component.css']
+  styleUrls: ['./plan-editor.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlanEditorComponent implements OnInit {
+export class PlanEditorComponent implements AfterViewInit {
 
 
-  private plan: DienstPlan;
+  private plan: DienstPlan = null;
 
   @select(['dienstPlan', 'selectedPlan'])
   private plan$: Observable<DienstPlan>;
+
+  @select(['person', 'personList'])
+  private personList$: Observable<List<Participant>>;
 
   private isPersistent = false;
 
@@ -33,17 +38,16 @@ export class PlanEditorComponent implements OnInit {
   @ViewChildren(GruppeViewComponent)
   private groupViews: QueryList < GruppeViewComponent >;
 
+
   @ViewChild(NgForm)
   public planForm: NgForm;
-
-  private personList: Array<Participant>;
-
-  @select(['person', 'personList'])
-  private personList$: Observable<List<Participant>>;
 
   constructor(private planActions: DienstPlanActions,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
+    this.plan$.subscribe(plan=> {
+      this.plan = plan;
+    });
   }
 
 
@@ -76,18 +80,11 @@ export class PlanEditorComponent implements OnInit {
     });
   }
 
-  onChanges($event) {
-    this.planActions.updatePlanData(this.plan);
+  onChanges(key, value) {
+    this.planActions.updatePlanData(this.plan, key, value);
   }
 
-  ngOnInit() {
-    this.personList$.subscribe(personList=>personList ? this.personList = personList.toArray() : this.personList = []);
-    this.plan$.subscribe(plan=> {
-      if (plan) {
-        this.plan = plan
-      }
-    });
-
+  ngAfterViewInit(): void {
     this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
       let planUUID = params["uuid"];
 

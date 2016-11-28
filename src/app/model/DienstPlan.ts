@@ -3,6 +3,9 @@ import {J316Model} from "./J316Model";
 import {DienstPlanGruppe, DienstPlanGruppeData} from "./DienstPlanGruppe";
 import * as moment from "moment";
 import {List} from "immutable";
+import {DienstPlanTeilgruppeData, DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
+import {PostalAddress} from "./PostalAddress";
+import {ParticipantRef} from "./ParticipantRef";
 
 interface DienstPlanData {
   uuid: string,
@@ -10,7 +13,6 @@ interface DienstPlanData {
   groupList: Array<DienstPlanGruppe>,
   planStart: string,
   planEnd: string,
-  planJSON: string,
   eventDates: Array<string>,
   eventRecurringDays: number,
   eventStartTime: string,
@@ -35,7 +37,6 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     planStart: moment().format('DD.MM.YYYY'),
     planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
 
-    planJSON: '',
     eventDates: [],
 
     eventRecurringDays: 7,
@@ -52,16 +53,6 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     calEventName: 'Dienst'
   }) {
 
-
-    if (data.planJSON) {
-      data.groupList = JSON.parse(data.planJSON);
-    }
-
-    /*if (data.groupList) {
-      data.groupList = data.groupList.map(group=> new DienstPlanGruppe(<DienstPlanGruppeData>group));
-    } else {
-      data.groupList = [];
-    }*/
     data.eventDates = DienstPlan.generateEventDates(data.planStart, data.planEnd, data.eventRecurringDays);
     super(data);
   }
@@ -154,7 +145,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
 
   getData(): any {
-    var retVal: DienstPlanData = <DienstPlanData> super.getData().toObject();
+    var retVal: any = <DienstPlanData> super.getData().toObject();
     var groupList: Array<any> = [];
 
     this.groupList.map(function (group) {

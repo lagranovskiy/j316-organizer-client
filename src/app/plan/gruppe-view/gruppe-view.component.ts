@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Participant} from "../../model/Participant";
+import {List} from "immutable";
 
 @Component({
   selector: 'gruppe-view',
@@ -14,7 +15,7 @@ export class GruppeViewComponent implements OnInit {
   private model: DienstPlanGruppe;
 
   @Input()
-  private personList:Array<Participant> =[];
+  private personList:List<Participant> = List<Participant>();
 
 
 

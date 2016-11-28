@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlanPersistenceService} from "../../plan-persistence.service";
@@ -10,7 +10,8 @@ import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 @Component({
   selector: 'app-plan-notification-view',
   templateUrl: './plan-notification-view.component.html',
-  styleUrls: ['./plan-notification-view.component.css']
+  styleUrls: ['./plan-notification-view.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlanNotificationViewComponent implements OnInit {
 

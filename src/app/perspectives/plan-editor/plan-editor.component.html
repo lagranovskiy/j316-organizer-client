@@ -6,11 +6,11 @@
     </div>
 
     <div class="col s7">
-      <h3>{{plan.planName }}</h3>
+      <h3>{{(plan$|async).planName }}</h3>
     </div>
 
     <div class="col s4 right-align">
-      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
+      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
 
@@ -19,9 +19,10 @@
   <div class="card-panel">
     <div class="row">
       <div class="input-field col s12">
-        <input placeholder="Planbezeichnung" name="planName" [ngModel]="plan.planName" (change)="onChanges($event)"
-               id="planName"
-               type="text" class="validate" required #planName="ngModel">
+        <input placeholder="Planbezeichnung"
+               name="planName"
+               [ngModel]="(plan$|async).planName" (change)="onChanges(planName.name,planName.value)"
+               id="planName" type="text" class="validate" required #planName="ngModel">
         <label for="planName">Planbezeichnung</label>
         <div [hidden]="planName.valid || planName.pristine"
              class="red-text">
@@ -33,18 +34,18 @@
 
     <div class="row">
       <div class="input-field col s4">
-        <input placeholder="Plan Beginn" name="planStart" type="text" [ngModel]="plan.planStart"
-               (change)="onChanges($event)"
-               id="planStart"
+        <input placeholder="Plan Beginn" name="planStart" type="text" [ngModel]="(plan$|async).planStart"
+               (ngModelChange)="onChanges(planStart.name, planStart.value)"
+               id="planStart" #planStart
                materialize="pickadate"
                [materializeParams]="[{selectMonths: true, selectYears: 15, format:'dd.mm.yyyy'}]" required/>
         <label for="planStart">Planbeginn</label>
       </div>
 
       <div class="input-field col s4">
-        <input placeholder="Plan Ende" name="planEnd" type="text" [ngModel]="plan.planEnd" id="planEnd"
-               (change)="onChanges($event)"
-               materialize="pickadate"
+        <input placeholder="Plan Ende" name="planEnd" type="text" [ngModel]="(plan$|async).planEnd" id="planEnd"
+               (ngModelChange)="onChanges(planEnd.name, planEnd.value)"
+               materialize="pickadate" #planEnd
                [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
         <label for="planStart">Planende</label>
       </div>
@@ -53,9 +54,10 @@
       <div class="input-field col s4">
         <input placeholder="Wiederholung (Tage)"
                name="eventRecurringDays"
-               type="text" [(ngModel)]="plan.eventRecurringDays"
+               type="text" [ngModel]="(plan$|async).eventRecurringDays"
                id="eventRecurringDays"
-               (change)="onChanges($event)"
+               (change)="onChanges(eventRecurringDays.name, eventRecurringDays.value)"
+               #eventRecurringDays
                materialize=""/>
         <label for="eventRecurringDays">Wiederholung (Tage)</label>
       </div>
@@ -75,11 +77,11 @@
   </div>
   <div class="row">
     <div class="col s12">
-      <div *ngFor="let dienstPlanGruppe of plan.groupList">
+      <div *ngFor="let dienstPlanGruppe of (plan$|async).groupList">
 
-        <gruppe-view [model]="dienstPlanGruppe" [personList]="personList"
+        <gruppe-view [model]="dienstPlanGruppe" [personList]="personList$ | async"
                      (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
-        <!--  <view-card [model]="dienstPlanGruppe" (openClicked)="openDienstPlanGruppe($event)"></view-card>-->
+
       </div>
     </div>
 
@@ -94,7 +96,9 @@
 
   <div class="row">
     <div class="col s12">
-      <app-plan-table [plan]="plan" [personList]="personList"></app-plan-table>
+
+      <app-plan-table [plan]="plan$|async" [personList]="personList$ | async"></app-plan-table>
+
     </div>
   </div>
 

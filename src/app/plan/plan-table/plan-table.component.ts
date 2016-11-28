@@ -4,6 +4,7 @@ import {ParticipantRef} from "../../model/ParticipantRef";
 import {DienstPlan} from "../../model/DienstPlan";
 import {Participant} from "../../model/Participant";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
+import {List} from "immutable";
 
 @Component({
   selector: 'app-plan-table',
@@ -16,7 +17,7 @@ export class PlanTableComponent implements OnInit {
   private plan: DienstPlan;
 
   @Input()
-  private personList: Array<Participant> = [];
+  private personList: List<Participant> = List<Participant>();
 
 
   constructor() {
@@ -24,8 +25,8 @@ export class PlanTableComponent implements OnInit {
 
   getRelatedParticipant(rel: ParticipantRef): any {
     let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
-    if (result.length > 0) {
-      return result[0];
+    if (result.size > 0) {
+      return result.first();
     }
     return null;
 

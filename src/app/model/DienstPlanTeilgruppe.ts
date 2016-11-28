@@ -21,12 +21,6 @@ export class DienstPlanTeilgruppe extends J316Model {
     // Indicates that part group can be on turn on given date
     verfuegbarkeit: []
   }) {
-    if (data.participants) {
-      // TODO: Move the mutable state to the component
-      // Workaround for multiselect initialization
-      //this.participantArray = data.participants.map(participant=> participant.participantUUID);
-      data.participants = data.participants.map(participant=> new ParticipantRef(participant));
-    }
     super(data);
   }
 

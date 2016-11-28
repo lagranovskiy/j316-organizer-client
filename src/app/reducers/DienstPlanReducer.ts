@@ -1,7 +1,4 @@
-import {PersonActions, IPersonAction} from "../actions/PersonActions";
 import {Map, List} from "immutable";
-import Immutable from "immutable";
-import {Participant} from "../model/Participant";
 import {IDienstPlanAction, DienstPlanActions} from "../actions/DienstPlanActions";
 import {DienstPlan} from "../model/DienstPlan";
 
@@ -43,8 +40,10 @@ export function DienstPlanReducer(state: Map<string, any> = INITIAL_STATE, actio
       return state;
     }
 
-    case DienstPlanActions.PLAN_SELECTED:
+    case DienstPlanActions.PLAN_SELECTED:{
       return state.set('selectedPlan', action.payload.plan);
+    }
+
 
     case DienstPlanActions.PLAN_LOADED:
       return state.set('planList', action.payload.planList);

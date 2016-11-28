@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy} from "@angular/core";
 import {NotificationControlService} from "../../notification-control-service.service";
 import {NotificationEntry} from "../../model/NotificationEntry";
 import {DienstPlan} from "../../model/DienstPlan";
@@ -6,7 +6,8 @@ import {DienstPlan} from "../../model/DienstPlan";
 @Component({
   selector: 'plan-notification-processor',
   templateUrl: './plan-notification-processor.component.html',
-  styleUrls: ['./plan-notification-processor.component.css']
+  styleUrls: ['./plan-notification-processor.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlanNotificationProcessorComponent implements OnInit {
 

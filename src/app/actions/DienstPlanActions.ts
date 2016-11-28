@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {NgRedux} from "ng2-redux";
 import {PlanPersistenceService} from "../plan-persistence.service";
-import {Participant} from "../model/Participant";
 import {List} from "immutable";
 import {IAppState} from "../reducers/index";
 import {DienstPlan} from "../model/DienstPlan";
@@ -32,7 +31,8 @@ export class DienstPlanActions {
   static PLAN_REMOVED: string = 'PLAN_REMOVED';
   static PLAN_COM_ERROR: string = 'PLAN_COM_ERROR';
 
-  public updatePlanData(plan: DienstPlan) {
+  public updatePlanData(plan: DienstPlan, key: string, value: any) {
+    plan = plan.setField(key, value);
     this.ngRedux.dispatch(this.createPlanUpdatedAction(plan));
   }
 
@@ -77,8 +77,9 @@ export class DienstPlanActions {
       // Not loaded yet.. load actively extra
       this.planService.fetchPlan(planUUID).subscribe(plan=> this.ngRedux.dispatch(this.createPlanSelectedAction(plan)))
       return
+    }else{
+      this.ngRedux.dispatch(this.createPlanSelectedAction(plans.first()));
     }
-    this.ngRedux.dispatch(this.createPlanSelectedAction(plans.first()));
   }
 
   public selectDienstPlan(plan: DienstPlan) {

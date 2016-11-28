@@ -1,8 +1,6 @@
 import {Component, OnInit, Input, ChangeDetectionStrategy} from "@angular/core";
 import {ParticipantRef} from "../../model/ParticipantRef";
 import {Participant} from "../../model/Participant";
-import {select} from "ng2-redux";
-import {Observable} from "rxjs";
 import {List} from "immutable";
 
 @Component({
@@ -14,10 +12,10 @@ import {List} from "immutable";
 export class ParticipantRefListViewComponent implements OnInit {
 
   @Input()
-  private participants: Array<ParticipantRef> = [];
+  private participants: List<ParticipantRef> = List<ParticipantRef>();
 
   @Input()
-  private personList:Array<Participant> =[];
+  private personList:List<Participant> = List<Participant>();
 
 
 
@@ -27,8 +25,8 @@ export class ParticipantRefListViewComponent implements OnInit {
       return null;
     }
     let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
-    if (result.length > 0) {
-      return result[0];
+    if (result.size > 0) {
+      return result.first();
     }
     return null;
   }

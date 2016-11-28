@@ -4,6 +4,7 @@ import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
 import {APP_CONFIG} from "./config/const";
 import {AppConfig} from "./config/app.config";
+import {DienstPlanFactory} from "./model/DienstPlanFactory";
 
 @Injectable()
 export class PlanPersistenceService {
@@ -20,7 +21,7 @@ export class PlanPersistenceService {
       .map(data => {
           let body = data.json();
           let retVal: DienstPlan[] = [];
-          body.map(planData => retVal.push(new DienstPlan(planData)));
+          body.map(planData => retVal.push(DienstPlanFactory.createDienstPlan(planData)));
           return retVal;
         }
       )
@@ -33,7 +34,7 @@ export class PlanPersistenceService {
   public fetchPlan(uuid: string): Observable<DienstPlan> {
     return this.http.get(`/api/serviceplan/${uuid}`)
       .map(data => {
-          return new DienstPlan(data.json());
+          return DienstPlanFactory.createDienstPlan(data.json());
         }
       )
       .catch(this.handleError);
@@ -45,7 +46,7 @@ export class PlanPersistenceService {
   public removePlan(uuid: string): Observable<DienstPlan> {
     return this.http.delete(`/api/serviceplan/${uuid}`)
       .map(data => {
-          return new DienstPlan(data.json());
+          return DienstPlanFactory.createDienstPlan(data.json());
         }
       )
       .catch(this.handleError);
@@ -60,7 +61,7 @@ export class PlanPersistenceService {
     let data = plan.getData();
     return this.http.post('/api/serviceplan', data)
       .map(data => {
-        return new DienstPlan(data.json());
+        return DienstPlanFactory.createDienstPlan(data.json());
       })
       .catch(this.handleError);
   }

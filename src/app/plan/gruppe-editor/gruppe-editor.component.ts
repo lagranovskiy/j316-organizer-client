@@ -3,7 +3,7 @@ import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Input} from "@angular/core/src/metadata/directives";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 import {Participant} from "../../model/Participant";
-
+import {List} from "immutable";
 
 @Component({
   selector: 'gruppe-editor',
@@ -17,7 +17,7 @@ export class GruppeEditorComponent implements OnInit {
   private model: DienstPlanGruppe;
 
   @Input()
-  private personList:Array<Participant> =[];
+  private personList:List<Participant> =List<Participant>();
 
   addTeilgruppe() {
     this.model.sections.push(new DienstPlanTeilgruppe());

@@ -9,7 +9,7 @@ export interface DienstPlanGruppeData {
   name: string,
   address: PostalAddress | any,
   comment: string,
-  sections: Array<DienstPlanTeilgruppe>
+  sections: List<DienstPlanTeilgruppe>
 }
 
 export class DienstPlanGruppe extends J316Model implements DisplayableModel {
@@ -19,7 +19,7 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
     name: 'Neue Gruppe',
     address: {},
     comment: '',
-    sections: [],
+    sections: List<DienstPlanTeilgruppe>(),
   }) {
 
     super(data);
@@ -60,9 +60,17 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
     return this.getKey('sections');
   }
 
+  public setField(property, value) {
+    return this.setKey<DienstPlanGruppe>(DienstPlanGruppe, property, value);
+  }
+
+  public setFieldIn(property:Array<any>, updater: (value: any) => any) {
+    return this.updateIn<DienstPlanGruppe>(DienstPlanGruppe, property, updater);
+  }
+
 
   getData(): any {
-    var retVal : DienstPlanGruppeData= <DienstPlanGruppeData>super.getData().toObject();
+    var retVal: any= <DienstPlanGruppeData>super.getData().toObject();
 
     retVal.address = retVal.address.getData();
     var sectionList: Array<any> = [];

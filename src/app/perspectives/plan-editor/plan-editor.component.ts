@@ -1,8 +1,7 @@
-import {Component, ViewChildren, QueryList, ViewChild, ChangeDetectionStrategy, AfterViewInit} from "@angular/core";
+import {Component, ViewChildren, QueryList, ViewChild, ChangeDetectionStrategy, OnInit} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
-import {isUndefined} from "util";
 import {Router, ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
 import {Participant} from "../../model/Participant";
@@ -20,7 +19,7 @@ import {DienstPlanActions} from "../../actions/DienstPlanActions";
   styleUrls: ['./plan-editor.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlanEditorComponent implements AfterViewInit {
+export class PlanEditorComponent implements OnInit {
 
 
   private plan: DienstPlan = null;
@@ -50,10 +49,22 @@ export class PlanEditorComponent implements AfterViewInit {
     });
   }
 
+  ngOnInit(): void {
+    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
+      let planUUID = params["uuid"];
+
+      if (planUUID && planUUID != 'new') {
+        this.isPersistent = true;
+        this.planActions.fetchDienstPlan(planUUID);
+      } else {
+        this.isPersistent = false;
+      }
+    });
+  }
+
 
   savePlan() {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
-    this.completeBesetzungArrays();
     this.planActions.saveDienstPlan(this.plan);
 
   }
@@ -68,34 +79,10 @@ export class PlanEditorComponent implements AfterViewInit {
   }
 
 
-  completeBesetzungArrays() {
-    this.plan.groupList.map(gruppe=> {
-      gruppe.sections.map(teilgruppe=> {
-        for (let index = 0; index < this.plan.eventDates.length; index++) {
-          if (isUndefined(teilgruppe.besetzung[index]) || teilgruppe.besetzung[index] == null) {
-            teilgruppe.besetzung[index] = false;
-          }
-        }
-      })
-    });
-  }
-
   onChanges(key, value) {
     this.planActions.updatePlanData(this.plan, key, value);
   }
 
-  ngAfterViewInit(): void {
-    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
-      let planUUID = params["uuid"];
-
-      if (planUUID && planUUID != 'new') {
-        this.isPersistent = true;
-        this.planActions.fetchDienstPlan(planUUID);
-      } else {
-        this.isPersistent = false;
-      }
-    });
-  }
 
   removePlan() {
     this.planActions.removeDienstPlan(this.plan.uuid);

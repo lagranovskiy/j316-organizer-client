@@ -73,6 +73,14 @@ export class J316Model {
     return ClassFactory(ClassName, data);
   }
 
+  public updateIn<T>(ClassName, keyPath: Array<any>, updater: (value: any) => any): T {
+    return this.setData<T>(ClassName, this._data.updateIn(keyPath, updater));
+  }
+
+  public getOriginData(): Map<string,any> {
+    return this._data;
+  }
+
 
   /**
    * Create a List or update a list if one exists, with the Map key provided and the value to push to the new/updated list

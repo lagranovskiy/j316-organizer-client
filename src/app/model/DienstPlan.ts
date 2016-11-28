@@ -1,16 +1,14 @@
 import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
-import {DienstPlanGruppe, DienstPlanGruppeData} from "./DienstPlanGruppe";
+import {DienstPlanGruppe} from "./DienstPlanGruppe";
 import * as moment from "moment";
 import {List} from "immutable";
-import {DienstPlanTeilgruppeData, DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
-import {PostalAddress} from "./PostalAddress";
-import {ParticipantRef} from "./ParticipantRef";
+import {isUndefined} from "util";
 
 interface DienstPlanData {
   uuid: string,
   planName: string,
-  groupList: Array<DienstPlanGruppe>,
+  groupList: List<DienstPlanGruppe>,
   planStart: string,
   planEnd: string,
   eventDates: Array<string>,
@@ -32,7 +30,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
   constructor(data: DienstPlanData = {
     uuid: '',
     planName: '',
-    groupList: [],
+    groupList: List<DienstPlanGruppe>(),
 
     planStart: moment().format('DD.MM.YYYY'),
     planEnd: moment().add(3, 'month').format('DD.MM.YYYY'),
@@ -131,6 +129,11 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return this.setKey<DienstPlan>(DienstPlan, property, value);
   }
 
+  public setFieldIn(property:Array<any>, updater: (value: any) => any) {
+    return this.updateIn<DienstPlan>(DienstPlan, property, updater);
+  }
+
+
 
   static generateEventDates(startDate: string, endDate: string, eventRecurringDays: number): Array<string> {
     let eventDates = [];
@@ -149,7 +152,21 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     var groupList: Array<any> = [];
 
     this.groupList.map(function (group) {
-      groupList.push(group.getData())
+
+      // Complete besetzungs and verfuegbarkeit array
+      let groupData = group.getData();
+      groupData.sections.map(teilgruppe=> {
+        for (let index = 0; index < this.eventDates.length; index++) {
+          if (isUndefined(teilgruppe.besetzung[index]) || teilgruppe.besetzung[index] == null) {
+            teilgruppe.besetzung[index] = false;
+          }
+          if (isUndefined(teilgruppe.verfuegbarkeit[index]) || teilgruppe.verfuegbarkeit[index] == null) {
+            teilgruppe.verfuegbarkeit[index] = false;
+          }
+        }
+      });
+
+      groupList.push(groupData);
     });
 
     retVal.planJSON = JSON.stringify(groupList);
@@ -164,6 +181,8 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
     return new DienstPlan(clonedData);
   }
+
+
 
 
 }

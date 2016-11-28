@@ -18,7 +18,6 @@ export class GruppeViewComponent implements OnInit {
   private personList:List<Participant> = List<Participant>();
 
 
-
   @Output()
   private removeClicked: EventEmitter<DienstPlanGruppe> = new EventEmitter<DienstPlanGruppe>();
 

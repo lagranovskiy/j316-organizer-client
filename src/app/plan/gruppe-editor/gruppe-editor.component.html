@@ -3,7 +3,8 @@
 
   <div class="row">
     <div class="col s12">
-      <input placeholder="Gruppenname" name="groupName" [(ngModel)]="model.name" id="groupName"
+      <input placeholder="Gruppenname" name="groupName" [ngModel]="model.name" id="groupName"
+             (change)="onChanges(groupName.name, groupName.value)"
              type="text" class="validate" required #groupName="ngModel">
       <div [hidden]="groupName.valid || groupName.pristine"
            class="red-text">
@@ -14,7 +15,9 @@
 
   <div class="row">
     <div class="col s12">
-  <textarea placeholder="Kommentar" name="groupComment" id="groupComment" [(ngModel)]="model.comment"
+  <textarea placeholder="Kommentar" name="groupComment" id="groupComment"
+            (change)="onChanges(groupComment.name, groupComment.value)"
+            [ngModel]="model.comment"
             class="materialize-textarea" #groupComment="ngModel"></textarea>
     </div>
   </div>
@@ -32,9 +35,10 @@
         <div class="card-content">
           <h5>Gruppe {{i+1}}</h5>
           <div class="input-field">
-            <select [(ngModel)]="teilgruppe.participantsArray"
+            <select [ngModel]="extractParticipants(teilgruppe.participants)"
                     name="teilgruppenSelect{{i}}"
-                    multiple
+                    multiple #teilgruppenSelect="ngModel"
+                    (change)="besetzungChanged(teilgruppe,teilgruppenSelect.model)"
                     [materializeSelectOptions]="personList"
                     materialize="material_select">
               <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
@@ -42,7 +46,8 @@
           </div>
 
           <!-- Display participant core information -->
-          <participant-ref-list-view [participants]="teilgruppe.participants" [personList]="personList"></participant-ref-list-view>
+          <participant-ref-list-view [participants]="teilgruppe.participants"
+                                     [personList]="personList"></participant-ref-list-view>
 
         </div>
         <div class="card-action">

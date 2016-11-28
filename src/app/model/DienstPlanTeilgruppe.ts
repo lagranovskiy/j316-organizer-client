@@ -32,7 +32,7 @@ export class DienstPlanTeilgruppe extends J316Model {
    * Indicates the partgroup is on turn on the given date
    * @return {any}
    */
-  get besetzung(): Array<boolean> {
+  get besetzung(): List<boolean> {
     return this.getKey('besetzung');
   }
 
@@ -40,27 +40,13 @@ export class DienstPlanTeilgruppe extends J316Model {
    * Indicates the partgroup can be on turn on the given date
    * @return {any}
    */
-  get verfuegbarkeit(): Array<boolean> {
+  get verfuegbarkeit(): List<boolean> {
     return this.getKey('verfuegbarkeit');
   }
 
-  /**
-   * This is a wrapper to loose couple participant and dienstplan
-   * @returns {(string|any|string)[]}
-   */
-  get participantsArray(): Array<string> {
-    return [];
+  public setField(property, value) {
+    return this.setKey<DienstPlanTeilgruppe>(DienstPlanTeilgruppe, property, value);
   }
-
-
-
-  set participantsArray(refList: Array<string>) {
-    //this.participantArray = refList;
-    // TODO: Will not work!!
-    // this.data.participants = [];
-    //this.data.participants = refList.map(refId => new ParticipantRef({participantUUID: refId}));
-  }
-
 
   getData(): any {
     var retVal: DienstPlanTeilgruppeData = <DienstPlanTeilgruppeData> super.getData().toObject();

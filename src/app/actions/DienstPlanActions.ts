@@ -5,6 +5,7 @@ import {List} from "immutable";
 import {IAppState} from "../reducers/index";
 import {DienstPlan} from "../model/DienstPlan";
 import {Router} from "@angular/router";
+import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
 
 export interface IDienstPlanAction {
   type: string;
@@ -33,7 +34,21 @@ export class DienstPlanActions {
 
   public updatePlanData(plan: DienstPlan, key: string, value: any) {
     plan = plan.setField(key, value);
+
+    // Hook to update event dates if one of the dependent parameters are changed
+    if (key == 'planStart' || key == 'planEnd' || key == 'eventRecurringDays') {
+      let dates = DienstPlan.generateEventDates(plan.planStart, plan.planEnd, plan.eventRecurringDays)
+      plan = plan.setField('eventDates', dates)
+    }
+
     this.ngRedux.dispatch(this.createPlanUpdatedAction(plan));
+  }
+
+  public updatePlanDataGroup(updatedGroup: DienstPlanGruppe) {
+    let plan: DienstPlan = this.ngRedux.getState().dienstPlan.get('selectedPlan');
+    let groupIndex = plan.groupList.findIndex(group=>updatedGroup.uuid === group.uuid);
+    let updatedPlan: DienstPlan = plan.setFieldIn(['groupList', groupIndex], old=>updatedGroup);
+    this.ngRedux.dispatch(this.createPlanUpdatedAction(updatedPlan));
   }
 
 
@@ -77,7 +92,7 @@ export class DienstPlanActions {
       // Not loaded yet.. load actively extra
       this.planService.fetchPlan(planUUID).subscribe(plan=> this.ngRedux.dispatch(this.createPlanSelectedAction(plan)))
       return
-    }else{
+    } else {
       this.ngRedux.dispatch(this.createPlanSelectedAction(plans.first()));
     }
   }

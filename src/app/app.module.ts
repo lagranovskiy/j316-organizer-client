@@ -34,6 +34,7 @@ import {NotificationSingleGroupPresenterComponent} from "./commons/notification-
 import {PersonReducer} from "./reducers/PersonReducer";
 import {IAppState, rootReducer} from "./reducers/index";
 import {PersonActions} from "./actions/PersonActions";
+import {DienstPlanActions} from "./actions/DienstPlanActions";
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {PersonActions} from "./actions/PersonActions";
     NotificationControlService,
     AddressPersistenceService,
     PersonActions,
+    DienstPlanActions,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [

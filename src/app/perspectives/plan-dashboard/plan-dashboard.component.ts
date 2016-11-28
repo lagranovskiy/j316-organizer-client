@@ -1,8 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {PlanPersistenceService} from "../../plan-persistence.service";
 import {DienstPlan} from "../../model/DienstPlan";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {select} from "ng2-redux";
+import {List} from "immutable";
+import {DienstPlanActions} from "../../actions/DienstPlanActions";
 
 
 @Component({
@@ -12,45 +15,34 @@ import {Observable} from "rxjs";
 })
 export class PlanDashboardComponent implements OnInit {
 
-  private planList: Array<DienstPlan>;
-  private refreshPlans: Observable<DienstPlan[]>;
+
+  @select(['dienstPlan', 'planList'])
+  private refreshPlans: Observable<List<DienstPlan>>;
 
 
-  constructor(private service: PlanPersistenceService, private router: Router) {
-    this.refreshPlans = service.fetchPlans();
+  constructor(private planActions: DienstPlanActions) {
   }
 
   private createNewDienstplan() {
-    this.router.navigate([`/plan/new/edit`]);
+    this.planActions.createNewDienstPlan();
   }
 
   private openPlan(plan) {
-    this.router.navigate([`/plan/${plan.uuid}/edit`]);
+    this.planActions.selectDienstPlan(plan);
   }
 
   private removePlan(plan) {
-    this.service.removePlan(plan.uuid).subscribe(()=>this.refreshData());
+    this.planActions.removeDienstPlan(plan);
+    //this.service.removePlan(plan.uuid).subscribe(()=>this.refreshData());
   }
 
 
   private clonePlan(duplicatePlan) {
-    let newPlan = duplicatePlan.clone();
-    this.service.savePlan(newPlan).subscribe(savedPlan => {
-      this.planList.unshift(savedPlan)
-      this.openPlan(savedPlan);
-    });
-
+    this.planActions.cloneDienstPlan(duplicatePlan);
   }
 
   ngOnInit() {
-    this.refreshData();
   }
 
-
-  private refreshData() {
-    this.refreshPlans.subscribe(planList=> {
-      this.planList = planList
-    });
-  }
 
 }

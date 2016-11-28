@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {PersonActions} from "./actions/PersonActions";
+import {DienstPlanActions} from "./actions/DienstPlanActions";
 
 
 @Component({
@@ -10,8 +11,9 @@ import {PersonActions} from "./actions/PersonActions";
 export class AppComponent {
 
 
-  constructor(personActions:PersonActions) {
+  constructor(personActions:PersonActions, dienstPlanActions: DienstPlanActions) {
     personActions.loadPersons();
+    dienstPlanActions.loadDienstPlans()
   }
 
 

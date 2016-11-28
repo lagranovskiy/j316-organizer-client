@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChildren, QueryList, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectionStrategy} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
@@ -10,6 +10,7 @@ import {Participant} from "../../model/Participant";
 import {List} from "immutable";
 import {Observable} from "rxjs";
 import {select} from "ng2-redux";
+import {DienstPlanActions} from "../../actions/DienstPlanActions";
 
 
 @Component({
@@ -20,7 +21,11 @@ import {select} from "ng2-redux";
 export class PlanEditorComponent implements OnInit {
 
 
-  private plan: DienstPlan = new DienstPlan();
+  private plan: DienstPlan;
+
+  @select(['dienstPlan', 'selectedPlan'])
+  private plan$: Observable<DienstPlan>;
+
   private isPersistent = false;
 
   private paramsSub;
@@ -36,7 +41,7 @@ export class PlanEditorComponent implements OnInit {
   @select(['person', 'personList'])
   private personList$: Observable<List<Participant>>;
 
-  constructor(private service: PlanPersistenceService,
+  constructor(private planActions: DienstPlanActions,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
@@ -45,7 +50,7 @@ export class PlanEditorComponent implements OnInit {
   savePlan() {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
     this.completeBesetzungArrays();
-    this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}`]));
+    this.planActions.saveDienstPlan(this.plan);
 
   }
 
@@ -71,23 +76,33 @@ export class PlanEditorComponent implements OnInit {
     });
   }
 
+  onChanges($event) {
+    this.planActions.updatePlanData(this.plan);
+  }
+
   ngOnInit() {
-    this.personList$.subscribe(personList=>personList ? this.personList = personList.toArray() : this.personList = [])
+    this.personList$.subscribe(personList=>personList ? this.personList = personList.toArray() : this.personList = []);
+    this.plan$.subscribe(plan=> {
+      if (plan) {
+        this.plan = plan
+      }
+    });
 
     this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
       let planUUID = params["uuid"];
 
       if (planUUID && planUUID != 'new') {
         this.isPersistent = true;
-        this.service.fetchPlan(planUUID).subscribe(plan=> {
-          this.plan = plan;
-        });
+        this.planActions.fetchDienstPlan(planUUID);
+      } else {
+        this.isPersistent = false;
       }
     });
   }
 
   removePlan() {
-    this.service.removePlan(this.plan.uuid).subscribe(()=>this.navDashboard());
+    this.planActions.removeDienstPlan(this.plan.uuid);
+    this.navDashboard();
   }
 
   navDashboard() {

@@ -1,5 +1,5 @@
 import {J316Model} from "./J316Model";
-import {LocationBasedModel} from "./LocationBasedModel";
+import {LocationBasedModel} from "./interfaces/LocationBasedModel";
 
 
 export class PostalAddress extends J316Model implements LocationBasedModel {
@@ -24,72 +24,39 @@ export class PostalAddress extends J316Model implements LocationBasedModel {
 
 
   get location(): string {
-    return this.data.location;
-  }
-
-  set location(location: string) {
-    this.data.location = location;
+    return this.getKey('location');
   }
 
   get longitude() {
-    return this.data.longitude;
-  }
-
-  set longitude(longitude: number) {
-    this.data.longitude = longitude;
+    return this.getKey('longitude');
   }
 
   get latitude() {
-    return this.data.latitude;
-  }
-
-  set latitude(latitude: number) {
-    this.data.latitude = latitude;
-  }
-
-
-  set street(street: string) {
-    this.data.street = street;
+    return this.getKey('latitude');
   }
 
   get street(): string {
-    return this.data.street;
-  }
-
-
-  set zip(zip: string) {
-    this.data.zip = zip;
+    return this.getKey('street');
   }
 
   get zip(): string {
-    return this.data.zip;
-  }
-
-
-  set city(city: string) {
-    this.data.city = city;
+    return this.getKey('zip');
   }
 
   get city(): string {
-    return this.data.city;
-  }
-
-
-  set country(country: string) {
-    this.data.country = country;
+    return this.getKey('city');
   }
 
   get country(): string {
-    return this.data.country;
-  }
-
-
-  set comment(comment: string) {
-    this.data.comment = comment;
+    return this.getKey('country');
   }
 
   get comment(): string {
-    return this.data.comment;
+    return this.getKey('comment');
   }
 
+
+  public setField(property, value) {
+    return this.setKey<PostalAddress>(PostalAddress, property, value);
+  }
 }

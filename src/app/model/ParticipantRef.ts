@@ -12,12 +12,11 @@ export class ParticipantRef extends J316Model {
 
 
   get participantUUID() {
-    return this.data.participantUUID;
+    return this.getKey('participantUUID');
   }
 
-
-  set participantUID(participantUUID: string) {
-    this.data.participantUUID = participantUUID;
+  public setParticipantUUID(value): ParticipantRef {
+    return this.setKey<ParticipantRef>(ParticipantRef, 'participantUUID', value);
   }
 
 

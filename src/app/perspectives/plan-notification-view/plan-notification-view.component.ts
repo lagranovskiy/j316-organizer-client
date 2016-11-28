@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { DienstPlan } from "../../model/DienstPlan";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PlanPersistenceService } from "../../plan-persistence.service";
-import { NotificationControlService } from "../../notification-control-service.service";
-import { NotificationEntry } from "../../model/NotificationEntry";
-import { DisplayableModel } from "../../model/DisplayableModel";
-import { DienstPlanGruppe } from "../../model/DienstPlanGruppe";
+import {Component, OnInit} from "@angular/core";
+import {DienstPlan} from "../../model/DienstPlan";
+import {ActivatedRoute, Router} from "@angular/router";
+import {PlanPersistenceService} from "../../plan-persistence.service";
+import {NotificationControlService} from "../../notification-control-service.service";
+import {NotificationEntry} from "../../model/NotificationEntry";
+import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 
 @Component({
   selector: 'app-plan-notification-view',
@@ -70,7 +70,7 @@ export class PlanNotificationViewComponent implements OnInit {
     return (notification: NotificationEntry): DisplayableModel => {
       let groupUUID = notification.category[1];
       let foundGroups = _me.plan.groupList.filter((group: DienstPlanGruppe) => group.uuid == groupUUID);
-      if (foundGroups.length == 0) {
+      if (foundGroups.size == 0) {
         console.error('Illegal State. Cannot find group where notifications exist for. Deleted?')
         return null;
       }

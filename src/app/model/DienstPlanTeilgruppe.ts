@@ -1,29 +1,53 @@
 import {J316Model} from "./J316Model";
 import {ParticipantRef} from "./ParticipantRef";
+import {List} from "immutable";
 
+export interface DienstPlanTeilgruppeData {
+  uuid: string,
+  participants: Array<ParticipantRef>,
+  besetzung: Array<boolean>,
+  verfuegbarkeit: Array<boolean>
+}
 
 export class DienstPlanTeilgruppe extends J316Model {
 
-  private participantArray: Array<string> = [];
+  //private participantArray: Array<string> = [];
 
-  constructor(data: any = {
+  constructor(data: DienstPlanTeilgruppeData = {
     uuid: '',
     participants: [],
+    // Some part group is on turn
     besetzung: [],
+    // Indicates that part group can be on turn on given date
     verfuegbarkeit: []
   }) {
-    super(data);
-    if (this.data.participants) {
-
+    if (data.participants) {
+      // TODO: Move the mutable state to the component
       // Workaround for multiselect initialization
-      this.participantArray = this.data.participants.map(participant=> participant.participantUUID);
-
-      this.data.participants = this.data.participants.map(participant=> new ParticipantRef(participant));
+      //this.participantArray = data.participants.map(participant=> participant.participantUUID);
+      data.participants = data.participants.map(participant=> new ParticipantRef(participant));
     }
+    super(data);
   }
 
-  get participants(): Array<ParticipantRef> {
-    return this.data.participants;
+  get participants(): List<ParticipantRef> {
+    return this.getKey('participants');
+  }
+
+  /**
+   * Indicates the partgroup is on turn on the given date
+   * @return {any}
+   */
+  get besetzung(): Array<boolean> {
+    return this.getKey('besetzung');
+  }
+
+  /**
+   * Indicates the partgroup can be on turn on the given date
+   * @return {any}
+   */
+  get verfuegbarkeit(): Array<boolean> {
+    return this.getKey('verfuegbarkeit');
   }
 
   /**
@@ -31,25 +55,25 @@ export class DienstPlanTeilgruppe extends J316Model {
    * @returns {(string|any|string)[]}
    */
   get participantsArray(): Array<string> {
-
-    return this.participantArray;
-    //this.data.participants.every(participantRef => retVal.push(participantRef.participantUID));
-    //return retVal;
+    return [];
   }
 
+
+
   set participantsArray(refList: Array<string>) {
-    this.participantArray = refList;
-    this.data.participants = [];
-    this.data.participants = refList.map(refId => new ParticipantRef({participantUUID: refId}));
+    //this.participantArray = refList;
+    // TODO: Will not work!!
+    // this.data.participants = [];
+    //this.data.participants = refList.map(refId => new ParticipantRef({participantUUID: refId}));
   }
 
 
   getData(): any {
-    var retVal = super.getData();
+    var retVal: DienstPlanTeilgruppeData = <DienstPlanTeilgruppeData> super.getData().toObject();
 
     var participantList: Array<any> = [];
 
-    this.data.participants.map(function (participantRef) {
+    this.participants.map(function (participantRef) {
       participantList.push(participantRef.getData())
     });
 
@@ -58,14 +82,5 @@ export class DienstPlanTeilgruppe extends J316Model {
     return retVal;
   }
 
-  get besetzung(): Array<boolean> {
-    return this.data.besetzung;
-  }
 
-  get verfuegbarkeit(): Array<boolean> {
-    if (!this.data.verfuegbarkeit) {
-      this.data.verfuegbarkeit = []
-    }
-    return this.data.verfuegbarkeit;
-  }
 }

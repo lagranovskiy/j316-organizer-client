@@ -1,55 +1,36 @@
-import {DisplayableModel} from "./DisplayableModel";
+import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
-import {DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
+import {DienstPlanTeilgruppe, DienstPlanTeilgruppeData} from "./DienstPlanTeilgruppe";
 import {PostalAddress} from "./PostalAddress";
+import {List} from "immutable";
 
+export interface DienstPlanGruppeData {
+  uuid: string,
+  name: string,
+  address: PostalAddress | any,
+  comment: string,
+  sections: Array<DienstPlanTeilgruppe>
+}
 
 export class DienstPlanGruppe extends J316Model implements DisplayableModel {
 
-  constructor(data: any = {
+  constructor(data: DienstPlanGruppeData = {
     uuid: '',
     name: 'Neue Gruppe',
     address: {},
     comment: '',
     sections: [],
   }) {
+
+   /* if (data.sections) {
+      data.sections = data.sections.map(section=> new DienstPlanTeilgruppe(<DienstPlanTeilgruppeData>section));
+    }*/
+
+    if (data.address) {
+      data.address = new PostalAddress(data.address);
+    }
+
     super(data);
-
-    if (this.data.sections) {
-      this.data.sections = this.data.sections.map(section=> new DienstPlanTeilgruppe(section));
-    }
-
-    if (this.data.address) {
-      this.data.address = new PostalAddress(this.data.address);
-    }
-  }
-
-  get name() {
-    return this.data.name;
-  }
-
-  set name(name: string) {
-    this.data.name = name;
-  }
-
-  get address(): PostalAddress {
-    return this.data.address;
-  }
-
-  set address(address: PostalAddress) {
-    this.data.address = address;
-  }
-
-  get comment() {
-    return this.data.comment;
-  }
-
-  set comment(comment: string) {
-    this.data.comment = comment;
-  }
-
-  get sections(): Array<DienstPlanTeilgruppe> {
-    return this.data.sections;
   }
 
   /**
@@ -57,7 +38,7 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
    * @return {any}
    */
   getTitle() {
-    return this.data.name;
+    return this.name;
   }
 
   /**
@@ -65,13 +46,33 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
    * @return {string|any|string|number|Location|ElementRef}
    */
   getDescription() {
-    return this.data.location;
+    return this.address.location;
   }
 
-  getData(): any {
-    var retVal = super.getData();
+  get name() {
+    return this.getKey('name');
+  }
 
-    retVal.address = retVal.address.getData();
+
+  get address(): PostalAddress {
+    return this.getKey('address');
+  }
+
+
+  get comment() {
+    return this.getKey('comment');
+  }
+
+
+  get sections(): List<DienstPlanTeilgruppe> {
+    return this.getKey('sections');
+  }
+
+
+  getData(): any {
+    var retVal : DienstPlanGruppeData= <DienstPlanGruppeData>super.getData().toObject();
+
+    //retVal.address = retVal.address.getData();
     var sectionList: Array<any> = [];
 
     this.sections.map(function (section) {
@@ -84,8 +85,8 @@ export class DienstPlanGruppe extends J316Model implements DisplayableModel {
   }
 
   clone(): DienstPlanGruppe {
-    let clonedData: any = super.cloneData();
-    clonedData.uuid = super.getUniqueIdentifier();
+    let clonedData: any = this.getData();
+    clonedData.uuid = J316Model.getUniqueIdentifier();
 
     return new DienstPlanGruppe(clonedData);
   }

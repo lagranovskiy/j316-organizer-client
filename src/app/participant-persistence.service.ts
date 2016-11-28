@@ -40,7 +40,7 @@ export class ParticipantPersistenceService {
               console.error('More then one address configured for participant. Actually not supported. We take the first one');
             }
 
-            participant.address = new PostalAddress(addressDataList[0].ref);
+            participant = participant.setField('address', new PostalAddress(addressDataList[0].ref));
           }
           return participant;
         })
@@ -82,7 +82,7 @@ export class ParticipantPersistenceService {
         relationUUID: savedAddress.uuid,
         ref: savedAddress.getData()
       }).map(() => {
-        savedPerson.address = savedAddress;
+        savedPerson = savedPerson.setField('address', savedAddress);
         return savedPerson;
       });
 

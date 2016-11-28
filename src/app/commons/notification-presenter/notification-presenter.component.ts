@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationEntry } from "../../model/NotificationEntry";
-import { DisplayableModel } from "../../model/DisplayableModel";
+import { DisplayableModel } from "../../model/interfaces/DisplayableModel";
 import { Input, Output } from "@angular/core/src/metadata/directives";
 
 @Component({

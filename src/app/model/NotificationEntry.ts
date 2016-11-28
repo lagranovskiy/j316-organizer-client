@@ -1,7 +1,9 @@
 import * as moment from "moment";
 
+/**
+ * This is a model wrapper for notification item. it doesnt need to be immutable becauseit is only shown and never changed.
+ */
 export class NotificationEntry {
-
 
   private data: {
     _id: string,

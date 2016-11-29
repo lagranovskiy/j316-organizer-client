@@ -6,10 +6,12 @@ import {IAppState} from "../reducers/index";
 import {DienstPlan} from "../model/DienstPlan";
 import {Router} from "@angular/router";
 import {DienstPlanGruppe} from "../model/DienstPlanGruppe";
+import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
 
 export interface IDienstPlanAction {
   type: string;
   payload?: {
+    group?: DienstPlanGruppe,
     plan?: DienstPlan,
     planList?: List<DienstPlan>
   }
@@ -32,6 +34,12 @@ export class DienstPlanActions {
   static PLAN_REMOVED: string = 'PLAN_REMOVED';
   static PLAN_COM_ERROR: string = 'PLAN_COM_ERROR';
 
+  static TOGGLE_GROUP_EDIT: string = 'TOGGLE_GROUP_EDIT';
+
+  public toggleGroupEditing(gruppe: DienstPlanGruppe) {
+    this.ngRedux.dispatch(this.createToggleGroupEdit(gruppe));
+  }
+
   public updatePlanData(plan: DienstPlan, key: string, value: any) {
     plan = plan.setField(key, value);
 
@@ -50,7 +58,6 @@ export class DienstPlanActions {
     let updatedPlan: DienstPlan = plan.setFieldIn(['groupList', groupIndex], old=>updatedGroup);
     this.ngRedux.dispatch(this.createPlanUpdatedAction(updatedPlan));
   }
-
 
   public loadDienstPlans() {
     this.planService.fetchPlans()
@@ -103,6 +110,13 @@ export class DienstPlanActions {
     this.router.navigate([`/plan/${plan.uuid}/edit`]);
   }
 
+
+  private createToggleGroupEdit(group: DienstPlanGruppe): IDienstPlanAction {
+    return {
+      type: DienstPlanActions.PLAN_UPDATED,
+      payload: {group}
+    }
+  }
 
   private createPlanUpdatedAction(plan: DienstPlan): IDienstPlanAction {
     return {

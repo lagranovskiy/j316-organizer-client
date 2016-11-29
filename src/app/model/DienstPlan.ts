@@ -23,7 +23,6 @@ interface DienstPlanData {
   emailSubject: string,
   calEventName: string
 }
-
 export class DienstPlan extends J316Model implements DisplayableModel {
 
 

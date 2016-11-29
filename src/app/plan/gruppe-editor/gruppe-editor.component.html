@@ -35,10 +35,10 @@
         <div class="card-content">
           <h5>Gruppe {{i+1}}</h5>
           <div class="input-field">
-            <select [ngModel]="extractParticipants(teilgruppe.participants)"
+            <select [(ngModel)]="participantTmpModel[i]"
                     name="teilgruppenSelect{{i}}"
-                    multiple #teilgruppenSelect="ngModel"
-                    (change)="besetzungChanged(teilgruppe,teilgruppenSelect.model)"
+                    multiple #teilgruppenSelect
+                    (ngModelChange)="besetzungChanged(teilgruppe,$event)"
                     [materializeSelectOptions]="personList"
                     materialize="material_select">
               <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>

@@ -4,11 +4,23 @@ import {DienstPlan} from "../model/DienstPlan";
 
 const INITIAL_STATE = Map<string,any>({
   selectedPlan: new DienstPlan(),
-  planList: List<DienstPlan>()
+  planList: List<DienstPlan>(),
+  editingGroups: List<string>()
 });
 
 export function DienstPlanReducer(state: Map<string, any> = INITIAL_STATE, action: IDienstPlanAction) {
   switch (action.type) {
+
+    case DienstPlanActions.TOGGLE_GROUP_EDIT: {
+      return state.update('editingGroups', (editingGroupArray: List<string>)=> {
+        let index = editingGroupArray.indexOf(action.payload.group.uuid);
+        if (index > -1) {
+          return editingGroupArray.push(action.payload.group.uuid)
+        } else {
+          return editingGroupArray.splice(index, 1);
+        }
+      });
+    }
 
     case DienstPlanActions.PLAN_UPDATED: {
       let listDienstPlan: List<DienstPlan> = state.get('planList');
@@ -20,7 +32,6 @@ export function DienstPlanReducer(state: Map<string, any> = INITIAL_STATE, actio
         listDienstPlan = listDienstPlan.update(planIndex, () => action.payload.plan);
         state = state.setIn(['planList'], listDienstPlan);
       }
-
 
       state = state.setIn(['selectedPlan'], action.payload.plan);
 
@@ -40,7 +51,7 @@ export function DienstPlanReducer(state: Map<string, any> = INITIAL_STATE, actio
       return state;
     }
 
-    case DienstPlanActions.PLAN_SELECTED:{
+    case DienstPlanActions.PLAN_SELECTED: {
       return state.set('selectedPlan', action.payload.plan);
     }
 

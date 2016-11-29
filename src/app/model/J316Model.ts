@@ -1,5 +1,5 @@
 import {UUID} from "angular2-uuid";
-import {Map, List} from "immutable";
+import {Map, List, fromJS} from "immutable";
 
 export class J316Model {
 
@@ -9,8 +9,8 @@ export class J316Model {
     if (!data.uuid) {
       data.uuid = J316Model.getUniqueIdentifier();
     }
-
-    this._data = Map<string, any>(data);
+    this._data =  fromJS(data);
+    //this._data = Map<string, any>(data);
   }
 
 

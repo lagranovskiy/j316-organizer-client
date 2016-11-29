@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Input} from "@angular/core/src/metadata/directives";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
@@ -15,14 +15,29 @@ import {DienstPlanActions} from "../../actions/DienstPlanActions";
 })
 export class GruppeEditorComponent implements OnInit {
 
+  private _model: DienstPlanGruppe;
+
   @Input()
-  private model: DienstPlanGruppe;
+  private set model(model: DienstPlanGruppe) {
+    this._model = model;
+    model.sections.map(section=> {
+      let test = section.participants.map(participant => participant.participantUUID).toArray();
+      this.participantTmpModel.push(test);
+    })
+
+  };
+
+  private get model(): DienstPlanGruppe {
+    return this._model;
+  }
 
   @Input()
   private personList: List<Participant> = List<Participant>();
 
+  private participantTmpModel: Array<Array<string>> = [];
 
-  constructor(private planActions: DienstPlanActions){
+
+  constructor(private planActions: DienstPlanActions) {
 
   }
 
@@ -35,18 +50,7 @@ export class GruppeEditorComponent implements OnInit {
     this.planActions.updatePlanDataGroup(updatedModel);
   }
 
-  /**
-   * Convert participants able to bind them on the view
-   * @param participants
-   * @return {any}
-   */
-  private extractParticipants(participants: Array<ParticipantRef>): Array<string> {
-    if (participants) {
-      let result: Array<string> = participants.map(participantRef=>participantRef.participantUUID)
-      return result;
-    }
-    return [];
-  }
+
 
 
   /**
@@ -57,10 +61,13 @@ export class GruppeEditorComponent implements OnInit {
    */
   besetzungChanged(teilgruppe: DienstPlanTeilgruppe, data) {
     let participantRefArray = [];
+
     data.forEach(participantUUID=>participantRefArray.push(new ParticipantRef({participantUUID})));
 
     let index = this.model.sections.findIndex(sectionTeilgruppe => sectionTeilgruppe.uuid === teilgruppe.uuid);
-    let updatedModel = this.model.setFieldIn(['sections', index, 'participants'], (old)=> participantRefArray);
+    let updatedTeilgruppe = this.model.sections.get(index).setField('participants', List<ParticipantRef>(participantRefArray))
+    let updatedModel = this.model.setFieldIn(['sections', index], (old)=> updatedTeilgruppe);
+
 
     this.planActions.updatePlanDataGroup(updatedModel);
   }

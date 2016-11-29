@@ -15,21 +15,18 @@ export class ParticipantPersistenceService {
    * Fetches all participants from server
    */
   public fetchParticipants(): Observable<Participant[]> {
-    return this.http.get('/api/person')
-      .map(data => {
-          let body = data.json();
-          let retVal: Participant[] = [];
-          body.map(planData => retVal.push(new Participant(planData)));
-          return retVal;
-        }
-      )
-      .catch(this.handleError);
+    let retVal = this.http.get('/api/person')
+      .map(response => response.json())
+      .map(personJSON => {
+        return personJSON.map(personData => new Participant(personData));
+      });
+    return retVal;
   }
 
   /**
    * Fetches all participant from server
    */
-  public fetchParticipant(uuid: string): Observable<Participant> {
+  public   fetchParticipant(uuid: string): Observable < Participant > {
     return this.http.get(`/api/person/${uuid}`)
       .map(data => new Participant(data.json()))
       .flatMap((participant: Participant)=>this.http.get(`/api/person/${participant.uuid}/address`)
@@ -52,7 +49,7 @@ export class ParticipantPersistenceService {
   /**
    * Fetches all participant from server
    */
-  public removeParticipant(uuid: string): Observable<Participant> {
+  public   removeParticipant(uuid: string): Observable < Participant > {
     // TODO: remove the address of person as well as the relation to it
     return this.http.delete(`/api/person/${uuid}`)
       .map(data => {
@@ -67,7 +64,8 @@ export class ParticipantPersistenceService {
    * @param participant participant to be saved
    * @return {Observable<R>}
    */
-  public saveParticipant(participant: Participant): Observable<Participant> {
+  public
+  saveParticipant(participant: Participant): Observable < Participant > {
     let data = participant.getData();
 
     return Observable.forkJoin(
@@ -98,7 +96,8 @@ export class ParticipantPersistenceService {
    * @param action action text
    * @return {ErrorObservable}
    */
-  private handleError(error: Response | any) {
+  private
+  handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

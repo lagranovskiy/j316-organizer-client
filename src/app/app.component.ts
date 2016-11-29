@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
+import {AppStoreService} from "./app-store.service";
 
 
 @Component({
@@ -9,8 +10,8 @@ import {Router} from "@angular/router";
 export class AppComponent {
 
 
-  constructor(private router: Router) {
-
+  constructor(private appStore: AppStoreService) {
+    appStore.loadData();
     console.info("Hey im AppComponent initialized")
   }
 

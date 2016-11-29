@@ -4,6 +4,8 @@ import {ParticipantRef} from "../../model/ParticipantRef";
 import {DienstPlan} from "../../model/DienstPlan";
 import {Participant} from "../../model/Participant";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
+import {List} from "immutable";
+import {AppStoreService} from "../../app-store.service";
 
 @Component({
   selector: 'app-plan-table',
@@ -15,21 +17,19 @@ export class PlanTableComponent implements OnInit {
   @Input()
   private plan: DienstPlan;
 
-  private personList: Array<Participant> = [];
+  private personList: List<Participant> = List<Participant>();
 
 
-  constructor(private personService: ParticipantPersistenceService) {
-    personService.fetchParticipants().subscribe(list => this.personList = list);
+  constructor(private appStoreService: AppStoreService) {
+    appStoreService.personList.subscribe(list => this.personList = list);
   }
 
-  getRelatedParticipant(rel: ParticipantRef): any {
-
-    let result = this.personList.filter((person)=>person.uuid == rel.participantUUID);
-    if (result.length > 0) {
-      return result[0];
+  getRelatedParticipant(rel: ParticipantRef) : Participant{
+    let result = this.personList.filter((person)=>person.uuid==rel.participantUUID);
+    if(result.size>0){
+      return result.first();
     }
     return null;
-
   }
 
   toggleVerfuegbarkeit(teilGruppe: DienstPlanTeilgruppe, dayIndex: number) {

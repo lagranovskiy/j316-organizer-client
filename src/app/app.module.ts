@@ -33,6 +33,7 @@ import { PlanNotificationProcessorComponent } from './plan/plan-notification-pro
 import { OrderByPipe } from './order-by.pipe';
 import { NotificationPresenterComponent } from './commons/notification-presenter/notification-presenter.component';
 import { NotificationSingleGroupPresenterComponent } from './commons/notification-single-group-presenter/notification-single-group-presenter.component';
+import {AppStoreService} from "./app-store.service";
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { NotificationSingleGroupPresenterComponent } from './commons/notificatio
     ParticipantPersistenceService,
     NotificationControlService,
     AddressPersistenceService,
+    AppStoreService,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [

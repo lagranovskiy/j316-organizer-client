@@ -4,6 +4,8 @@ import {Input} from "@angular/core/src/metadata/directives";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {Participant} from "../../model/Participant";
+import {AppStoreService} from "../../app-store.service";
+import {List} from "immutable";
 
 
 @Component({
@@ -16,10 +18,10 @@ export class GruppeEditorComponent implements OnInit {
   @Input()
   private model: DienstPlanGruppe;
 
-  private personList: Array<Participant> = [];
+  private personList: List<Participant> = List<Participant>();
 
-  constructor(private personService: ParticipantPersistenceService) {
-    this.personService.fetchParticipants().subscribe(personList => this.personList = personList);
+  constructor(private appStoreService: AppStoreService) {
+    this.appStoreService.personList.subscribe(personList => this.personList = personList);
   }
 
   addTeilgruppe() {

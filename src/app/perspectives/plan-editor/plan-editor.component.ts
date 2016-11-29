@@ -3,9 +3,10 @@ import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component";
 import {isUndefined} from "util";
-import {PlanPersistenceService} from "../../plan-persistence.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
+import {AppStoreService} from "../../app-store.service";
+import {List} from "immutable";
 
 
 @Component({
@@ -27,11 +28,10 @@ export class PlanEditorComponent implements OnInit {
   @ViewChild(NgForm)
   public planForm: NgForm;
 
-  constructor(private service: PlanPersistenceService,
+  constructor(private service: AppStoreService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
   }
-
 
 
   savePlan() {
@@ -68,9 +68,12 @@ export class PlanEditorComponent implements OnInit {
       let planUUID = params["uuid"];
 
       if (planUUID && planUUID != 'new') {
-        this.isPersistent=true;
-        this.service.fetchPlan(planUUID).subscribe(plan=> {
-          this.plan = plan;
+        this.isPersistent = true;
+        this.service.planList.subscribe((planList: List<DienstPlan>)=> {
+          let foundIndex = planList.findIndex(plan=>planUUID == plan.uuid);
+          if (foundIndex > -1) {
+            this.plan = planList.get(foundIndex);
+          }
         });
       }
     });

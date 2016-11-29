@@ -3,6 +3,8 @@ import {ParticipantRef} from "../../model/ParticipantRef";
 import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {Observable} from "rxjs";
 import {Participant} from "../../model/Participant";
+import {AppStoreService} from "../../app-store.service";
+import {List} from "immutable";
 
 @Component({
   selector: 'participant-ref-list-view',
@@ -13,18 +15,17 @@ export class ParticipantRefListViewComponent implements OnInit {
 
   @Input()
   private participants: Array<ParticipantRef>;
-  private personList : Array<Participant> = [];
 
+  private personList : List<Participant> = List<Participant>();
 
-
-  constructor(private personService: ParticipantPersistenceService) {
-    personService.fetchParticipants().subscribe(list => this.personList = list);
+  constructor(private appStoreService: AppStoreService) {
+    appStoreService.personList.subscribe(list => this.personList = list);
   }
 
   getRelatedParticipant(rel: ParticipantRef) : Participant{
     let result = this.personList.filter((person)=>person.uuid==rel.participantUUID);
-    if(result.length>0){
-      return result[0];
+    if(result.size>0){
+      return result.first();
     }
     return null;
   }

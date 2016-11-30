@@ -3,7 +3,7 @@
   "clean_urls": false,
   "proxies": {
     "/api/": {
-      "origin": "${BACKEND_URL}/"
+      "origin": "https://j316-organizer-backend.herokuapp.com/api/"
     }
   },
   "routes": {

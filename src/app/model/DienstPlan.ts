@@ -43,7 +43,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     smsText: 'Hallo am Samstag gehts los',
     emailText: 'Hallo am Samstag gehts los',
     emailSubject: 'Dienst am Samstag',
-    calEventName: ''
+    calEventName: 'Dienst'
   }) {
     super(data);
 

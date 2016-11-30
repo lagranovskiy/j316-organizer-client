@@ -1,19 +1,20 @@
 <nav class="light-blue lighten-1" role="navigation">
-  <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">J316-Organization</a>
-    <ul class="right hide-on-med-and-down">
-      <li routerLinkActive="active"> <a routerLink="person/all" >Teilnehmer</a></li>
-      <li routerLinkActive="active"><a routerLink="plans/" >Pläne</a></li>
+  <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"> <i class="material-icons">security</i> J316-Organization</a>
 
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Logout</a></li>
+    <ul class="right hide-on-med-and-down">
+      <li routerLinkActive="active"> <a routerLink="person/all" ><i class="material-icons">supervisor_account</i></a></li>
+      <li routerLinkActive="active"><a routerLink="plans/" ><i class="material-icons">chrome_reader_mode</i></a></li>
+
+      <li><a (click)="auth.login()"  *ngIf="!auth.authenticated()"><i class="material-icons">lock_open</i></a></li>
+      <li><a (click)="auth.logout()" *ngIf="auth.authenticated()" href="#"><i class="material-icons">lock</i></a></li>
     </ul>
 
     <ul id="nav-mobile" class="side-nav">
       <li routerLinkActive="active"><a routerLink="person/all" >Teilnehmer</a></li>
       <li routerLinkActive="active"><a routerLink="plans/" >Pläne</a></li>
 
-      <li><a href="#">Login</a></li>
-      <li><a href="#">Logout</a></li>
+      <li><a (click)="auth.login()"  *ngIf="!auth.authenticated()">Login</a></li>
+      <li><a (click)="auth.logout()" *ngIf="auth.authenticated()" href="#">Logout</a></li>
     </ul>
     <a materialize="sideNav" href="#" data-activates="nav-mobile" class="button-collapse"><i
       class="material-icons">menu</i></a>

@@ -9,7 +9,7 @@ import {AppConfig} from "../config/app.config";
 export class PlanPersistenceService {
 
   constructor(private http: Http, @Inject(APP_CONFIG) private config: AppConfig) {
-    console.info(config.apiEndpoint);
+    //console.info(config.apiEndpoint);
   }
 
   /**

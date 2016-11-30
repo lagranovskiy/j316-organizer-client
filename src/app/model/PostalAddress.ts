@@ -1,5 +1,5 @@
 import {J316Model} from "./J316Model";
-import {LocationBasedModel} from "./LocationBasedModel";
+import {LocationBasedModel} from "./interfaces/LocationBasedModel";
 
 
 export class PostalAddress extends J316Model implements LocationBasedModel {

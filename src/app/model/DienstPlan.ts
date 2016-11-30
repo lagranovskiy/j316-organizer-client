@@ -1,4 +1,4 @@
-import {DisplayableModel} from "./DisplayableModel";
+import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
 import {DienstPlanGruppe} from "./DienstPlanGruppe";
 import * as moment from "moment";

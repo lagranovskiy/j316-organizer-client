@@ -1,6 +1,6 @@
 import { DienstPlan } from '../../model/DienstPlan';
 import { PlanPersistenceService } from '../../plan-persistence.service';
-import { DisplayableModel } from '../../model/DisplayableModel';
+import { DisplayableModel } from '../../model/interfaces/DisplayableModel';
 import { DienstPlanGruppe } from '../../model/DienstPlanGruppe';
 import { NotificationEntry } from '../../model/NotificationEntry';
 import { NotificationControlService } from '../../notification-control-service.service';

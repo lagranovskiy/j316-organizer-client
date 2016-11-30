@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
-import {DisplayableModel} from "../../model/DisplayableModel";
+import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
 
 @Component({
   selector: 'view-card',

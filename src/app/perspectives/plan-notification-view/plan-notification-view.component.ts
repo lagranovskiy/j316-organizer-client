@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { PlanPersistenceService } from "../../plan-persistence.service";
 import { NotificationControlService } from "../../notification-control-service.service";
 import { NotificationEntry } from "../../model/NotificationEntry";
-import { DisplayableModel } from "../../model/DisplayableModel";
+import { DisplayableModel } from "../../model/interfaces/DisplayableModel";
 import { DienstPlanGruppe } from "../../model/DienstPlanGruppe";
 
 @Component({

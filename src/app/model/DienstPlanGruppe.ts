@@ -1,8 +1,8 @@
-import {DisplayableModel} from "./DisplayableModel";
+import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
 import {DienstPlanTeilgruppe} from "./DienstPlanTeilgruppe";
 import {PostalAddress} from "./PostalAddress";
-import {GeoMapDisplayable} from "./GeoMapDisplayable";
+import {GeoMapDisplayable} from "./interfaces/GeoMapDisplayable";
 
 
 export class DienstPlanGruppe extends J316Model implements DisplayableModel, GeoMapDisplayable {

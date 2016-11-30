@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {GeoMapDisplayable} from "../../model/GeoMapDisplayable";
+import {GeoMapDisplayable} from "../../model/interfaces/GeoMapDisplayable";
 
 @Component({
   selector: 'geo-map',

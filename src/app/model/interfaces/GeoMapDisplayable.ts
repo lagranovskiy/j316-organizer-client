@@ -1,4 +1,4 @@
-import {PostalAddress} from "./PostalAddress";
+import {PostalAddress} from "../PostalAddress";
 /**
  * Interface to display a point on the map
  */

@@ -1,7 +1,7 @@
-import {DisplayableModel} from "./DisplayableModel";
+import {DisplayableModel} from "./interfaces/DisplayableModel";
 import {J316Model} from "./J316Model";
 import {PostalAddress} from "./PostalAddress";
-import {GeoMapDisplayable} from "./GeoMapDisplayable";
+import {GeoMapDisplayable} from "./interfaces/GeoMapDisplayable";
 
 
 export class Participant extends J316Model implements DisplayableModel, GeoMapDisplayable {

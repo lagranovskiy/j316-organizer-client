@@ -37,6 +37,7 @@ import {AppStoreService} from "./app-store.service";
 import { PersonRefPipe } from './person-ref.pipe';
 import { ParticipantFlatPipe } from './participant-flat.pipe';
 import { GeoMapComponent } from './commons/geo-map/geo-map.component';
+import { TeilgruppeParticipantsEditorComponent } from './plan/teilgruppe-participants-editor/teilgruppe-participants-editor.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { GeoMapComponent } from './commons/geo-map/geo-map.component';
     NotificationSingleGroupPresenterComponent,
     PersonRefPipe,
     ParticipantFlatPipe,
-    GeoMapComponent
+    GeoMapComponent,
+    TeilgruppeParticipantsEditorComponent
   ],
   providers: [
     PlanPersistenceService,

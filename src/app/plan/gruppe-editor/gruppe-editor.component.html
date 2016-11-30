@@ -30,18 +30,7 @@
       <div class="card">
         <div class="card-content">
           <h5>Gruppe {{i+1}}</h5>
-          <div class="input-field">
-            <select [(ngModel)]="teilgruppe.participantsArray"
-                    name="teilgruppenSelect{{i}}"
-                    multiple
-                    [materializeSelectOptions]="personList"
-                    materialize="material_select">
-              <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
-            </select>
-          </div>
-
-          <!-- Display participant core information -->
-          <participant-ref-list-view [participants]="teilgruppe.participants"></participant-ref-list-view>
+          <teilgruppe-participants-editor [model]="teilgruppe"></teilgruppe-participants-editor>
 
         </div>
         <div class="card-action">

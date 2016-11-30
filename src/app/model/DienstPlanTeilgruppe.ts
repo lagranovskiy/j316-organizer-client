@@ -4,8 +4,6 @@ import {ParticipantRef} from "./ParticipantRef";
 
 export class DienstPlanTeilgruppe extends J316Model {
 
-  private participantArray: Array<string> = [];
-
   constructor(data: any = {
     uuid: '',
     participants: [],
@@ -14,10 +12,6 @@ export class DienstPlanTeilgruppe extends J316Model {
   }) {
     super(data);
     if (this.data.participants) {
-
-      // Workaround for multiselect initialization
-      this.participantArray = this.data.participants.map(participant=> participant.participantUUID);
-
       this.data.participants = this.data.participants.map(participant=> new ParticipantRef(participant));
     }
   }
@@ -26,21 +20,9 @@ export class DienstPlanTeilgruppe extends J316Model {
     return this.data.participants;
   }
 
-  /**
-   * This is a wrapper to loose couple participant and dienstplan
-   * @returns {(string|any|string)[]}
-   */
-  get participantsArray(): Array<string> {
 
-    return this.participantArray;
-    //this.data.participants.every(participantRef => retVal.push(participantRef.participantUID));
-    //return retVal;
-  }
-
-  set participantsArray(refList: Array<string>) {
-    this.participantArray = refList;
-    this.data.participants = [];
-    this.data.participants = refList.map(refId => new ParticipantRef({participantUUID: refId}));
+  set participants(newArray: Array<ParticipantRef>) {
+    this.data.participants = newArray;
   }
 
 

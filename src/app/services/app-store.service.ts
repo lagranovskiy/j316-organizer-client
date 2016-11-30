@@ -23,6 +23,8 @@ export class AppStoreService {
       if (res.authentication == false) {
         this._personList.next(List<Participant>());
         this._planList.next(List<DienstPlan>());
+      } else {
+        this.loadData();
       }
     })
   }

@@ -1,6 +1,11 @@
 {
   "root": "dist/",
-  "clean_urls": true,
+  "clean_urls": false,
+  "proxies": {
+    "/api/": {
+      "origin": "https://j316-organizer-backend.herokuapp.com/"
+    }
+  },
   "routes": {
     "/**": "index.html"
   }

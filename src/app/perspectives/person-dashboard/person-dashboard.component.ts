@@ -31,6 +31,6 @@ export class PersonDashboardComponent implements OnInit {
   }
 
   removePerson(participant: Participant) {
-    this.service.removeParticipant(participant.uuid).subscribe();
+    this.service.removeParticipant(participant).subscribe();
   }
 }

@@ -1,15 +1,15 @@
 <div class="input-field">
 
-  <select [(ngModel)]="participantArray"
+  <select [(ngModel)]="participants"
           name="teilgruppenSelect"
           multiple
           [materializeSelectOptions]="personList"
           #teilgruppenSelect
-          (ngModelChange)="besetzungChanged($event)"
+
           materialize="material_select">
     <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
   </select>
 </div>
 
 <!-- Display participant core information -->
-<participant-ref-list-view [participants]="_model?.participants"></participant-ref-list-view>
+<participant-ref-list-view [participants]="model?.participants"></participant-ref-list-view>

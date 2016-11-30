@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {DienstPlanTeilgruppe} from "./model/DienstPlanTeilgruppe";
-import {ParticipantRef} from "./model/ParticipantRef";
+import {DienstPlanTeilgruppe} from "../model/DienstPlanTeilgruppe";
+import {ParticipantRef} from "../model/ParticipantRef";
 
 @Pipe({
   name: 'participantFlat',

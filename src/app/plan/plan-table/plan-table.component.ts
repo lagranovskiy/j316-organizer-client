@@ -1,11 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {ParticipantPersistenceService} from "../../participant-persistence.service";
-import {ParticipantRef} from "../../model/ParticipantRef";
 import {DienstPlan} from "../../model/DienstPlan";
-import {Participant} from "../../model/Participant";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
-import {List} from "immutable";
-import {AppStoreService} from "../../app-store.service";
 
 @Component({
   selector: 'app-plan-table',

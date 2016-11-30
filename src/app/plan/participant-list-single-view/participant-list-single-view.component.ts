@@ -1,6 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Participant} from "../../model/Participant";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'participant-list-single-view',

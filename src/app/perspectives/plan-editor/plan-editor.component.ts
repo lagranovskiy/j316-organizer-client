@@ -5,7 +5,7 @@ import {GruppeViewComponent} from "../../plan/gruppe-view/gruppe-view.component"
 import {isUndefined} from "util";
 import {Router, ActivatedRoute} from "@angular/router";
 import {NgForm} from "@angular/forms";
-import {AppStoreService} from "../../app-store.service";
+import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
 
 

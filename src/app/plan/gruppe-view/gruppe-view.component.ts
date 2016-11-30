@@ -1,8 +1,5 @@
 import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
-import {AppStoreService} from "../../app-store.service";
-import {Participant} from "../../model/Participant";
-import {List} from "immutable";
 
 @Component({
   selector: 'gruppe-view',

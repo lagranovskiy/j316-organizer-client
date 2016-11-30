@@ -1,7 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {Participant} from "../../model/Participant";
-import {ParticipantPersistenceService} from "../../participant-persistence.service";
 import {Router} from "@angular/router";
+import {ParticipantPersistenceService} from '../../services/participant-persistence.service'
+import {AppStoreService} from "../../services/app-store.service";
+import {List} from "immutable";
 
 @Component({
   selector: 'app-person-dashboard',
@@ -10,19 +12,14 @@ import {Router} from "@angular/router";
 })
 export class PersonDashboardComponent implements OnInit {
 
-  private personList: Array<Participant>;
+  private personList: List<Participant> = List<Participant>();
 
-  constructor(private service: ParticipantPersistenceService, private router: Router) {
-
+  constructor(private service: AppStoreService, private router: Router) {
+    service.personList.subscribe(personList => this.personList=personList);
   }
 
 
   ngOnInit() {
-    this.refreshParticipants();
-  }
-
-  refreshParticipants() {
-    this.service.fetchParticipants().subscribe(result => this.personList = result);
   }
 
   createNewParticipant() {
@@ -34,6 +31,6 @@ export class PersonDashboardComponent implements OnInit {
   }
 
   removePerson(participant: Participant) {
-    this.service.removeParticipant(participant.uuid).subscribe(result => this.refreshParticipants());
+    this.service.removeParticipant(participant.uuid).subscribe();
   }
 }

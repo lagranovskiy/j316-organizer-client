@@ -1,9 +1,9 @@
 import {Injectable, Inject} from "@angular/core";
-import {DienstPlan} from "./model/DienstPlan";
+import {DienstPlan} from "../model/DienstPlan";
 import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs";
-import {APP_CONFIG} from "./config/const";
-import {AppConfig} from "./config/app.config";
+import {APP_CONFIG} from "../config/const";
+import {AppConfig} from "../config/app.config";
 
 @Injectable()
 export class PlanPersistenceService {

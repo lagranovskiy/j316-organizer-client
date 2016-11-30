@@ -1,8 +1,8 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {ParticipantRef} from "./model/ParticipantRef";
-import {Participant} from "./model/Participant";
+import {ParticipantRef} from "../model/ParticipantRef";
+import {Participant} from "../model/Participant";
 import {List} from "immutable";
-import {AppStoreService} from "./app-store.service";
+import {AppStoreService} from "../services/app-store.service";
 
 @Pipe({
   name: 'personRef',

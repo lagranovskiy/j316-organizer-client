@@ -8,8 +8,8 @@ import {MaterializeDirective} from "angular2-materialize";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
 
-import {ParticipantPersistenceService} from "./participant-persistence.service";
-import {NotificationControlService} from "./notification-control-service.service";
+import {ParticipantPersistenceService} from "./services/participant-persistence.service";
+import {NotificationControlService} from "./services/notification-control-service.service";
 import {AddressPersistenceService} from "./address-persistence.service";
 
 import {ViewCardComponent} from "./commons/view-card/view-card.component";
@@ -25,7 +25,7 @@ import {GruppeViewComponent} from "./plan/gruppe-view/gruppe-view.component";
 import {GruppeEditorComponent} from "./plan/gruppe-editor/gruppe-editor.component";
 import {ParticipantRefListViewComponent} from "./plan/participant-ref-list-view/participant-ref-list-view.component";
 import {ParticipantListSingleViewComponent} from "./plan/participant-list-single-view/participant-list-single-view.component";
-import {PlanPersistenceService} from "./plan-persistence.service";
+import {PlanPersistenceService} from "./services/plan-persistence.service";
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import { AddressEditorComponent } from './commons/address-editor/address-editor.component';
 import { PlanNavigationToolbarComponent } from './plan/plan-navigation-toolbar/plan-navigation-toolbar.component';
@@ -33,9 +33,9 @@ import { PlanNotificationProcessorComponent } from './plan/plan-notification-pro
 import { OrderByPipe } from './order-by.pipe';
 import { NotificationPresenterComponent } from './commons/notification-presenter/notification-presenter.component';
 import { NotificationSingleGroupPresenterComponent } from './commons/notification-single-group-presenter/notification-single-group-presenter.component';
-import {AppStoreService} from "./app-store.service";
-import { PersonRefPipe } from './person-ref.pipe';
-import { ParticipantFlatPipe } from './participant-flat.pipe';
+import {AppStoreService} from "./services/app-store.service";
+import { PersonRefPipe } from './pipes/person-ref.pipe';
+import { ParticipantFlatPipe } from './pipes/participant-flat.pipe';
 import { GeoMapComponent } from './commons/geo-map/geo-map.component';
 import { TeilgruppeParticipantsEditorComponent } from './plan/teilgruppe-participants-editor/teilgruppe-participants-editor.component';
 

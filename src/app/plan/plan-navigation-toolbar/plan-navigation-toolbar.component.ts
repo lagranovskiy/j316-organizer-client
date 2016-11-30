@@ -1,6 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
-import {NotificationControlService} from "../../notification-control-service.service";
-import {NotificationEntry} from "../../model/NotificationEntry";
 
 
 @Component({

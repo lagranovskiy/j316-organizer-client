@@ -1,4 +1,4 @@
-import { Component, group, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component,  OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotificationEntry } from '../../model/NotificationEntry';
 
 

@@ -2,12 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {Input} from "@angular/core/src/metadata/directives";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
-import {ParticipantPersistenceService} from "../../participant-persistence.service";
-import {Participant} from "../../model/Participant";
-import {AppStoreService} from "../../app-store.service";
-import {List} from "immutable";
-import {ParticipantRef} from "../../model/ParticipantRef";
-
 
 @Component({
   selector: 'gruppe-editor',

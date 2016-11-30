@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { DienstPlan } from "../../model/DienstPlan";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PlanPersistenceService } from "../../plan-persistence.service";
-import { NotificationControlService } from "../../notification-control-service.service";
-import { NotificationEntry } from "../../model/NotificationEntry";
-import { DisplayableModel } from "../../model/interfaces/DisplayableModel";
-import { DienstPlanGruppe } from "../../model/DienstPlanGruppe";
+import {Component, OnInit} from "@angular/core";
+import {DienstPlan} from "../../model/DienstPlan";
+import {ActivatedRoute, Router} from "@angular/router";
+import {NotificationControlService} from "../../services/notification-control-service.service";
+import {NotificationEntry} from "../../model/NotificationEntry";
+import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
+import {AppStoreService} from "../../services/app-store.service";
+import {List} from "immutable";
 
 @Component({
   selector: 'app-plan-notification-view',
@@ -14,19 +15,30 @@ import { DienstPlanGruppe } from "../../model/DienstPlanGruppe";
 })
 export class PlanNotificationViewComponent implements OnInit {
 
-  plan: DienstPlan = new DienstPlan();
-  notifications: Array<NotificationEntry> = [];
+  private planUUID: string;
+
+  private plan: DienstPlan = new DienstPlan();
+  private notifications: Array<NotificationEntry> = [];
   private isPersistent = false;
   private paramsSub;
 
-  groups = [];
-  notificationGroups = {};
 
+  constructor(private service: AppStoreService,
+              private notificationService: NotificationControlService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
-  constructor(private service: PlanPersistenceService,
-    private notificationService: NotificationControlService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
+      this.planUUID = params["uuid"];
+    });
+
+    this.service.planList.subscribe((planList: List<DienstPlan>)=> {
+      let foundIndex = planList.findIndex(plan=>this.planUUID == plan.uuid);
+      if (foundIndex > -1) {
+        this.plan = planList.get(foundIndex);
+        this.isPersistent = true;
+      }
+    });
   }
 
 
@@ -34,21 +46,6 @@ export class PlanNotificationViewComponent implements OnInit {
     this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}/notification`]));
   }
 
-  ngOnInit() {
-    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
-      let planUUID = params["uuid"];
-
-      if (planUUID && planUUID != 'new') {
-        this.isPersistent = true;
-
-        this.service.fetchPlan(planUUID).subscribe(plan => {
-          this.plan = plan;
-          this.refreshNotifications();
-        });
-
-      }
-    });
-  }
 
   removePlan() {
     this.service.removePlan(this.plan.uuid).subscribe(() => this.navDashboard());
@@ -83,11 +80,11 @@ export class PlanNotificationViewComponent implements OnInit {
     return (notification: NotificationEntry): DisplayableModel => {
       let personUUID = notification.recipientUUID;
       return <DisplayableModel>
-        {
-          uuid: personUUID,
-          getDescription: () => null,
-          getTitle: () => notification.recipient
-        }
+      {
+        uuid: personUUID,
+        getDescription: () => null,
+        getTitle: () => notification.recipient
+      }
     }
 
   }
@@ -98,7 +95,7 @@ export class PlanNotificationViewComponent implements OnInit {
   groupNotifcationRemove(data: { group1UUID: string, group2UUID: string }) {
     console.info("Removing: " + data.group1UUID + "   " + data.group2UUID);
 
-    if (data.group1UUID != null && data.group2UUID==null) {
+    if (data.group1UUID != null && data.group2UUID == null) {
       // Remove all notifications of group
       this.notificationService.cancelGroupNotifications(data.group1UUID).subscribe(() => this.refreshNotifications());
     } else {
@@ -109,6 +106,10 @@ export class PlanNotificationViewComponent implements OnInit {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
+  }
+
+  ngOnInit() {
+
   }
 
 }

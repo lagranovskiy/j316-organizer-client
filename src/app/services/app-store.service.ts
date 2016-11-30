@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
-import {Participant} from "./model/Participant";
-import {DienstPlan} from "./model/DienstPlan";
+import {Participant} from "../model/Participant";
+import {DienstPlan} from "../model/DienstPlan";
 import {Observable, BehaviorSubject} from "rxjs";
 import {List} from "immutable";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
@@ -22,10 +22,6 @@ export class AppStoreService {
   public loadData() {
     this.participantService.fetchParticipants().subscribe(participants=>this._personList.next(List<Participant>(participants)));
     this.planService.fetchPlans().subscribe(plans=>this._planList.next(List<DienstPlan>(plans)));
-  }
-
-  public test(){
-    this._planList.next(this._planList.getValue());
   }
 
   public savePlan(plan: DienstPlan) {

@@ -19,7 +19,7 @@ export class NotificationPresenterComponent implements OnInit, OnChanges {
   private groupByFuncList: Array<(e: NotificationEntry) => DisplayableModel> = [];
 
   @Output()
-  private groupRemoveClicked: EventEmitter<{ group1UUID: string, group2UUID: string }> = new EventEmitter<{ group1UUID: string, group2UUID: string }>();;
+  private groupRemoveClicked: EventEmitter<{ group1UUID: string, group2UUID: string }> = new EventEmitter<{ group1UUID: string, group2UUID: string }>();
 
   private groupedResult = {};
 

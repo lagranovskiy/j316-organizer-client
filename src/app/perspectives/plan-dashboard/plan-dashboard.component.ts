@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {PlanPersistenceService} from "../../plan-persistence.service";
 import {DienstPlan} from "../../model/DienstPlan";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {AppStoreService} from "../../app-store.service";
+import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
 
 

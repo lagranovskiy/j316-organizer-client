@@ -1,13 +1,13 @@
 import { DienstPlan } from '../../model/DienstPlan';
-import { PlanPersistenceService } from '../../plan-persistence.service';
+import { PlanPersistenceService } from '../../services/plan-persistence.service';
 import { DisplayableModel } from '../../model/interfaces/DisplayableModel';
-import { DienstPlanGruppe } from '../../model/DienstPlanGruppe';
 import { NotificationEntry } from '../../model/NotificationEntry';
-import { NotificationControlService } from '../../notification-control-service.service';
-import { ParticipantPersistenceService } from '../../participant-persistence.service';
+import { NotificationControlService } from '../../services/notification-control-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Participant } from '../../model/Participant';
 import { Router, ActivatedRoute } from '@angular/router';
+import {AppStoreService} from "../../services/app-store.service";
+import {List} from "immutable";
 
 @Component({
   selector: 'app-person-editor',
@@ -17,18 +17,33 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PersonEditorComponent implements OnInit {
 
   private person: Participant = new Participant();
+  private personUUID: string;
+  private isPersistent:boolean = false;
 
   notifications: Array<NotificationEntry> = [];
 
-  private existingPlans: Array<DienstPlan> = [];
+  private existingPlans: List<DienstPlan> = List<DienstPlan>();
 
   private paramsSub;
 
-  constructor(private service: ParticipantPersistenceService,
+  constructor(private service: AppStoreService,
     private notificationService: NotificationControlService,
-    private planService: PlanPersistenceService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
+
+    this.service.planList.subscribe(plans => this.existingPlans = plans);
+
+    this.paramsSub = this.activatedRoute.params.subscribe(params => {
+      this.personUUID = params["uuid"];
+    });
+
+    this.service.personList.subscribe((personList: List<Participant>)=> {
+      let foundIndex = personList.findIndex(person=>this.personUUID == person.uuid);
+      if (foundIndex > -1) {
+        this.person = personList.get(foundIndex);
+        this.isPersistent = true;
+      }
+    });
 
   }
 
@@ -38,22 +53,11 @@ export class PersonEditorComponent implements OnInit {
   }
 
   saveChanges() {
-    this.service.saveParticipant(this.person).subscribe(saved => this.person = saved);
+    this.service.saveParticipant(this.person).subscribe();
   }
 
   ngOnInit() {
-    this.planService.fetchPlans().subscribe(plans => this.existingPlans = plans);
 
-    this.paramsSub = this.activatedRoute.params.subscribe(params => {
-      let personUUID = params["uuid"];
-
-      if (personUUID) {
-        this.service.fetchParticipant(personUUID).subscribe(person => {
-          this.person = person;
-          this.refreshNotifications()
-        });
-      }
-    });
   }
 
   /**
@@ -74,7 +78,7 @@ export class PersonEditorComponent implements OnInit {
 
       let planUUID = notification.category[0];
       let foundPlans = _me.existingPlans.filter(plan => plan.uuid === planUUID);
-      if (foundPlans.length == 0) {
+      if (foundPlans.size == 0) {
         console.error('Illegal State.. Notifications for non existent plan found. removed?');
         return null;
       }
@@ -83,7 +87,7 @@ export class PersonEditorComponent implements OnInit {
         {
           uuid: planUUID,
           getDescription: () => null,
-          getTitle: () => foundPlans[0].planName
+          getTitle: () => foundPlans.first().planName
         }
 
     }

@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
-import {Router} from "@angular/router";
-import {AppStoreService} from "./app-store.service";
+import {AppStoreService} from "./services/app-store.service";
 
 
 @Component({
@@ -12,7 +11,7 @@ export class AppComponent {
 
   constructor(private appStore: AppStoreService) {
     appStore.loadData();
-    console.info("Hey im AppComponent initialized")
+    console.info("Hey im J316 Organizer and was initialized")
   }
 
 

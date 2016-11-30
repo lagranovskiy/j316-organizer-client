@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Participant} from "./model/Participant";
+import {Participant} from "../model/Participant";
 import {Observable} from "rxjs";
 import {Http, Response} from "@angular/http";
-import {PostalAddress} from "./model/PostalAddress";
-import {AddressPersistenceService} from "./address-persistence.service";
+import {PostalAddress} from "../model/PostalAddress";
+import {AddressPersistenceService} from "../address-persistence.service";
 
 @Injectable()
 export class ParticipantPersistenceService {

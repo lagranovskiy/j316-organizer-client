@@ -12,17 +12,15 @@
       <tbody>
       <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
         <td data-field="participants">
-          <div class="chip" *ngFor="let participantRef of teilgruppe.participants">
+          <div *ngFor="let participantRef of teilgruppe.participants">
             {{ getRelatedParticipant(participantRef)?.getTitle()}}
           </div>
         </td>
         <td *ngFor="let besetzt of teilgruppe.besetzung">
           <div class="center-align" *ngIf="besetzt">
-            X
+            <input class="center-align" value="X">
           </div>
         </td>
-
-
       </tr>
 
       </tbody>

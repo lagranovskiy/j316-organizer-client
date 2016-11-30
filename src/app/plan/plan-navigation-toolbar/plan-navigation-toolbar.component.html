@@ -17,7 +17,7 @@
 <ul id="slide-out" class="side-nav">
   <li><a href="#!" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">border_color</i>Druckeinstellungen</a>
   </li>
-  <li><a href="#!" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">print</i>Drucken</a></li>
+  <li><a class="c-pointer" (click)="navPrint()" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">print</i>Drucken</a></li>
 
   <li>
     <div class="divider"></div>

@@ -17,20 +17,6 @@ export class PlanTableComponent implements OnInit {
   @Input()
   private plan: DienstPlan;
 
-  private personList: List<Participant> = List<Participant>();
-
-
-  constructor(private appStoreService: AppStoreService) {
-    appStoreService.personList.subscribe(list => this.personList = list);
-  }
-
-  getRelatedParticipant(rel: ParticipantRef) : Participant{
-    let result = this.personList.filter((person)=>person.uuid==rel.participantUUID);
-    if(result.size>0){
-      return result.first();
-    }
-    return null;
-  }
 
   toggleVerfuegbarkeit(teilGruppe: DienstPlanTeilgruppe, dayIndex: number) {
     if (teilGruppe.verfuegbarkeit[dayIndex] === undefined) {

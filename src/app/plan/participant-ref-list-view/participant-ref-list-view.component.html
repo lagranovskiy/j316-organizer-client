@@ -1,6 +1,6 @@
 <ul class="collection">
   <!-- Display participant core information -->
-  <li class="collection-item avatar" *ngFor="let participantRef of participants">
-    <participant-list-single-view [participant]="getRelatedParticipant(participantRef)"></participant-list-single-view>
+  <li class="collection-item avatar" *ngFor="let participant of participants | personRef">
+    <participant-list-single-view [participant]="participant"></participant-list-single-view>
   </li>
 </ul>

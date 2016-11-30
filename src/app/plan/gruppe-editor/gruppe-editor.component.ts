@@ -6,6 +6,7 @@ import {ParticipantPersistenceService} from "../../participant-persistence.servi
 import {Participant} from "../../model/Participant";
 import {AppStoreService} from "../../app-store.service";
 import {List} from "immutable";
+import {ParticipantRef} from "../../model/ParticipantRef";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class GruppeEditorComponent implements OnInit {
   removeTeilgruppe(teilgruppe: DienstPlanTeilgruppe) {
     this.model.sections.splice(this.model.sections.indexOf(teilgruppe), 1);
   }
+
 
   ngOnInit() {
   }

@@ -1,0 +1,27 @@
+<sebm-google-map [latitude]="circleLocation.address.latitude" [longitude]="circleLocation.address.longitude"
+                 [zoom]="10"
+                 [disableDefaultUI]="false"
+                 [zoomControl]="true">
+
+  <sebm-google-map-marker
+    *ngFor="let location of markerLocations"
+    [latitude]="location.address.latitude"
+    [longitude]="location.address.longitude"
+    [label]="location.getTitle()"
+    [markerDraggable]="false">
+
+    <sebm-google-map-info-window>
+      <strong>{{location.getTitle()}} {{location.getDescription()}} </strong>
+    </sebm-google-map-info-window>
+
+  </sebm-google-map-marker>
+  <sebm-google-map-circle [latitude]="circleLocation?.address.latitude" [longitude]="circleLocation?.address.longitude"
+                          [radius]="circleRadius"
+                          [fillColor]="'green'"
+                          [circleDraggable]="false"
+                          [editable]="false"></sebm-google-map-circle>
+  <sebm-google-map-marker [latitude]="circleLocation?.address.latitude"
+                          [iconUrl]="'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'"
+                          [longitude]="circleLocation?.address.longitude"
+                          [label]="circleLocation?.name"></sebm-google-map-marker>
+</sebm-google-map>

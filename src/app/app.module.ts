@@ -34,6 +34,9 @@ import { OrderByPipe } from './order-by.pipe';
 import { NotificationPresenterComponent } from './commons/notification-presenter/notification-presenter.component';
 import { NotificationSingleGroupPresenterComponent } from './commons/notification-single-group-presenter/notification-single-group-presenter.component';
 import {AppStoreService} from "./app-store.service";
+import { PersonRefPipe } from './person-ref.pipe';
+import { ParticipantFlatPipe } from './participant-flat.pipe';
+import { GeoMapComponent } from './commons/geo-map/geo-map.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import {AppStoreService} from "./app-store.service";
     PlanNotificationProcessorComponent,
     OrderByPipe,
     NotificationPresenterComponent,
-    NotificationSingleGroupPresenterComponent
+    NotificationSingleGroupPresenterComponent,
+    PersonRefPipe,
+    ParticipantFlatPipe,
+    GeoMapComponent
   ],
   providers: [
     PlanPersistenceService,

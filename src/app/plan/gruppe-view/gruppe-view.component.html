@@ -13,9 +13,10 @@
               <p>{{model.comment}}</p>
             </div>
             <div class="col s7" *ngIf="model.address.latitude">
-              <sebm-google-map [latitude]="model.address.latitude" [longitude]="model.address.longitude">
-                <sebm-google-map-marker [latitude]="model.address.latitude" [longitude]="model.address.longitude"></sebm-google-map-marker>
-              </sebm-google-map>
+
+              <geo-map [circleLocation]="model"
+                       [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
+             
             </div>
           </div>
           <div class="row">

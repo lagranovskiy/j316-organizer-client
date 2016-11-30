@@ -1,9 +1,10 @@
 import {DisplayableModel} from "./DisplayableModel";
 import {J316Model} from "./J316Model";
 import {PostalAddress} from "./PostalAddress";
+import {GeoMapDisplayable} from "./GeoMapDisplayable";
 
 
-export class Participant extends J316Model implements DisplayableModel {
+export class Participant extends J316Model implements DisplayableModel, GeoMapDisplayable {
 
   constructor(data: any = {
     uuid: '',

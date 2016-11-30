@@ -11,15 +11,45 @@ export class ParticipantPersistenceService {
   constructor(private http: Http, private addressService: AddressPersistenceService) {
   }
 
+  /*
+   /!**
+   * Fetches all participants from server
+   *!/
+   public fetchParticipants(): Observable<Participant[]> {
+   let retVal = this.http.get('/api/person')
+   .map(response => response.json())
+   .map(personJSON => {
+   return personJSON.map(personData => new Participant(personData));
+   });
+   return retVal;
+   }*/
+
+
   /**
    * Fetches all participants from server
    */
   public fetchParticipants(): Observable<Participant[]> {
     let retVal = this.http.get('/api/person')
       .map(response => response.json())
-      .map(personJSON => {
-        return personJSON.map(personData => new Participant(personData));
+      .map(personJSON => personJSON.map(personData => new Participant(personData)))
+      .map((participants: Array<Participant>)=> {
+        participants.forEach(participant=> {
+          this.http.get(`/api/person/${participant.uuid}/address`)
+            .map((addressArrayData: Response) => {
+              let addressDataList = addressArrayData.json();
+              if (addressDataList.length > 0) {
+                if (addressDataList.length > 1) {
+                  console.error('More then one address configured for participant. Actually not supported. We take the first one');
+                }
+
+                participant.address = new PostalAddress(addressDataList[0].ref);
+              }
+              return participant;
+            }).subscribe();
+        })
+        return participants;
       });
+
     return retVal;
   }
 

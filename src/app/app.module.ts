@@ -40,6 +40,7 @@ import { ParticipantFlatPipe } from './pipes/participant-flat.pipe';
 import { GeoMapComponent } from './commons/geo-map/geo-map.component';
 import { TeilgruppeParticipantsEditorComponent } from './plan/teilgruppe-participants-editor/teilgruppe-participants-editor.component';
 import {AuthService} from "./services/auth-service.service";
+import {AuthGuardService} from "./services/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import {AuthService} from "./services/auth-service.service";
     AddressPersistenceService,
     AppStoreService,
     AuthService,
+    AuthGuardService,
     AUTH_PROVIDERS,
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],

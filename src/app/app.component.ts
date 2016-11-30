@@ -11,7 +11,9 @@ export class AppComponent {
 
 
   constructor(private appStore: AppStoreService, private auth: AuthService) {
-    appStore.loadData();
+    if(auth.authenticated()){
+      appStore.loadData();
+    }
     console.info("Hey im J316 Organizer and was initialized")
   }
 

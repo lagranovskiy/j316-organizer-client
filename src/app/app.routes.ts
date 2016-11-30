@@ -5,21 +5,25 @@ import {PersonDashboardComponent} from "./perspectives/person-dashboard/person-d
 import {PersonEditorComponent} from "./perspectives/person-editor/person-editor.component";
 import {PlanNotificationViewComponent} from "./perspectives/plan-notification-view/plan-notification-view.component";
 import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
+import {AuthGuardService} from "./services/auth-guard.service";
 
 const routes: Routes = [
   {
     component: PlanDashboardComponent,
     path: ''
   },
+
   {
     component: PlanDashboardComponent,
-    path: 'plans'
+    path: 'plans',
+    canActivate: [AuthGuardService]
   },
 
 
   {
     component: PlanViewComponent,
     path: 'plan/:uuid',
+    canActivate: [AuthGuardService],
     children: [
       {path: '', redirectTo: 'edit', pathMatch: 'full'},
       {path: 'notification', component: PlanNotificationViewComponent},
@@ -30,15 +34,18 @@ const routes: Routes = [
 
   {
     component: PersonDashboardComponent,
-    path: 'person/all'
+    path: 'person/all',
+    canActivate: [AuthGuardService]
   },
   {
     component: PersonEditorComponent,
-    path: 'person'
+    path: 'person',
+    canActivate: [AuthGuardService]
   },
   {
     component: PersonEditorComponent,
-    path: 'person/:uuid'
+    path: 'person/:uuid',
+    canActivate: [AuthGuardService]
   }
 
 ];

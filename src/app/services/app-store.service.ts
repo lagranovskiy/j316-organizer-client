@@ -5,6 +5,7 @@ import {Observable, BehaviorSubject} from "rxjs";
 import {List} from "immutable";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
 import {PlanPersistenceService} from "./plan-persistence.service";
+import {AuthService} from "./auth-service.service";
 
 @Injectable()
 export class AppStoreService {
@@ -16,7 +17,14 @@ export class AppStoreService {
   public planList: Observable<List<DienstPlan>> = this._planList.asObservable();
 
   constructor(private participantService: ParticipantPersistenceService,
-              private planService: PlanPersistenceService) {
+              private planService: PlanPersistenceService, private auth: AuthService) {
+    auth.authEvent.subscribe(res => {
+      // Remove stored data if no authentication
+      if (res.authentication == false) {
+        this._personList.next(List<Participant>());
+        this._planList.next(List<DienstPlan>());
+      }
+    })
   }
 
   public loadData() {

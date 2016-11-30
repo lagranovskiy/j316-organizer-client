@@ -19,12 +19,6 @@ export class GruppeEditorComponent implements OnInit {
   @Input()
   private model: DienstPlanGruppe;
 
-  private personList: List<Participant> = List<Participant>();
-
-  constructor(private appStoreService: AppStoreService) {
-    this.appStoreService.personList.subscribe(personList => this.personList = personList);
-  }
-
   addTeilgruppe() {
     this.model.sections.push(new DienstPlanTeilgruppe());
   }
@@ -33,6 +27,7 @@ export class GruppeEditorComponent implements OnInit {
     this.model.sections.splice(this.model.sections.indexOf(teilgruppe), 1);
   }
 
+  teilgruppeChanged(){}
 
   ngOnInit() {
   }

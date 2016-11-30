@@ -30,7 +30,7 @@
       <div class="card">
         <div class="card-content">
           <h5>Gruppe {{i+1}}</h5>
-          <teilgruppe-participants-editor [model]="teilgruppe"></teilgruppe-participants-editor>
+          <teilgruppe-participants-editor [model]="teilgruppe" (participantsChanged)="teilgruppeChanged"></teilgruppe-participants-editor>
 
         </div>
         <div class="card-action">

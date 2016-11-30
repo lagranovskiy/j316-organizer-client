@@ -24,6 +24,9 @@ export class AppStoreService {
     this.planService.fetchPlans().subscribe(plans=>this._planList.next(List<DienstPlan>(plans)));
   }
 
+  public test(){
+    this._planList.next(this._planList.getValue());
+  }
 
   public savePlan(plan: DienstPlan) {
     return this.planService.savePlan(plan).map(savedPlan => {

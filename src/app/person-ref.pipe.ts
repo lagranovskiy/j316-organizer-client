@@ -5,7 +5,8 @@ import {List} from "immutable";
 import {AppStoreService} from "./app-store.service";
 
 @Pipe({
-  name: 'personRef'
+  name: 'personRef',
+  pure: false
 })
 export class PersonRefPipe implements PipeTransform {
 

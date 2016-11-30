@@ -3,7 +3,8 @@ import {DienstPlanTeilgruppe} from "./model/DienstPlanTeilgruppe";
 import {ParticipantRef} from "./model/ParticipantRef";
 
 @Pipe({
-  name: 'participantFlat'
+  name: 'participantFlat',
+  pure: false
 })
 export class ParticipantFlatPipe implements PipeTransform {
 

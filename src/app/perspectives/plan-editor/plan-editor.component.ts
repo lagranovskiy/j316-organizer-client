@@ -16,7 +16,7 @@ import {List} from "immutable";
 })
 export class PlanEditorComponent implements OnInit {
 
-
+  private planUUID: string;
   private plan: DienstPlan = new DienstPlan();
   private isPersistent = false;
 
@@ -31,6 +31,18 @@ export class PlanEditorComponent implements OnInit {
   constructor(private service: AppStoreService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {
+
+    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
+      this.planUUID = params["uuid"];
+    });
+
+    this.service.planList.subscribe((planList: List<DienstPlan>)=> {
+      let foundIndex = planList.findIndex(plan=>this.planUUID == plan.uuid);
+      if (foundIndex > -1) {
+        this.plan = planList.get(foundIndex);
+        this.isPersistent = true;
+      }
+    });
   }
 
 
@@ -38,7 +50,6 @@ export class PlanEditorComponent implements OnInit {
     this.groupViews.toArray().forEach(view=>view.stopEditing());
     this.completeBesetzungArrays();
     this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}`]));
-
   }
 
   addDienstPlanGruppe() {
@@ -64,19 +75,7 @@ export class PlanEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paramsSub = this.activatedRoute.parent.params.subscribe(params => {
-      let planUUID = params["uuid"];
 
-      if (planUUID && planUUID != 'new') {
-        this.isPersistent = true;
-        this.service.planList.subscribe((planList: List<DienstPlan>)=> {
-          let foundIndex = planList.findIndex(plan=>planUUID == plan.uuid);
-          if (foundIndex > -1) {
-            this.plan = planList.get(foundIndex);
-          }
-        });
-      }
-    });
   }
 
   removePlan() {

@@ -5,6 +5,7 @@ import {PersonDashboardComponent} from "./perspectives/person-dashboard/person-d
 import {PersonEditorComponent} from "./perspectives/person-editor/person-editor.component";
 import {PlanNotificationViewComponent} from "./perspectives/plan-notification-view/plan-notification-view.component";
 import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
+import {PlanPrintComponent} from './plan/plan-print/plan-print.component';
 import {AuthGuardService} from "./services/auth-guard.service";
 
 const routes: Routes = [
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     component: PersonEditorComponent,
     path: 'person/:uuid',
+    canActivate: [AuthGuardService]
+  },
+  {
+    component: PlanPrintComponent,
+    path: 'print/:uuid',
     canActivate: [AuthGuardService]
   }
 

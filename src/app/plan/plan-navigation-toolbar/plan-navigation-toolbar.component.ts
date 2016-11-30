@@ -9,6 +9,9 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 export class PlanNavigationToolbarComponent implements OnInit {
 
   @Input()
+    uUid: number;
+
+  @Input()
   isSaveAllowed: boolean;
 
   @Input()
@@ -40,6 +43,11 @@ export class PlanNavigationToolbarComponent implements OnInit {
 
   callGoBack() {
     this.backClicked.emit('');
+  }
+
+  navPrint () {
+    //$event.preventDefault();
+    window.location.href=`/print/${this.uUid}`;
   }
 
 }

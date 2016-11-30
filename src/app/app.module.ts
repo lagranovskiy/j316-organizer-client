@@ -41,6 +41,7 @@ import { GeoMapComponent } from './commons/geo-map/geo-map.component';
 import { TeilgruppeParticipantsEditorComponent } from './plan/teilgruppe-participants-editor/teilgruppe-participants-editor.component';
 import {AuthService} from "./services/auth-service.service";
 import {AuthGuardService} from "./services/auth-guard.service";
+import { PlanPrintComponent } from './plan/plan-print/plan-print.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {AuthGuardService} from "./services/auth-guard.service";
     PersonRefPipe,
     ParticipantFlatPipe,
     GeoMapComponent,
-    TeilgruppeParticipantsEditorComponent
+    TeilgruppeParticipantsEditorComponent,
+    PlanPrintComponent
   ],
   providers: [
     PlanPersistenceService,

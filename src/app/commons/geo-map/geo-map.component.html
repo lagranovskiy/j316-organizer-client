@@ -1,5 +1,5 @@
-<sebm-google-map [latitude]="circleLocation.address.latitude" [longitude]="circleLocation.address.longitude"
-                 [zoom]="10"
+<sebm-google-map [latitude]="circleLocation?.address.latitude" [longitude]="circleLocation?.address.longitude"
+                 [zoom]="11"
                  [disableDefaultUI]="false"
                  [zoomControl]="true">
 
@@ -19,6 +19,7 @@
                           [radius]="circleRadius"
                           [fillColor]="'green'"
                           [circleDraggable]="false"
+                          [fillOpacity]="0.2"
                           [editable]="false"></sebm-google-map-circle>
   <sebm-google-map-marker [latitude]="circleLocation?.address.latitude"
                           [iconUrl]="'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'"

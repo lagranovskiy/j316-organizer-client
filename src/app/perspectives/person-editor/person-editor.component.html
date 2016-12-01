@@ -1,7 +1,7 @@
 <form materialize class="col s12 " #planForm="ngForm">
 
   <div class="row valign-wrapper">
-    <div class="col s1">
+    <div class="col s1 hide-on-small-and-down">
       <i class="large material-icons">account_box</i>
     </div>
 
@@ -116,10 +116,10 @@
   <div class="card-panel">
     <h4 class="header">Anschrift</h4>
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m4">
         <address-editor [address]="person.address"></address-editor>
       </div>
-      <div class="input-field col s6">
+      <div class="input-field col s12 m8">
         <geo-map [circleLocation]="person" [circleRadius]="0" [markerLocations]="[person]"></geo-map>
       </div>
     </div>

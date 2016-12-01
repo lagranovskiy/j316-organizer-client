@@ -1,7 +1,7 @@
 <form materialize class="col s12" #planForm="ngForm">
 
   <div class="row valign-wrapper">
-    <div class="col s1">
+    <div class="col s1 hide-on-small-and-down">
       <i class="large material-icons">border_clear</i>
     </div>
 
@@ -31,7 +31,7 @@
 
 
     <div class="row">
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input placeholder="Plan Beginn" name="planStart" type="text" [(ngModel)]="plan.planStart"
                id="planStart"
                materialize="pickadate"
@@ -39,7 +39,7 @@
         <label for="planStart">Planbeginn</label>
       </div>
 
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input placeholder="Plan Ende" name="planEnd" type="text" [(ngModel)]="plan.planEnd" id="planEnd"
                materialize="pickadate"
                [materializeParams]="[{ selectMonths: true,format:'dd.mm.yyyy'}]" required/>
@@ -47,7 +47,7 @@
       </div>
 
 
-      <div class="input-field col s4">
+      <div class="input-field col s12 m4">
         <input placeholder="Wiederholung (Tage)"
                name="eventRecurringDays"
                type="text" [(ngModel)]="plan.eventRecurringDays"
@@ -82,7 +82,7 @@
 
 
   <div class="row">
-    <div class="col s4">
+    <div class="col s12">
       <h4>Besetzung</h4>
     </div>
   </div>

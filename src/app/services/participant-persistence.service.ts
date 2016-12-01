@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
 import {Participant} from "../model/Participant";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Response} from "@angular/http";
 import {PostalAddress} from "../model/PostalAddress";
-import {AddressPersistenceService} from "../address-persistence.service";
+import {AddressPersistenceService} from "./address-persistence.service";
 import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
@@ -11,20 +11,6 @@ export class ParticipantPersistenceService {
 
   constructor(private http: AuthHttp, private addressService: AddressPersistenceService) {
   }
-
-  /*
-   /!**
-   * Fetches all participants from server
-   *!/
-   public fetchParticipants(): Observable<Participant[]> {
-   let retVal = this.http.get('/api/person')
-   .map(response => response.json())
-   .map(personJSON => {
-   return personJSON.map(personData => new Participant(personData));
-   });
-   return retVal;
-   }*/
-
 
   /**
    * Fetches all participants from server
@@ -96,10 +82,11 @@ export class ParticipantPersistenceService {
    * @return {Observable<R>}
    */
   public
-  saveParticipant(participant: Participant): Observable < Participant > {
+  saveParticipant(participant: Participant): Observable <Participant> {
+    let retVal: Subject<Participant> = new Subject<Participant>();
     let data = participant.getData();
 
-    return Observable.forkJoin(
+    Observable.forkJoin(
       this.addressService.savePostalAddress(participant.address),
       this.http.put('/api/person', data).map(data => new Participant(data.json()))
     ).flatMap((persistentSet: [PostalAddress, Participant])=> {
@@ -115,9 +102,15 @@ export class ParticipantPersistenceService {
         return savedPerson;
       });
 
-    })
-      .catch(this.handleError);
+    }).catch(this.handleError)
+      .subscribe(
+        success=>retVal.next(success),
+        error=> {
+          this.handleError(error);
+          return retVal.error(error)
+        });
 
+    return retVal.asObservable();
   }
 
 

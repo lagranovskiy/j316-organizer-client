@@ -10,7 +10,7 @@ import {APP_CONFIG, J316_CONFIG} from "./config/const";
 import {AUTH_PROVIDERS} from "angular2-jwt";
 import {ParticipantPersistenceService} from "./services/participant-persistence.service";
 import {NotificationControlService} from "./services/notification-control-service.service";
-import {AddressPersistenceService} from "./address-persistence.service";
+import {AddressPersistenceService} from "./services/address-persistence.service";
 import {ViewCardComponent} from "./commons/view-card/view-card.component";
 import {PlanDashboardComponent} from "./perspectives/plan-dashboard/plan-dashboard.component";
 import {PlanEditorComponent} from "./perspectives/plan-editor/plan-editor.component";

@@ -3,6 +3,8 @@
 // https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
 
 declare var require: any;
+declare var google: any;
+declare var util: any;
 declare var System: any;
 declare var moment: any;
 declare var Auth0Lock: any;

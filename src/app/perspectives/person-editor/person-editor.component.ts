@@ -1,11 +1,10 @@
-import { DienstPlan } from '../../model/DienstPlan';
-import { PlanPersistenceService } from '../../services/plan-persistence.service';
-import { DisplayableModel } from '../../model/interfaces/DisplayableModel';
-import { NotificationEntry } from '../../model/NotificationEntry';
-import { NotificationControlService } from '../../services/notification-control-service.service';
-import { Component, OnInit } from '@angular/core';
-import { Participant } from '../../model/Participant';
-import { Router, ActivatedRoute } from '@angular/router';
+import {DienstPlan} from "../../model/DienstPlan";
+import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
+import {NotificationEntry} from "../../model/NotificationEntry";
+import {NotificationControlService} from "../../services/notification-control-service.service";
+import {Component, OnInit} from "@angular/core";
+import {Participant} from "../../model/Participant";
+import {Router, ActivatedRoute} from "@angular/router";
 import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
 

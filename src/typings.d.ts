@@ -4,8 +4,6 @@
 
 /// <reference path="../node_modules/@types/googlemaps/index.d.ts" />
 
-'use strict';
-
 declare var require: any;
 declare var google: any;
 declare var System: any;

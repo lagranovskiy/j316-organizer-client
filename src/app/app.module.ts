@@ -38,6 +38,8 @@ import {TeilgruppeParticipantsEditorComponent} from "./plan/teilgruppe-participa
 import {AuthService} from "./services/auth-service.service";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
+import {AlertListenerComponent} from "./commons/alert-listener/alert-listener.component";
+import {AlertService} from "./services/alert.service";
 
 @NgModule({
   declarations: [
@@ -65,13 +67,15 @@ import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
     ParticipantFlatPipe,
     GeoMapComponent,
     TeilgruppeParticipantsEditorComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AlertListenerComponent
   ],
   providers: [
     PlanPersistenceService,
     ParticipantPersistenceService,
     NotificationControlService,
     AddressPersistenceService,
+    AlertService,
     AppStoreService,
     AuthService,
     AuthGuardService,

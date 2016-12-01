@@ -72,7 +72,7 @@
         <div class="row" *ngIf="plan.notificationSMS">
           <div class="input-field col s12">
             <input placeholder="SMS Text" name="smsText" [(ngModel)]="plan.smsText" id="smsText"
-                   type="text" class="validate" required #smsText="ngModel" [maxlength]="160" materialize="">
+                   type="text" class="validate" required #smsText="ngModel"  length="160" materialize="characterCounter">
             <label for="smsText">SMS Text</label>
             <!-- TODO: Fix it to evaluate max Length correctly-->
             <div [hidden]="smsText.valid || smsText.pristine || smsText.errors.maxlength"
@@ -100,8 +100,7 @@
         <div class="row" *ngIf="plan.notificationCal">
           <div class="input-field col s12">
             <input placeholder="Büchertisch Q2" name="calEventName" [(ngModel)]="plan.calEventName"
-                   id="calEventName"
-                   type="text" class="validate" required #calEventName="ngModel" maxlength="160" materialize="">
+                   id="calEventName" type="text" class="validate" required #calEventName="ngModel" maxlength="160" materialize="">
             <label for="calEventName">Bezeichnung im Kalender</label>
             <div [hidden]="calEventName.valid || calEventName.pristine"
                  class="red-text">

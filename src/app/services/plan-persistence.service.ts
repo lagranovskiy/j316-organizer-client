@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {DienstPlan} from "../model/DienstPlan";
-import {Http, Response} from "@angular/http";
+import {Response} from "@angular/http";
 import {Observable} from "rxjs";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class PlanPersistenceService {
 
-  constructor(private http: Http) {
+  constructor(private http: AuthHttp) {
   }
 
   /**
@@ -61,8 +62,6 @@ export class PlanPersistenceService {
       })
       .catch(this.handleError);
   }
-
-
 
 
   private handleError(error: Response | any) {

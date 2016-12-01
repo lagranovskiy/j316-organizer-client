@@ -1,14 +1,15 @@
 import {Injectable} from "@angular/core";
 import {Participant} from "../model/Participant";
 import {Observable} from "rxjs";
-import {Http, Response} from "@angular/http";
+import {Response} from "@angular/http";
 import {PostalAddress} from "../model/PostalAddress";
 import {AddressPersistenceService} from "../address-persistence.service";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class ParticipantPersistenceService {
 
-  constructor(private http: Http, private addressService: AddressPersistenceService) {
+  constructor(private http: AuthHttp, private addressService: AddressPersistenceService) {
   }
 
   /*

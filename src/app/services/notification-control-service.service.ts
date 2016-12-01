@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Http, Response} from "@angular/http";
+import {Response} from "@angular/http";
 import {NotificationEntry} from "../model/NotificationEntry";
+import {AuthHttp} from "angular2-jwt";
 
 @Injectable()
 export class NotificationControlService {
 
-  constructor(private http: Http) {
+  constructor(private http: AuthHttp) {
   }
 
   /**
@@ -112,7 +113,7 @@ export class NotificationControlService {
       .catch(this.handleError);
   }
 
-   /**
+  /**
    * Removes notifications of a person/group
    *
    * @return {Observable<any>}

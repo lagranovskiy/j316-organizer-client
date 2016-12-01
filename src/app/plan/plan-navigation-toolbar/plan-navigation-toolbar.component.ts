@@ -1,4 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from "@angular/core";
+import {RemovalDialogComponent} from "../../commons/removal-dialog/removal-dialog.component";
 
 
 @Component({
@@ -23,6 +24,9 @@ export class PlanNavigationToolbarComponent implements OnInit {
   @Output()
   backClicked: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
+
 
   constructor() {
   }
@@ -40,6 +44,10 @@ export class PlanNavigationToolbarComponent implements OnInit {
 
   callGoBack() {
     this.backClicked.emit('');
+  }
+
+  openRemovalDialog(){
+    this.removalDialog.openModal();
   }
 
 }

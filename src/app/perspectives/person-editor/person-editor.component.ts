@@ -2,11 +2,12 @@ import {DienstPlan} from "../../model/DienstPlan";
 import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
 import {NotificationEntry} from "../../model/NotificationEntry";
 import {NotificationControlService} from "../../services/notification-control-service.service";
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Participant} from "../../model/Participant";
 import {Router, ActivatedRoute} from "@angular/router";
 import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
+import {RemovalDialogComponent} from "../../commons/removal-dialog/removal-dialog.component";
 
 @Component({
   selector: 'app-person-editor',
@@ -17,7 +18,7 @@ export class PersonEditorComponent implements OnInit {
 
   private person: Participant = new Participant();
   private personUUID: string;
-  private isPersistent:boolean = false;
+  private isPersistent: boolean = false;
 
   notifications: Array<NotificationEntry> = [];
 
@@ -25,10 +26,13 @@ export class PersonEditorComponent implements OnInit {
 
   private paramsSub;
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
+
   constructor(private service: AppStoreService,
-    private notificationService: NotificationControlService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private notificationService: NotificationControlService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
     this.service.planList.subscribe(plans => this.existingPlans = plans);
 
@@ -42,7 +46,7 @@ export class PersonEditorComponent implements OnInit {
         this.person = personList.get(foundIndex);
         this.isPersistent = true;
       }
-    });
+    }, ()=>{});
 
   }
 
@@ -50,6 +54,8 @@ export class PersonEditorComponent implements OnInit {
   navDashboard() {
     this.router.navigate(['/person/all']);
   }
+
+
 
   saveChanges() {
     this.service.saveParticipant(this.person).subscribe();
@@ -83,13 +89,29 @@ export class PersonEditorComponent implements OnInit {
       }
 
       return <DisplayableModel>
-        {
-          uuid: planUUID,
-          getDescription: () => null,
-          getTitle: () => foundPlans.first().planName
-        }
+      {
+        uuid: planUUID,
+        getDescription: () => null,
+        getTitle: () => foundPlans.first().planName
+      }
 
     }
+  }
+
+  /**
+   * Open confirmation dialog
+   */
+  openRemovalDialog() {
+    this.removalDialog.openModal();
+  }
+
+  /**
+   * Remove Person
+   */
+  removePerson() {
+    // Remove all notifications of group
+    this.service.removeParticipant(this.person).subscribe(() => this.navDashboard());
+
   }
 
   /**

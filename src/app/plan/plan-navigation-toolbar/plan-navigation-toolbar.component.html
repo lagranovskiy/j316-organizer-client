@@ -2,11 +2,11 @@
    (click)="callGoBack()" data-position="bottom" data-delay="50" data-tooltip="Zurück zu Plänen"><i
   class="material-icons left">reply</i></a>
 
-<a materialize="leanModal" href="#planRemovalDialog"
+<a materialize="tooltip"
    [ngClass]="{'disabled': !isPersistent}"
-   class="btn-floating btn-large waves-effect waves-light red tooltipped"
-   [materializeParams]="[{dismissible: false}]" data-position="bottom" data-delay="50" data-tooltip="Plan löschen"><i
-  class="material-icons left ">delete_sweep</i></a>
+   (click)="openRemovalDialog()" class="btn-floating btn-large waves-effect waves-light red tooltipped"
+   [materializeParams]="[{dismissible: false}]" data-position="bottom" data-delay="50" data-tooltip="Plan löschen">
+  <i class="material-icons left ">delete_sweep</i></a>
 
 <a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light blue tooltipped"
    (click)="callSaveClicked()" data-position="bottom" data-delay="50" data-tooltip="Plan speichern"
@@ -31,16 +31,5 @@
 <a materialize="sideNav" data-activates="slide-out" class="btn-floating btn-large waves-effect waves-light"><i
   class="material-icons">tune</i></a>
 
-<!-- End of SideNav -->
 
-
-<div id="planRemovalDialog" class="modal" materialize>
-  <div class="modal-content">
-    <h4>Bitte bestätigen Sie die Löschung?</h4>
-  </div>
-  <div class="modal-footer">
-    <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text" (click)="callRemoveClicked()">Ja</a>
-    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
-  </div>
-</div>
-
+<removal-dialog (removeAccepted)="sendRemoveEvent()"></removal-dialog>

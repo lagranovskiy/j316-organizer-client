@@ -40,6 +40,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
 import {AlertListenerComponent} from "./commons/alert-listener/alert-listener.component";
 import {AlertService} from "./services/alert.service";
+import {RemovalDialogComponent} from "./commons/removal-dialog/removal-dialog.component";
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {AlertService} from "./services/alert.service";
     GeoMapComponent,
     TeilgruppeParticipantsEditorComponent,
     WelcomeComponent,
-    AlertListenerComponent
+    AlertListenerComponent,
+    RemovalDialogComponent
   ],
   providers: [
     PlanPersistenceService,

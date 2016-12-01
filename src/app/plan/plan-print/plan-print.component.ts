@@ -19,6 +19,8 @@ export class PlanPrintComponent implements OnInit {
   private plan: DienstPlan = new DienstPlan();
   private paramsSub;
   private personList : Array<Participant> = [];
+  private text: string;
+  private vers: string;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -26,6 +28,8 @@ export class PlanPrintComponent implements OnInit {
               private personService: ParticipantPersistenceService) {
     personService.fetchParticipants().subscribe(list => this.personList = list);
 console.log('MyList '+this.personList.length);
+    this.text = 'Jeden Freitag: Fasten für den Dienst';
+    this.vers = 'Am Anfang war das Wort';
   }
 
 

@@ -10,29 +10,29 @@
   }
 }
 
-.row {
+.trow {
   display: table-row;
   background: #f6f6f6;
 }
-.row:nth-of-type(odd) {
+.trow:nth-of-type(odd) {
   background: #e9e9e9;
 }
-.row.header {
+.trow.header {
   font-weight: 900;
   color: #ffffff;
   background: #ea6153;
 }
-.row.green {
+.trow.green {
   background: #27ae60;
 }
-.row.blue {
+.trow.blue {
   background: #2980b9;
 }
-.row.grey {
+.trow.grey {
   background: #B2B2B2;
 }
 @media screen and (max-width: 580px) {
-  .row {
+  .trow {
     padding: 8px 0;
     display: block;
   }
@@ -50,8 +50,12 @@
 }
 
 input{
+  position: relative;
   border-style: none;
+  text-align: right;
 }
+
+
 
 
 

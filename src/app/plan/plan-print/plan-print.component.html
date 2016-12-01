@@ -1,11 +1,13 @@
 <div class="center-align">
   <h2>{{plan.planName}}</h2>
+
   <table class="striped" border="1">
     <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
       <thead>
-      <tr class="row header grey">
+      <tr class="trow header grey">
         <th data-field="participants" width="40%">{{gruppe.name}}</th>
         <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
+        <th class="center-align" width="40%">Telefon</th>
       </tr>
       </thead>
 
@@ -18,16 +20,28 @@
         </td>
         <td *ngFor="let besetzt of teilgruppe.besetzung">
           <div class="center-align" *ngIf="besetzt">
-            <input class="center-align" value="X">
+            X
+          </div>
+        </td>
+        <td data-field="participants">
+          <div class="center-align" *ngFor="let participantRef of teilgruppe.participants">
+         {{ getRelatedParticipant(participantRef)?.mobilePhone}}
           </div>
         </td>
       </tr>
-
       </tbody>
     </template>
-
   </table>
-
+  <div class="row">
+    <div class="col s10">
+  <input [attr.placeholder]="text">
+</div>
+  <div class="col s2">
+<div style="border-style: double;">
+    {{vers}}
+</div>
+</div>
+</div>
 </div>
 
 

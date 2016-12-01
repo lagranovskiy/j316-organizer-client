@@ -36,8 +36,8 @@
     "primeng": "1.0.0-beta.17",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "1.1.1",
-    "zone.js": "0.6.23"
-    "@types/googlemaps": "^3.25.36",
+    "zone.js": "0.6.23",
+    "@types/googlemaps": "^3.25.36"
   },
   "devDependencies": {
     "@types/jasmine": "2.2.30",

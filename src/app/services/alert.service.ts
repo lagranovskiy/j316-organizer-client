@@ -28,20 +28,31 @@ export class AlertService {
       errMsg = error.toString();
     }
 
-    this.errorSubject.next(errMsg);
+    let errorItem = {
+      type: 'HTTP',
+      errMsg,
+      error,
+      timestamp: new Date()
+    };
+    this.errorSubject.next(errorItem);
 
     return Observable.throw(errMsg);
   }
 
 
   /**
-   * Handlers errors occured by requests
+   * Handlers errors occured by custom actions
    * @param error error object
    * @param action action text
    * @return {ErrorObservable}
    */
-  public handleCustomError(error: string) {
-    this.errorSubject.next(error);
+  public handleCustomError(errMsg: string, model: any = null) {
+    this.errorSubject.next({
+      type: 'CUSTOM',
+      errMsg,
+      error: model,
+      timestamp: new Date()
+    });
   }
 
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit, EventEmitter} from "@angular/core";
 import {AlertService} from "../../services/alert.service";
-import {MaterializeAction} from "angular2-materialize";
+import {MaterializeAction, toast} from "angular2-materialize";
 
 @Component({
   selector: 'alert-listener',
@@ -14,14 +14,23 @@ export class AlertListenerComponent implements OnInit {
   private modalActions = new EventEmitter<string|MaterializeAction>();
 
   constructor(private service: AlertService) {
-    service.errors.subscribe(error => {
-      let protokollEntry = {
-        error,
-        timestamp: new Date()
-      };
-      this.errorsList.unshift(protokollEntry)
+    service.errors.subscribe(errorItem => {
+      /*
+       let errorItem = {
+       type: 'HTTP',
+       errMsg,
+       error,
+       timestamp: new Date()
+       };
+       */
+
+      this.errorsList.unshift(errorItem)
       this.showError();
     });
+  }
+
+  stringify(error) {
+    return JSON.stringify(error, null, 4);
   }
 
   private clearErrors() {
@@ -29,6 +38,10 @@ export class AlertListenerComponent implements OnInit {
   }
 
   showError() {
+    toast(this.errorsList[0].error, 4000)
+  }
+
+  showErrorWindow() {
     this.modalActions.emit({action: "modal", params: ['open']});
   }
 

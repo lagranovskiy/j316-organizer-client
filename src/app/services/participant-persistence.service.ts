@@ -36,8 +36,9 @@ export class ParticipantPersistenceService {
                 participant.address = new PostalAddress(addressDataList[0].ref);
               }
               return participant;
-            }).subscribe();
-        })
+            }).subscribe(()=> {
+          }, this.alertService.handleHttpError);
+        });
         return participants;
       })
       .catch(this.alertService.handleHttpError);

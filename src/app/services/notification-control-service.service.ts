@@ -1,13 +1,13 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Response} from "@angular/http";
 import {NotificationEntry} from "../model/NotificationEntry";
 import {AuthHttp} from "angular2-jwt";
+import {AlertService} from "./alert.service";
 
 @Injectable()
 export class NotificationControlService {
 
-  constructor(private http: AuthHttp) {
+  constructor(private http: AuthHttp, private alertService: AlertService) {
   }
 
   /**
@@ -36,7 +36,7 @@ export class NotificationControlService {
           return retVal;
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
 
@@ -58,7 +58,7 @@ export class NotificationControlService {
           }
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
   /**
@@ -79,7 +79,7 @@ export class NotificationControlService {
           }
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
 
@@ -95,7 +95,7 @@ export class NotificationControlService {
           return body;
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
   /**
@@ -110,7 +110,7 @@ export class NotificationControlService {
           return body;
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
   /**
@@ -126,28 +126,7 @@ export class NotificationControlService {
           return body;
         }
       )
-      .catch(this.handleError);
-  }
-
-
-  /**
-   * Handlers errors occured by requests
-   * @param error error object
-   * @param action action text
-   * @return {ErrorObservable}
-   */
-  private handleError(error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.toString();
-    }
-    console.error(`Problem occured :: ${errMsg}`);
-    return Observable.throw(errMsg);
+      .catch(this.alertService.handleHttpError);
   }
 
 }

@@ -3,6 +3,7 @@ import {tokenNotExpired} from "angular2-jwt";
 import {BehaviorSubject, Observable} from "rxjs";
 import {APP_CONFIG} from "../config/const";
 import {AppConfig} from "../config/app.config";
+import {AlertService} from "./alert.service";
 
 
 @Injectable()
@@ -16,7 +17,8 @@ export class AuthService {
   public userProfile: any;
   private lock;
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+  constructor(@Inject(APP_CONFIG) private config: AppConfig,
+              private alertService: AlertService) {
     this.lock =  new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {});
 
     let profile = localStorage.getItem('profile');
@@ -30,8 +32,7 @@ export class AuthService {
       // Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {
         if (error) {
-          // Handle error
-          alert(error);
+          alertService.handleCustomError(error);
           return;
         }
 

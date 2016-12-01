@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {AppStoreService} from "./services/app-store.service";
 import {AuthService} from "./services/auth-service.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -10,12 +11,13 @@ import {AuthService} from "./services/auth-service.service";
 export class AppComponent {
 
 
-  constructor(private appStore: AppStoreService, private auth: AuthService) {
-    if(auth.authenticated()){
-      appStore.loadData();
-    }
+  constructor(private appStore: AppStoreService, private auth: AuthService, private router: Router) {
     console.info("Hey im J316 Organizer and was initialized")
   }
 
+  processLogout(){
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
 
 }

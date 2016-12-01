@@ -3,7 +3,7 @@
     J316-Organization</a>
 
     <ul id="dropdown1" class="dropdown-content">
-      <a (click)="auth.logout()" *ngIf="auth.authenticated()" class="blue-text text-darken-2"><i class="material-icons blue-text text-darken-2">lock</i> Logout</a>
+      <a (click)="processLogout()" *ngIf="auth.authenticated()" class="blue-text text-darken-2"><i class="material-icons blue-text text-darken-2">lock</i> Logout</a>
     </ul>
 
     <ul class="right hide-on-med-and-down">
@@ -31,7 +31,7 @@
       <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="plans/"><i class="material-icons">chrome_reader_mode</i></a></li>
 
       <li><a (click)="auth.login()" *ngIf="!auth.authenticated()"><i class="material-icons">lock_open</i></a></li>
-      <li><a (click)="auth.logout()" *ngIf="auth.authenticated()" href="#"><i class="material-icons">lock</i></a></li>
+      <li><a (click)="processLogout()" *ngIf="auth.authenticated()" href="#"><i class="material-icons">lock</i></a></li>
     </ul>
     <a materialize="sideNav" href="#" data-activates="nav-mobile" class="button-collapse"><i
       class="material-icons">menu</i></a>

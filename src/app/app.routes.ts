@@ -6,20 +6,18 @@ import {PersonEditorComponent} from "./perspectives/person-editor/person-editor.
 import {PlanNotificationViewComponent} from "./perspectives/plan-notification-view/plan-notification-view.component";
 import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
 import {AuthGuardService} from "./services/auth-guard.service";
+import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
 
 const routes: Routes = [
   {
-    component: PlanDashboardComponent,
+    component: WelcomeComponent,
     path: ''
   },
-
   {
     component: PlanDashboardComponent,
     path: 'plans',
     canActivate: [AuthGuardService]
   },
-
-
   {
     component: PlanViewComponent,
     path: 'plan/:uuid',
@@ -30,8 +28,6 @@ const routes: Routes = [
       {path: 'edit', component: PlanEditorComponent}
     ]
   },
-
-
   {
     component: PersonDashboardComponent,
     path: 'person/all',

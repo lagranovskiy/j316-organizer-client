@@ -1,4 +1,4 @@
 export interface AppConfig {
-  apiEndpoint: string;
-  mapsAPI: string
+  mapsAPI: string,
+  authAPI: string
 }

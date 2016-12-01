@@ -7,6 +7,7 @@
 'use strict';
 
 declare var require: any;
+declare var google: any;
 declare var System: any;
 declare var moment: any;
 declare var Auth0Lock: any;

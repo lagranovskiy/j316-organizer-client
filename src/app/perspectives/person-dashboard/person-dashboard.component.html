@@ -5,15 +5,19 @@
 </div>
 
 <div class="row">
-  <div class="col s12">
+  <div class="col s12 m8">
     <a class="waves-effect waves-light btn" (click)="createNewParticipant()"><i class="material-icons left">add</i>Neue
       Teilnehmer</a>
+  </div>
+  <div class="col s12 m4 right-align">
+    <input id="searchField" type="text" [(ngModel)]="searchString" class="validate">
+    <label for="searchField">Person suchen</label>
   </div>
 </div>
 
 
 <div class="row">
-  <div class="col s12 m3 l4" *ngFor="let person of personList">
+  <div class="col s12 m3 l4" *ngFor="let person of personList | filterDisplayable: searchString">
     <view-card [model]="person" [clonable]="false"  (openClicked)="openPerson($event)" (removeClicked)="removePerson($event)" ></view-card>
   </div>
 </div>

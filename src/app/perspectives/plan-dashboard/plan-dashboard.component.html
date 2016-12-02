@@ -5,16 +5,22 @@
 </div>
 
 <div class="row">
-  <div class="col s12">
-    <a class="waves-effect waves-light btn" (click)="createNewDienstplan()"><i class="material-icons left">add</i>Neue
-      Plan</a>
+  <div class="col s12 m8 ">
+    <a class="waves-effect waves-light btn " (click)="createNewDienstplan()">
+      <i class="material-icons left">add</i>Neue Plan</a>
   </div>
+  <div class="col s12 m4 right-align">
+    <input id="searchField" type="text" [(ngModel)]="searchString" class="validate">
+    <label for="searchField">Plan suchen</label>
+  </div>
+
 </div>
 
 
 <div class="row">
-  <div class="col s12 m3 l4" *ngFor="let plan of planList">
-    <view-card [model]="plan" [clonable]="true"  (openClicked)="openPlan($event)" (removeClicked)="removePlan($event)" (cloneClicked)="clonePlan($event)"></view-card>
+  <div class="col s12 m4 l3" *ngFor="let plan of planList | filterDisplayable: searchString">
+    <view-card [model]="plan" [clonable]="true" (openClicked)="openPlan($event)" (removeClicked)="removePlan($event)"
+               (cloneClicked)="clonePlan($event)"></view-card>
   </div>
 </div>
 

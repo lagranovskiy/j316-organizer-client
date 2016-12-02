@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m4" *ngFor="let section of model.sections; let i=index;">
+            <div class="col s12 m6 l4" *ngFor="let section of model.sections; let i=index;">
               <h5>Gruppe {{i+1}}</h5>
               <participant-ref-list-view [participants]="section.participants"></participant-ref-list-view>
             </div>

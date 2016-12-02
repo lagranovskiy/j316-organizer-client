@@ -43,6 +43,7 @@ import {RemovalDialogComponent} from "./commons/removal-dialog/removal-dialog.co
 import {NotificatationDienstGroupPipe} from "./pipes/notificatation-group-by-dienst-plan-group.pipe";
 import {NotificatationPersonGroupPipe} from "./pipes/notificatation-group-by-person.pipe";
 import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by-plan.pipe";
+import {FilterDisplayablePipe} from "./pipes/filter-displayable.pipe";
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by
     RemovalDialogComponent,
     NotificatationDienstGroupPipe,
     NotificatationPersonGroupPipe,
-    NotificatationDienstPlanGroupPipe
+    NotificatationDienstPlanGroupPipe,
+    FilterDisplayablePipe
   ],
   providers: [
     PlanPersistenceService,

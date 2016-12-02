@@ -74,7 +74,7 @@ export class PlanNotificationProcessorComponent implements OnInit {
             this.error = data.errorMessage;
           }
 
-          this.showReportModal();
+          this.showRemovalModal();
         },
         (error)=> {
           this.error = error;

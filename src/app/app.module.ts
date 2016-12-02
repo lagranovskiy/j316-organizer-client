@@ -41,6 +41,9 @@ import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
 import {AlertListenerComponent} from "./commons/alert-listener/alert-listener.component";
 import {AlertService} from "./services/alert.service";
 import {RemovalDialogComponent} from "./commons/removal-dialog/removal-dialog.component";
+import {NotificatationDienstGroupPipe} from "./pipes/notificatation-group-by-dienst-plan-group.pipe";
+import {NotificatationPersonGroupPipe} from "./pipes/notificatation-group-by-person.pipe";
+import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by-plan.pipe";
 
 @NgModule({
   declarations: [
@@ -70,7 +73,10 @@ import {RemovalDialogComponent} from "./commons/removal-dialog/removal-dialog.co
     TeilgruppeParticipantsEditorComponent,
     WelcomeComponent,
     AlertListenerComponent,
-    RemovalDialogComponent
+    RemovalDialogComponent,
+    NotificatationDienstGroupPipe,
+    NotificatationPersonGroupPipe,
+    NotificatationDienstPlanGroupPipe
   ],
   providers: [
     PlanPersistenceService,

@@ -46,8 +46,6 @@ export class PlanNavigationToolbarComponent implements OnInit {
     this.backClicked.emit('');
   }
 
-  openRemovalDialog(){
-    this.removalDialog.openModal();
-  }
+
 
 }

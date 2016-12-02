@@ -1,13 +1,12 @@
-import { Component, OnInit, OnChanges, SimpleChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { NotificationEntry } from "../../model/NotificationEntry";
-import { DisplayableModel } from "../../model/interfaces/DisplayableModel";
-import { Input, Output } from "@angular/core/src/metadata/directives";
+import {Component, OnInit, OnChanges, SimpleChanges, EventEmitter} from "@angular/core";
+import {NotificationEntry} from "../../model/NotificationEntry";
+import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
+import {Input, Output} from "@angular/core/src/metadata/directives";
 
 @Component({
   selector: 'notification-presenter',
   templateUrl: './notification-presenter.component.html',
-  styleUrls: ['./notification-presenter.component.css'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  styleUrls: ['./notification-presenter.component.css']
 })
 export class NotificationPresenterComponent implements OnInit, OnChanges {
 

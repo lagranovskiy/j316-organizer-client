@@ -2,7 +2,8 @@
 
   <div class="row valign-wrapper">
     <div class="col s7 valign-wrapper">
-      <i class="large material-icons valign hide-on-med-and-down">account_box</i>   <h3 class="valign">  {{person.forename + ' ' + person.surname}}</h3>
+      <i class="large material-icons valign hide-on-med-and-down">account_box</i>
+      <h3 class="valign"> {{person.forename + ' ' + person.surname}}</h3>
     </div>
 
     <div class="col s4 right-align">
@@ -50,27 +51,27 @@
       </div>
     </div>
 
-   <!-- <div class="row">
-      <div class="input-field col s12 m6">
-        <select placeholder="Max" id="gender" name="gender" [(ngModel)]="person.gender" materialize="material_select"
-                type="text"
-                class="validate" required #gender="ngModel">
-          <option value="male">männlich</option>
-          <option value="female">weiblich</option>
-        </select>
-        <label for="gender">Geschlecht</label>
-        <div [hidden]="gender.valid || gender.pristine" class="red-text">
-          Geschlecht muss angegeben werden
-        </div>
-      </div>
+    <!-- <div class="row">
+       <div class="input-field col s12 m6">
+         <select placeholder="Max" id="gender" name="gender" [(ngModel)]="person.gender" materialize="material_select"
+                 type="text"
+                 class="validate" required #gender="ngModel">
+           <option value="male">männlich</option>
+           <option value="female">weiblich</option>
+         </select>
+         <label for="gender">Geschlecht</label>
+         <div [hidden]="gender.valid || gender.pristine" class="red-text">
+           Geschlecht muss angegeben werden
+         </div>
+       </div>
 
-      <div class="input-field col s12 m6">
-        <input placeholder="z.B. 01.05.1980" name="planStart" type="text" [(ngModel)]="person.dob" id="dob"
-               materialize="pickadate"
-               [materializeParams]="[{selectMonths: true, selectYears: 180, format:'dd.mm.yyyy'}]" required/>
-        <label for="dob">Geburtdatum</label>
-      </div>
-    </div>-->
+       <div class="input-field col s12 m6">
+         <input placeholder="z.B. 01.05.1980" name="planStart" type="text" [(ngModel)]="person.dob" id="dob"
+                materialize="pickadate"
+                [materializeParams]="[{selectMonths: true, selectYears: 180, format:'dd.mm.yyyy'}]" required/>
+         <label for="dob">Geburtdatum</label>
+       </div>
+     </div>-->
 
     <div class="row">
 
@@ -139,8 +140,18 @@
   <div class="card-panel">
     <h4 class="header">Benachrichtigungen</h4>
     <p *ngIf="notifications.length==0">Keine Benachrichtigungen gefunden</p>
-    <notification-presenter [groupByFuncList]="[groupByPlan()]" (groupRemoveClicked)="groupNotifcationRemove($event)"
-                            [notificationList]="notifications"></notification-presenter>
+
+    <div *ngIf="notifications.length>0">
+      <div *ngFor="let planGroup of notifications | groupByDienstPlan:existingPlans">
+        <div class="row">
+          <div class=" col s12 m6 ">
+            <notification-single-group-presenter [groupName]="planGroup.name" [notificationList]="planGroup.children"
+                                                 (removeGroup)="groupNotifcationRemove(planGroup.uuid)"></notification-single-group-presenter>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </form>
 

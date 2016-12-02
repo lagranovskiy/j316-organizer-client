@@ -1,10 +1,6 @@
-<a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
-   (click)="callGoBack()" data-position="bottom" data-delay="50" data-tooltip="Zurück zu Plänen"><i
-  class="material-icons left">reply</i></a>
-
 <a materialize="tooltip"
    [ngClass]="{'disabled': !isPersistent}"
-   (click)="openRemovalDialog()" class="btn-floating btn-large waves-effect waves-light red tooltipped"
+   (click)="removalDialog.openModal()" class="btn-floating btn-large waves-effect waves-light red tooltipped"
    [materializeParams]="[{dismissible: false}]" data-position="bottom" data-delay="50" data-tooltip="Plan löschen">
   <i class="material-icons left ">delete_sweep</i></a>
 
@@ -39,4 +35,4 @@
   class="material-icons">tune</i></a>
 
 
-<removal-dialog (removeAccepted)="sendRemoveEvent()"></removal-dialog>
+<removal-dialog (removeAccepted)="callRemoveClicked()"></removal-dialog>

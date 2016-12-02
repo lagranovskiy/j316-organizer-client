@@ -2,7 +2,8 @@
 
   <div class="row valign-wrapper">
     <div class="col s7 valign-wrapper">
-      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>   <h3 class="valign">  {{plan.planName}}</h3>
+      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>
+      <h3 class="valign"> {{plan.planName}}</h3>
     </div>
 
     <div class="col s4 right-align">
@@ -68,7 +69,7 @@
         <div class="row" *ngIf="plan.notificationSMS">
           <div class="input-field col s12">
             <input placeholder="SMS Text" name="smsText" [(ngModel)]="plan.smsText" id="smsText"
-                   type="text" class="validate" required #smsText="ngModel"  length="160" materialize="characterCounter">
+                   type="text" class="validate" required #smsText="ngModel" length="160" materialize="characterCounter">
             <label for="smsText">SMS Text</label>
             <!-- TODO: Fix it to evaluate max Length correctly-->
             <div [hidden]="smsText.valid || smsText.pristine || smsText.errors.maxlength"
@@ -96,7 +97,8 @@
         <div class="row" *ngIf="plan.notificationCal">
           <div class="input-field col s12">
             <input placeholder="Büchertisch Q2" name="calEventName" [(ngModel)]="plan.calEventName"
-                   id="calEventName" type="text" class="validate" required #calEventName="ngModel" maxlength="160" materialize="">
+                   id="calEventName" type="text" class="validate" required #calEventName="ngModel" maxlength="160"
+                   materialize="">
             <label for="calEventName">Bezeichnung im Kalender</label>
             <div [hidden]="calEventName.valid || calEventName.pristine"
                  class="red-text">
@@ -130,8 +132,24 @@
                                (notificationsUpdated)="refreshNotifications()"></plan-notification-processor>
 
 
-  <notification-presenter [groupByFuncList]="[groupByGroup(), groupByPerson()]" (groupRemoveClicked)="groupNotifcationRemove($event)"
-                          [notificationList]="notifications"></notification-presenter>
+  <div *ngFor="let groupNotifications of notifications|groupByDienstPlanGroup:plan.groupList">
+    <div class="row">
+      <a materialize="tooltip" (click)="groupNotifcationRemove(groupNotifications.uuid, null)"
+         data-tooltip="Die Benachrichtigungen dieser Gruppe löschen" class="btn-flat tooltipped right"> <i
+        class="material-icons  red-text darken-1-text">delete</i></a>
+      <h4>{{groupNotifications.name}}</h4>
+    </div>
+
+    <div class="row">
+      <div class=" col s12 m6 " *ngFor="let personNotifications of groupNotifications.children | groupByPerson">
+        <notification-single-group-presenter [groupName]="personNotifications.name"
+                                             [notificationList]="personNotifications.children"
+                                             (removeGroup)="groupNotifcationRemove(groupNotifications.uuid, personNotifications.uuid)"></notification-single-group-presenter>
+
+      </div>
+
+    </div>
+  </div>
 
 
 </form>

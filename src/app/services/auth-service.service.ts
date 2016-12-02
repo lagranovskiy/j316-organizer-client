@@ -19,7 +19,12 @@ export class AuthService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig,
               private alertService: AlertService) {
-    this.lock =  new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {});
+    this.lock = new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {
+      allowForgotPassword: true,
+      theme: {
+        logo: '../../../assets/logo.png'
+      }
+    });
 
     let profile = localStorage.getItem('profile');
     if (profile) {
@@ -41,7 +46,7 @@ export class AuthService {
       });
     });
 
-    if(!this.authenticated()){
+    if (!this.authenticated()) {
       this._authSubject.next({authentication: false});
     } else {
       this._authSubject.next({authentication: true});

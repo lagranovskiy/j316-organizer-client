@@ -2,6 +2,7 @@ import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
 import {NotificationControlService} from "../../services/notification-control-service.service";
 import {NotificationEntry} from "../../model/NotificationEntry";
 import {DienstPlan} from "../../model/DienstPlan";
+import {MaterializeAction} from "angular2-materialize";
 
 @Component({
   selector: 'plan-notification-processor',
@@ -19,12 +20,24 @@ export class PlanNotificationProcessorComponent implements OnInit {
   @Output()
   private notificationsUpdated: EventEmitter<string> = new EventEmitter<string>();
 
+
+  private reportModalActions = new EventEmitter<string|MaterializeAction>();
+  private removalModalActions = new EventEmitter<string|MaterializeAction>();
+
   cancelReport: any = {};
   sentReport: Array<NotificationEntry> = [];
 
   error = null;
 
   constructor(private notificationService: NotificationControlService) {
+  }
+
+  showReportModal() {
+    this.reportModalActions.emit({action: "modal", params: ['open']});
+  }
+
+  showRemovalModal() {
+    this.removalModalActions.emit({action: "modal", params: ['open']});
   }
 
 
@@ -38,6 +51,7 @@ export class PlanNotificationProcessorComponent implements OnInit {
             this.notificationsActive = true;
             this.notificationsUpdated.emit('updated')
           }
+          this.showReportModal();
 
         },
         (error)=> {
@@ -49,6 +63,7 @@ export class PlanNotificationProcessorComponent implements OnInit {
     this.error = null;
     this.cancelReport = {};
 
+
     this.notificationService.cancelGroupNotifications(this.plan.uuid)
       .subscribe((data)=> {
           this.cancelReport = data;
@@ -59,6 +74,7 @@ export class PlanNotificationProcessorComponent implements OnInit {
             this.error = data.errorMessage;
           }
 
+          this.showReportModal();
         },
         (error)=> {
           this.error = error;

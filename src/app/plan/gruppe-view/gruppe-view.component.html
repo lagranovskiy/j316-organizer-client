@@ -39,24 +39,13 @@
         <a class="waves-effect waves-teal btn-flat" (click)="toggleEditing()">
           <i class="material-icons ">create</i></a>
 
-        <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat " materialize="leanModal"
-           [materializeParams]="[{dismissible: false}]">
+        <a  class="waves-effect waves-teal btn-flat " (click)="removalDialog.openModal()">
           <i class="material-icons red-text">delete</i></a>
 
       </div>
     </div>
 
     <!-- Removal Dialog -->
-    <div id="planRemovalDialog" class="modal" materialize>
-      <div class="modal-content">
-        <h4>Soll die Gruppe wirklich gelöscht werden?</h4>
-        <p>{{ model.getTitle()}}</p>
-      </div>
-      <div class="modal-footer">
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text"
-           (click)="sendRemoveEvent()">Agree</a>
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
-      </div>
-    </div>
+    <removal-dialog [removalIdentification]="model.getTitle()" (removeAccepted)="sendRemoveEvent()"></removal-dialog>
   </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="row">
 
-  <a *ngIf="!notificationsActive" materialize="leanModal" href="#notificationReport"
+  <a *ngIf="!notificationsActive"
      class="waves-effect waves-light btn-large"
      (click)="startPlanNotifications()"><i class="material-icons right">phonelink_ring</i>Benachrichtigungen
     versenden</a>
 
-  <a *ngIf="notificationsActive" materialize="leanModal" href="#notificationCancelReport"
+  <a *ngIf="notificationsActive"
      class="waves-effect waves-light btn-large red"
      (click)="removePlanNotifications()"><i class="material-icons right">phonelink_ring</i>Alle Benachrichtigungen
     löschen</a>
@@ -13,7 +13,8 @@
 </div>
 
 <!-- Modal Structure -->
-<div id="notificationReport" class="modal bottom-sheet">
+<div id="notificationReport" class="modal bottom-sheet" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="reportModalActions" materialize="modal">
   <div class="modal-content">
     <h4>Benachrichtungsbericht</h4>
 
@@ -51,7 +52,8 @@
 
 
 <!-- Modal Structure -->
-<div id="notificationCancelReport" class="modal bottom-sheet">
+<div id="notificationCancelReport" class="modal bottom-sheet" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="removalModalActions" materialize="modal">
   <div class="modal-content">
     <h4>Benachrichtungsbericht</h4>
 

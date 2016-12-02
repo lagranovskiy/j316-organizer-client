@@ -15,15 +15,22 @@
 
 <!-- SideNav -->
 <ul id="slide-out" class="side-nav">
-  <li><a href="#!" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">border_color</i>Druckeinstellungen</a>
+  <li routerLinkActive="active"><a [routerLink]="['/']" [ngClass]="{'disabled': !isPersistent}"><i
+    class="material-icons">border_color</i>Druckeinstellungen</a>
   </li>
-  <li><a href="#!" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">print</i>Drucken</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['/']" [ngClass]="{'disabled': !isPersistent}"><i
+    class="material-icons">print</i>Drucken</a></li>
 
   <li>
     <div class="divider"></div>
   </li>
+  <li><a class="subheader">Anpassung</a></li>
+  <li routerLinkActive="active"><a [routerLink]="['../edit']" [ngClass]="{'disabled': !isPersistent}"><i
+    class="material-icons">phonelink_setup</i>Plan anpassen</a>
+
   <li><a class="subheader">Benachrichtigung</a></li>
-  <li><a [routerLink]="['../notification']" [ngClass]="{'disabled': !isPersistent}"><i class="material-icons">phonelink_setup</i>Konfiguration</a>
+  <li routerLinkActive="active"><a [routerLink]="['../notification']" [ngClass]="{'disabled': !isPersistent}"><i
+    class="material-icons">phonelink_setup</i>Konfiguration</a>
   </li>
 
 </ul>

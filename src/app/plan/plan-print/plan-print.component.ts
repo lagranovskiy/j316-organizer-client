@@ -29,7 +29,7 @@ export class PlanPrintComponent implements OnInit {
     personService.fetchParticipants().subscribe(list => this.personList = list);
 console.log('MyList '+this.personList.length);
     this.text = 'Jeden Freitag: Fasten für den Dienst';
-    this.vers = 'Am Anfang war das Wort';
+    this.vers = 'Denn aus Gnade seid ihr errettet durch den Glauben, und das nicht aus euch - Gottes Gabe ist es; nicht aus Werken, damit niemand sich rühme. (Epheser 2.8-9)';
   }
 
 

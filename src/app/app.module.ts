@@ -28,7 +28,6 @@ import {AddressEditorComponent} from "./commons/address-editor/address-editor.co
 import {PlanNavigationToolbarComponent} from "./plan/plan-navigation-toolbar/plan-navigation-toolbar.component";
 import {PlanNotificationProcessorComponent} from "./plan/plan-notification-processor/plan-notification-processor.component";
 import {OrderByPipe} from "./pipes/order-by.pipe";
-import {NotificationPresenterComponent} from "./commons/notification-presenter/notification-presenter.component";
 import {NotificationSingleGroupPresenterComponent} from "./commons/notification-single-group-presenter/notification-single-group-presenter.component";
 import {AppStoreService} from "./services/app-store.service";
 import {PersonRefPipe} from "./pipes/person-ref.pipe";
@@ -65,7 +64,6 @@ import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by
     PlanNavigationToolbarComponent,
     PlanNotificationProcessorComponent,
     OrderByPipe,
-    NotificationPresenterComponent,
     NotificationSingleGroupPresenterComponent,
     PersonRefPipe,
     ParticipantFlatPipe,

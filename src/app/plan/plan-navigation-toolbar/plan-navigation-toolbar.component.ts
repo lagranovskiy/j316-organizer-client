@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -27,7 +28,7 @@ export class PlanNavigationToolbarComponent implements OnInit {
   backClicked: EventEmitter<any> = new EventEmitter<any>();
 
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -47,7 +48,8 @@ export class PlanNavigationToolbarComponent implements OnInit {
 
   navPrint () {
     //$event.preventDefault();
-    window.location.href=`/print/${this.uUid}`;
+    //window.location.href=`/print/${this.uUid}`;
+    this.router.navigate([`/print/${this.uUid}`]);
   }
 
 }

@@ -57,6 +57,10 @@ console.log('MyList '+this.personList.length);
     this.paramsSub.unsubscribe();
   }
 
+  isNotAvailable(index: number, list: boolean[]): boolean {
+    return list[index] == null ? true : false;
+  }
+
 
 }
 

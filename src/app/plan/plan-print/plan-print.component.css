@@ -60,6 +60,11 @@ input{
   text-align: right;
 }
 
+.available {
+
+  background-color: grey;
+}
+
 
 
 

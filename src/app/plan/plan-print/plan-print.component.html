@@ -5,7 +5,7 @@
     <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
       <thead>
       <tr class="trow header grey">
-        <th data-field="participants" width="40%">{{gruppe.name}}</th>
+        <th data-field="participants" width="50%">{{gruppe.name}}</th>
         <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
         <th class="center-align" width="40%">Telefon</th>
       </tr>
@@ -14,18 +14,20 @@
       <tbody>
       <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
         <td data-field="participants">
-          <div *ngFor="let participantRef of teilgruppe.participants">
-            {{ getRelatedParticipant(participantRef)?.getTitle()}}
+          <div *ngFor="let participant of teilgruppe.participants | personRef">
+            {{ participant?.getTitle()}}
           </div>
         </td>
-        <td *ngFor="let besetzt of teilgruppe.besetzung">
+        <td [class.available]="isNotAvailable(i, teilgruppe.verfuegbarkeit)" *ngFor="let besetzt of teilgruppe.besetzung; let i = index">
+
           <div class="center-align" *ngIf="besetzt">
             X
           </div>
+
         </td>
         <td data-field="participants">
-          <div class="center-align" *ngFor="let participantRef of teilgruppe.participants">
-         {{ getRelatedParticipant(participantRef)?.mobilePhone}}
+          <div class="center-align"  *ngFor="let participant of teilgruppe.participants | personRef">
+         {{ participant?.mobilePhone}}
           </div>
         </td>
       </tr>

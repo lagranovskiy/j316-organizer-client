@@ -1,0 +1,9 @@
+<i class="material-icons circle green">rowing</i>
+<span class="title">{{participant?.getTitle() }}</span>
+<p>{{participant?.address.location }}<br>
+  {{participant?.email}} {{participant?.mobilePhone}}
+</p>
+<i class="material-icons" *ngIf="participant?.notificationCal">event</i>
+<i class="material-icons" *ngIf="participant?.notificationEmail">email</i>
+<i class="material-icons" *ngIf="participant?.notificationSMS">call</i>
+

@@ -1,0 +1,13 @@
+<form materialize class="groupForm" id="addressForm" #addressEditForm="ngForm">
+  <div class="input-field">
+    <input [(ngModel)]="address.location" name="personLocation" id="personLocation"
+           placeholder="search for location" autocorrect="off"
+           autocapitalize="off" spellcheck="off" type="text" class="form-control" #search>
+    <label for="personLocation">Anschrift</label>
+  </div>
+  <div class="input-field">
+          <textarea name="groupComment" id="groupComment" [(ngModel)]="address.comment"
+                    class="materialize-textarea" #groupComment="ngModel"></textarea>
+    <label for="groupComment">Addressbeschreibung</label>
+  </div>
+</form>

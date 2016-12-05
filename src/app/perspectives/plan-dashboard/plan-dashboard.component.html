@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col s12">
+    <h2>Dienstplanübersicht</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <a class="waves-effect waves-light btn" (click)="createNewDienstplan()"><i class="material-icons left">add</i>Neue
+      Plan</a>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col s4" *ngFor="let plan of planList">
+    <view-card [model]="plan" [clonable]="true"  (openClicked)="openPlan($event)" (removeClicked)="removePlan($event)" (cloneClicked)="clonePlan($event)"></view-card>
+  </div>
+</div>
+
+
+
+
+

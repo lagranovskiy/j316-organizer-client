@@ -1,0 +1,28 @@
+<table class="striped" border="1">
+  <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
+    <thead>
+    <tr>
+      <th data-field="participants" width="40%">{{gruppe.getTitle()}}</th>
+      <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
+      <td data-field="participants">
+        <div class="chip" *ngFor="let participant of teilgruppe.participants | personRef">
+          {{ participant?.getTitle()}}
+        </div>
+      </td>
+      <td data-field="price" [class.verfuegbarday]="teilgruppe.verfuegbarkeit[dayIndex]" (click)="toggleVerfuegbarkeit(teilgruppe, dayIndex)" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
+        <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox"
+               name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
+               id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
+        <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"></label>
+      </td>
+    </tr>
+    </tbody>
+  </template>
+
+
+</table>
+

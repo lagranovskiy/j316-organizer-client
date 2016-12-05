@@ -1,0 +1,44 @@
+<form materialize class="groupForm" id="groupForm" #groupEditForm="ngForm">
+
+
+  <div class="row">
+    <div class="col s6">
+
+
+      <input placeholder="Gruppenname" name="groupName" [(ngModel)]="model.name" id="groupName"
+             type="text" class="validate" required #groupName="ngModel">
+      <div [hidden]="groupName.valid || groupName.pristine"
+           class="red-text">
+        Gruppenname ist leer
+      </div>
+
+      <textarea placeholder="Kommentar" name="groupComment" id="groupComment" [(ngModel)]="model.comment"
+                class="materialize-textarea" #groupComment="ngModel"></textarea>
+
+      <address-editor [address]="model.address"></address-editor>
+    </div>
+    <div class="col s6">
+      <geo-map [circleLocation]="model" [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
+    </div>
+  </div>
+
+  <a class="waves-effect waves-light btn" (click)="addTeilgruppe()"><i
+    class="material-icons left">reply</i>Neue Teilgruppe</a>
+
+  <div class="row">
+    <div class="col s6" *ngFor="let teilgruppe of model.sections; let i=index;">
+      <div class="card">
+        <div class="card-content">
+          <h5>Gruppe {{i+1}}</h5>
+          <teilgruppe-participants-editor [model]="teilgruppe" (participantsChanged)="teilgruppeChanged"></teilgruppe-participants-editor>
+
+        </div>
+        <div class="card-action">
+          <a (click)="removeTeilgruppe(teilgruppe)" class="waves-effect waves-teal btn-flat "><i
+            class="material-icons red-text">delete</i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

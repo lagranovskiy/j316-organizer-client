@@ -16,6 +16,8 @@ export class PlanDashboardComponent implements OnInit {
   private planList: List<DienstPlan>;
   private refreshPlans: Observable<DienstPlan[]> ;
 
+  private searchString: string;
+
 
   constructor(private service: AppStoreService, private router: Router) {
     this.service.planList.subscribe(plans => this.planList=plans);
@@ -38,8 +40,9 @@ export class PlanDashboardComponent implements OnInit {
     this.service.savePlan(newPlan).subscribe(savedPlan => {
       this.openPlan(savedPlan);
     });
-
   }
+
+
 
   ngOnInit() {
   }

@@ -1,34 +1,25 @@
 import {Injectable} from "@angular/core";
 import {Participant} from "../model/Participant";
-import {Observable} from "rxjs";
-import {Http, Response} from "@angular/http";
+import {Observable, Subject} from "rxjs";
+import {Response} from "@angular/http";
 import {PostalAddress} from "../model/PostalAddress";
-import {AddressPersistenceService} from "../address-persistence.service";
+import {AddressPersistenceService} from "./address-persistence.service";
+import {AuthHttp} from "angular2-jwt";
+import {AlertService} from "./alert.service";
 
 @Injectable()
 export class ParticipantPersistenceService {
 
-  constructor(private http: Http, private addressService: AddressPersistenceService) {
+  constructor(private http: AuthHttp,
+              private alertService: AlertService,
+              private addressService: AddressPersistenceService) {
   }
-
-  /*
-   /!**
-   * Fetches all participants from server
-   *!/
-   public fetchParticipants(): Observable<Participant[]> {
-   let retVal = this.http.get('/api/person')
-   .map(response => response.json())
-   .map(personJSON => {
-   return personJSON.map(personData => new Participant(personData));
-   });
-   return retVal;
-   }*/
-
 
   /**
    * Fetches all participants from server
    */
   public fetchParticipants(): Observable<Participant[]> {
+
     let retVal = this.http.get('/api/person')
       .map(response => response.json())
       .map(personJSON => personJSON.map(personData => new Participant(personData)))
@@ -45,10 +36,12 @@ export class ParticipantPersistenceService {
                 participant.address = new PostalAddress(addressDataList[0].ref);
               }
               return participant;
-            }).subscribe();
-        })
+            }).subscribe(()=> {
+          }, this.alertService.handleHttpError);
+        });
         return participants;
-      });
+      })
+      .catch(this.alertService.handleHttpError);
 
     return retVal;
   }
@@ -71,9 +64,8 @@ export class ParticipantPersistenceService {
           }
           return participant;
         })
-
-        .catch(this.handleError))
-      .catch(this.handleError);
+        .catch(this.alertService.handleHttpError))
+      .catch(this.alertService.handleHttpError);
   }
 
   /**
@@ -86,7 +78,7 @@ export class ParticipantPersistenceService {
           return new Participant(data.json());
         }
       )
-      .catch(this.handleError);
+      .catch(this.alertService.handleHttpError);
   }
 
   /**
@@ -95,10 +87,11 @@ export class ParticipantPersistenceService {
    * @return {Observable<R>}
    */
   public
-  saveParticipant(participant: Participant): Observable < Participant > {
+  saveParticipant(participant: Participant): Observable <Participant> {
+    let retVal: Subject<Participant> = new Subject<Participant>();
     let data = participant.getData();
 
-    return Observable.forkJoin(
+    Observable.forkJoin(
       this.addressService.savePostalAddress(participant.address),
       this.http.put('/api/person', data).map(data => new Participant(data.json()))
     ).flatMap((persistentSet: [PostalAddress, Participant])=> {
@@ -114,31 +107,15 @@ export class ParticipantPersistenceService {
         return savedPerson;
       });
 
-    })
-      .catch(this.handleError);
+    }).subscribe(
+      success=>retVal.next(success),
+      error=> {
+        this.alertService.handleHttpError(error);
+        return retVal.error(error)
+      });
 
+    return retVal.asObservable();
   }
 
-
-  /**
-   * Handlers errors occured by requests
-   * @param error error object
-   * @param action action text
-   * @return {ErrorObservable}
-   */
-  private
-  handleError(error: Response | any) {
-    // In a real world app, we might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.toString();
-    }
-    console.error(`Problem occured :: ${errMsg}`);
-    return Observable.throw(errMsg);
-  }
 
 }

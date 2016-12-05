@@ -6,6 +6,8 @@ import {List} from "immutable";
 import {ParticipantPersistenceService} from "./participant-persistence.service";
 import {PlanPersistenceService} from "./plan-persistence.service";
 import {AuthService} from "./auth-service.service";
+import {AlertService} from "./alert.service";
+import {NotificationControlService} from "./notification-control-service.service";
 
 @Injectable()
 export class AppStoreService {
@@ -17,12 +19,16 @@ export class AppStoreService {
   public planList: Observable<List<DienstPlan>> = this._planList.asObservable();
 
   constructor(private participantService: ParticipantPersistenceService,
-              private planService: PlanPersistenceService, private auth: AuthService) {
+              private planService: PlanPersistenceService,
+              private notificationService: NotificationControlService,
+              private alertService: AlertService, private auth: AuthService) {
     auth.authEvent.subscribe(res => {
       // Remove stored data if no authentication
       if (res.authentication == false) {
         this._personList.next(List<Participant>());
         this._planList.next(List<DienstPlan>());
+      } else if (res.authentication == true) {
+        this.loadData();
       }
     })
   }
@@ -48,7 +54,13 @@ export class AppStoreService {
       let index = this._planList.value.findIndex(plan=> plan.uuid == planUUID);
       if (index > -1) {
         this._planList.next(this._planList.value.delete(index));
+      } else {
+        this.alertService.handleCustomError('Cannot remove plan that is not stored.', planUUID);
       }
+    }).map(removedPlan=> {
+      this.notificationService.cancelGroupNotifications(planUUID).subscribe(()=> {
+        this.alertService.showNotification('Plan sowie Planbenachrichtigungen gelöscht')
+      });
     });
   }
 
@@ -68,7 +80,15 @@ export class AppStoreService {
       let index = this._personList.value.findIndex(participant=> participant.uuid == removedParticipant.uuid);
       if (index > -1) {
         this._personList.next(this._personList.value.delete(index));
+      } else {
+        this.alertService.handleCustomError('Cannot remove participant that is not stored.', participant);
       }
-    });
+    })
+      .map(removedParticipant=> {
+        this.notificationService.cancelPersonNotifications(participant.uuid).subscribe(()=> {
+          this.alertService.showNotification('Teilnehmer sowie Planbenachrichtigungen gelöscht')
+        });
+      });
+    ;
   }
 }

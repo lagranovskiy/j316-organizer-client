@@ -1,5 +1,6 @@
-import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, Input, EventEmitter, Output, ViewChild} from "@angular/core";
 import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
+import {RemovalDialogComponent} from "../removal-dialog/removal-dialog.component";
 
 @Component({
   selector: 'view-card',
@@ -7,6 +8,7 @@ import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
   styleUrls: ['./view-card.component.css']
 })
 export class ViewCardComponent implements OnInit {
+
 
   @Input()
   private model: DisplayableModel;
@@ -23,19 +25,27 @@ export class ViewCardComponent implements OnInit {
   @Output()
   private cloneClicked: EventEmitter<DisplayableModel> = new EventEmitter<DisplayableModel>();
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
+
   constructor() {
   }
 
-  sendRemoveEvent(){
+  sendRemoveEvent() {
     this.removeClicked.emit(this.model);
   }
 
-  sendOpenEvent(){
+  sendOpenEvent() {
     this.openClicked.emit(this.model);
   }
 
-  sendCloneEvent(){
+  sendCloneEvent() {
     this.cloneClicked.emit(this.model);
+  }
+
+
+  openModal() {
+    this.removalDialog.openModal(this.model.getTitle());
   }
 
   ngOnInit() {

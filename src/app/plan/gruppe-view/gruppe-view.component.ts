@@ -1,5 +1,6 @@
-import {Component, OnInit, Input, EventEmitter, Output} from "@angular/core";
+import {Component, OnInit, Input, EventEmitter, Output, ViewChild} from "@angular/core";
 import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
+import {RemovalDialogComponent} from "../../commons/removal-dialog/removal-dialog.component";
 
 @Component({
   selector: 'gruppe-view',
@@ -14,6 +15,12 @@ export class GruppeViewComponent implements OnInit {
   @Output()
   private removeClicked: EventEmitter<DienstPlanGruppe> = new EventEmitter<DienstPlanGruppe>();
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
+
+
+
+
 
   private isEditing: boolean = false;
 
@@ -27,6 +34,7 @@ export class GruppeViewComponent implements OnInit {
   stopEditing() {
     this.isEditing = false;
   }
+
 
 
   sendRemoveEvent() {

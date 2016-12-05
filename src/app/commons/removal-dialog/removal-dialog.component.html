@@ -1,0 +1,11 @@
+<div id="planRemovalDialog" class="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions" materialize="modal">
+  <div class="modal-content">
+    <h4 class="flow-text">Bitte bestätigen Sie die Löschung?</h4>
+    <blockquote>{{ removalIdentification}}</blockquote>
+  </div>
+  <div class="modal-footer">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text"
+       (click)="accept()">Agree</a>
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
-import {Router} from "@angular/router";
 
 
 @Component({
@@ -8,9 +7,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./plan-navigation-toolbar.component.css']
 })
 export class PlanNavigationToolbarComponent implements OnInit {
-
-  @Input()
-    uUid: number;
 
   @Input()
   isSaveAllowed: boolean;
@@ -27,13 +23,19 @@ export class PlanNavigationToolbarComponent implements OnInit {
   @Output()
   backClicked: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
 
-  constructor(private router: Router) {
+
+  constructor() {
   }
 
   ngOnInit() {
   }
 
+  navDashboard(){
+    this.backClicked.emit('');
+  }
   callSaveClicked() {
     this.saveClicked.emit('');
   }
@@ -46,10 +48,6 @@ export class PlanNavigationToolbarComponent implements OnInit {
     this.backClicked.emit('');
   }
 
-  navPrint () {
-    //$event.preventDefault();
-    //window.location.href=`/print/${this.uUid}`;
-    this.router.navigate([`/print/${this.uUid}`]);
-  }
+
 
 }

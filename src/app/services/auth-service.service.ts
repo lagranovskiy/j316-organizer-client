@@ -1,19 +1,31 @@
-import {Injectable} from "@angular/core";
+import {Injectable, Inject} from "@angular/core";
 import {tokenNotExpired} from "angular2-jwt";
 import {BehaviorSubject, Observable} from "rxjs";
+import {APP_CONFIG} from "../config/const";
+import {AppConfig} from "../config/app.config";
+import {AlertService} from "./alert.service";
 
 
 @Injectable()
 export class AuthService {
 
   private _authSubject: BehaviorSubject<any> = new BehaviorSubject({});
+
+  // Public event that notify all about authentication
   public authEvent: Observable<any> = this._authSubject.asObservable();
 
   public userProfile: any;
+  private lock;
 
-  lock = new Auth0Lock('J2NTOuFFPfJTzMsbgspctEgdbZ0YGWYx', 'j316.eu.auth0.com', {});
+  constructor(@Inject(APP_CONFIG) private config: AppConfig,
+              private alertService: AlertService) {
+    this.lock = new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {
+      allowForgotPassword: true,
+      theme: {
+        logo: '../../../assets/logo.png'
+      }
+    });
 
-  constructor() {
     let profile = localStorage.getItem('profile');
     if (profile) {
       this.userProfile = JSON.parse(profile);
@@ -25,8 +37,7 @@ export class AuthService {
       // Fetch profile information
       this.lock.getProfile(authResult.idToken, (error, profile) => {
         if (error) {
-          // Handle error
-          alert(error);
+          alertService.handleCustomError(error);
           return;
         }
 
@@ -34,6 +45,12 @@ export class AuthService {
         this.userProfile = profile;
       });
     });
+
+    if (!this.authenticated()) {
+      this._authSubject.next({authentication: false});
+    } else {
+      this._authSubject.next({authentication: true});
+    }
   }
 
   public login() {

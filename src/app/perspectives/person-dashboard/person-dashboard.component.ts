@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Participant} from "../../model/Participant";
 import {Router} from "@angular/router";
-import {ParticipantPersistenceService} from '../../services/participant-persistence.service'
 import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
 
@@ -12,6 +11,7 @@ import {List} from "immutable";
 })
 export class PersonDashboardComponent implements OnInit {
 
+  private searchString: string;
   private personList: List<Participant> = List<Participant>();
 
   constructor(private service: AppStoreService, private router: Router) {
@@ -31,6 +31,6 @@ export class PersonDashboardComponent implements OnInit {
   }
 
   removePerson(participant: Participant) {
-    this.service.removeParticipant(participant.uuid).subscribe();
+    this.service.removeParticipant(participant).subscribe();
   }
 }

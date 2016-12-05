@@ -3,8 +3,6 @@ import {DienstPlan} from "../../model/DienstPlan";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NotificationControlService} from "../../services/notification-control-service.service";
 import {NotificationEntry} from "../../model/NotificationEntry";
-import {DisplayableModel} from "../../model/interfaces/DisplayableModel";
-import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
 
@@ -37,6 +35,8 @@ export class PlanNotificationViewComponent implements OnInit {
       if (foundIndex > -1) {
         this.plan = planList.get(foundIndex);
         this.isPersistent = true;
+
+        this.refreshNotifications();
       }
     });
   }
@@ -52,7 +52,7 @@ export class PlanNotificationViewComponent implements OnInit {
   }
 
   navDashboard() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/plans']);
   }
 
   refreshNotifications() {
@@ -62,45 +62,18 @@ export class PlanNotificationViewComponent implements OnInit {
   }
 
 
-  groupByGroup(): (notification: NotificationEntry) => DisplayableModel {
-    let _me = this;
-    return (notification: NotificationEntry): DisplayableModel => {
-      let groupUUID = notification.category[1];
-      let foundGroups = _me.plan.groupList.filter((group: DienstPlanGruppe) => group.uuid == groupUUID);
-      if (foundGroups.length == 0) {
-        console.error('Illegal State. Cannot find group where notifications exist for. Deleted?')
-        return null;
-      }
-      return foundGroups[0];
-    }
-
-  }
-
-  groupByPerson(): (notification: NotificationEntry) => DisplayableModel {
-    return (notification: NotificationEntry): DisplayableModel => {
-      let personUUID = notification.recipientUUID;
-      return <DisplayableModel>
-      {
-        uuid: personUUID,
-        getDescription: () => null,
-        getTitle: () => notification.recipient
-      }
-    }
-
-  }
-
   /**
-   * Remove notifications from group=group1UUID and/or group=group1UUID && referenceId=group2UUID
+   * Remove notifications from group=planGroupUUID and/or group=planGroupUUID && referenceId=personUUID
    */
-  groupNotifcationRemove(data: { group1UUID: string, group2UUID: string }) {
-    console.info("Removing: " + data.group1UUID + "   " + data.group2UUID);
+  groupNotifcationRemove(planGroupUUID: string, personUUID: string) {
+    console.info("Removing: " + planGroupUUID + "   " + personUUID);
 
-    if (data.group1UUID != null && data.group2UUID == null) {
+    if (planGroupUUID != null && personUUID == null) {
       // Remove all notifications of group
-      this.notificationService.cancelGroupNotifications(data.group1UUID).subscribe(() => this.refreshNotifications());
+      this.notificationService.cancelGroupNotifications(planGroupUUID).subscribe(() => this.refreshNotifications());
     } else {
       // Remove group/person combinations
-      this.notificationService.cancelPersonGroupNotifications(data.group1UUID, data.group2UUID).subscribe(() => this.refreshNotifications());
+      this.notificationService.cancelPersonGroupNotifications(planGroupUUID, personUUID).subscribe(() => this.refreshNotifications());
     }
   }
 

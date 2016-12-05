@@ -5,5 +5,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mapsAPI: 'AIzaSyDxEGs76p175F19pK8Vf_rEzsJaP_BKoes',
+  authAPI: 'J2NTOuFFPfJTzMsbgspctEgdbZ0YGWYx'
 };

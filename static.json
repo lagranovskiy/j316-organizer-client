@@ -6,7 +6,7 @@
   },
   "proxies": {
     "/api/": {
-      "origin": "https://j316-organizer-backend.herokuapp.com/api"
+      "origin": "${BACKEND_URL}/api"
     }
   },
   "headers": {

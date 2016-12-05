@@ -1,4 +1,5 @@
 export interface AppConfig {
   mapsAPI: string,
-  authAPI: string
+  authAPI: string,
+  production: boolean
 }

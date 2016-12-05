@@ -55,4 +55,19 @@ export class AlertService {
     });
   }
 
+  /**
+   * Handlers errors occured by custom actions
+   * @param error error object
+   * @param action action text
+   * @return {ErrorObservable}
+   */
+  public showNotification(errMsg: string) {
+    this.errorSubject.next({
+      type: 'NOTIFICATION',
+      errMsg,
+      error: null,
+      timestamp: new Date()
+    });
+  }
+
 }

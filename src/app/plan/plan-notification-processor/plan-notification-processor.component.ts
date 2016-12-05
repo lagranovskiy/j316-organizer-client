@@ -59,6 +59,14 @@ export class PlanNotificationProcessorComponent implements OnInit {
         });
   }
 
+
+  countSuccessError(notifications: Array<NotificationEntry>) {
+    let retVal = {success: 0, error: 0};
+    retVal.success = notifications.filter(notification=>notification.success).length;
+    retVal.error = notifications.filter(notification=>!notification.success).length;
+    return retVal;
+  }
+
   removePlanNotifications() {
     this.error = null;
     this.cancelReport = {};

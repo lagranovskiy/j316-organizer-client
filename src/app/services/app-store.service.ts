@@ -7,6 +7,7 @@ import {ParticipantPersistenceService} from "./participant-persistence.service";
 import {PlanPersistenceService} from "./plan-persistence.service";
 import {AuthService} from "./auth-service.service";
 import {AlertService} from "./alert.service";
+import {NotificationControlService} from "./notification-control-service.service";
 
 @Injectable()
 export class AppStoreService {
@@ -19,6 +20,7 @@ export class AppStoreService {
 
   constructor(private participantService: ParticipantPersistenceService,
               private planService: PlanPersistenceService,
+              private notificationService: NotificationControlService,
               private alertService: AlertService, private auth: AuthService) {
     auth.authEvent.subscribe(res => {
       // Remove stored data if no authentication
@@ -55,6 +57,10 @@ export class AppStoreService {
       } else {
         this.alertService.handleCustomError('Cannot remove plan that is not stored.', planUUID);
       }
+    }).map(removedPlan=> {
+      this.notificationService.cancelGroupNotifications(planUUID).subscribe(()=> {
+        this.alertService.showNotification('Plan sowie Planbenachrichtigungen gelöscht')
+      });
     });
   }
 
@@ -77,6 +83,12 @@ export class AppStoreService {
       } else {
         this.alertService.handleCustomError('Cannot remove participant that is not stored.', participant);
       }
-    });
+    })
+      .map(removedParticipant=> {
+        this.notificationService.cancelPersonNotifications(participant.uuid).subscribe(()=> {
+          this.alertService.showNotification('Teilnehmer sowie Planbenachrichtigungen gelöscht')
+        });
+      });
+    ;
   }
 }

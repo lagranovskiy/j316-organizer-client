@@ -15,17 +15,12 @@ export class AlertListenerComponent implements OnInit {
 
   constructor(private service: AlertService) {
     service.errors.subscribe(errorItem => {
-      /*
-       let errorItem = {
-       type: 'HTTP',
-       errMsg,
-       error,
-       timestamp: new Date()
-       };
-       */
-
-      this.errorsList.unshift(errorItem)
-      this.showError();
+      if (errorItem.type == 'NOTIFICATION') {
+        this.showNotification(errorItem.errMsg);
+      } else {
+        this.errorsList.unshift(errorItem)
+        this.showError();
+      }
     });
   }
 
@@ -35,6 +30,10 @@ export class AlertListenerComponent implements OnInit {
 
   private clearErrors() {
     this.errorsList = [];
+  }
+
+  showNotification(text: string) {
+    toast(text, 4000)
   }
 
   showError() {

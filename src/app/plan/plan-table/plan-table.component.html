@@ -4,12 +4,13 @@
     <tr>
       <th data-field="participants" width="40%">{{gruppe.getTitle()}}</th>
       <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
+      <th data-field="count"> </th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
       <td data-field="participants">
-        <div class="chip" *ngFor="let participant of teilgruppe.participants | personRef">
+        <div class="chip" style="overflow: hidden;" *ngFor="let participant of teilgruppe.participants | personRef">
           {{ participant?.getTitle()}}
         </div>
       </td>
@@ -18,6 +19,9 @@
                name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
                id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
         <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"></label>
+      </td>
+      <td>
+        <span class="badge">{{countBesetzungen(teilgruppe)}}</span>
       </td>
     </tr>
     </tbody>

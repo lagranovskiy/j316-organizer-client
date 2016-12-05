@@ -1,21 +1,27 @@
 <nav class="light-blue lighten-1" role="navigation">
-  <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"> <i class="material-icons">security</i>
+  <div class="nav-wrapper container"><a id="logo-container" routerLink="/" class="brand-logo"> <i
+    class="material-icons">security</i>
     J316-Organization</a>
 
     <ul id="dropdown1" class="dropdown-content">
-      <a (click)="auth.logout()" *ngIf="auth.authenticated()" class="blue-text text-darken-2"><i class="material-icons blue-text text-darken-2">lock</i> Logout</a>
+      <a (click)="processLogout()" *ngIf="auth.authenticated()" class="blue-text text-darken-2"><i
+        class="material-icons blue-text text-darken-2">lock</i> Logout</a>
     </ul>
 
     <ul class="right hide-on-med-and-down">
-      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="person/all"><i class="material-icons">supervisor_account</i></a></li>
-      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="plans/"><i class="material-icons">chrome_reader_mode</i></a></li>
+      <li routerLinkActive="active" *ngIf="auth.authenticated()">
+        <a routerLink="person/all"><i class="material-icons left">supervisor_account</i><span class="hide-on-med-and-down">Personen</span></a>
+      </li>
+      <li routerLinkActive="active" *ngIf="auth.authenticated()">
+        <a routerLink="plans/"><i class="material-icons left">chrome_reader_mode</i><span class="hide-on-med-and-down">Pläne</span></a>
+      </li>
 
-      <li><a (click)="auth.login()" *ngIf="!auth.authenticated()"><i class="material-icons">lock_open</i></a></li>
+      <li><a (click)="auth.login()" *ngIf="!auth.authenticated()"><i class="material-icons left">lock_open</i><span class="hide-on-med-and-down">Login</span></a></li>
 
 
       <li class="user" *ngIf="auth.authenticated() && auth.userProfile">
         <div style="padding: 0 15px;">
-          <a class="dropdown-button"  data-activates="dropdown1" materialize="dropdown">
+          <a class="dropdown-button" data-activates="dropdown1" materialize="dropdown">
             <img src="{{auth.userProfile.picture}}"
                  style="width: 35px; vertical-align: middle;" alt="John Doe"
                  class="circle"> {{auth.userProfile.nickname}}
@@ -27,11 +33,11 @@
 
 
     <ul id="nav-mobile" class="side-nav">
-      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="person/all"><i class="material-icons">supervisor_account</i></a></li>
-      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="plans/"><i class="material-icons">chrome_reader_mode</i></a></li>
+      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="person/all"><i class="material-icons left">supervisor_account</i> Personen</a></li>
+      <li routerLinkActive="active" *ngIf="auth.authenticated()"><a routerLink="plans/"><i class="material-icons left">chrome_reader_mode</i> Pläne</a></li>
 
-      <li><a (click)="auth.login()" *ngIf="!auth.authenticated()"><i class="material-icons">lock_open</i></a></li>
-      <li><a (click)="auth.logout()" *ngIf="auth.authenticated()" href="#"><i class="material-icons">lock</i></a></li>
+      <li><a (click)="auth.login()" *ngIf="!auth.authenticated()"><i class="material-icons left">lock_open</i> Login</a></li>
+      <li><a (click)="processLogout()" *ngIf="auth.authenticated()" href="#"><i class="material-icons left">lock</i> Logout</a></li>
     </ul>
     <a materialize="sideNav" href="#" data-activates="nav-mobile" class="button-collapse"><i
       class="material-icons">menu</i></a>
@@ -42,11 +48,15 @@
   <router-outlet></router-outlet>
 </div>
 
+
 <footer class="page-footer orange">
   <div class="container">
     <div class="row">
-      <div class="col l6 s12">
+      <div class="col l8 s10">
         <h5 class="white-text">J316 Organization</h5>
+      </div>
+      <div class="col l4 s2">
+        <alert-listener></alert-listener>
       </div>
     </div>
   </div>

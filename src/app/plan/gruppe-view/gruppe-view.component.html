@@ -7,12 +7,12 @@
         <div *ngIf="!isEditing ">
 
           <div class="row">
-            <div class="col s5">
+            <div class="col s12 m5">
               <span class="card-title"> <h4>{{model.getTitle()}}</h4></span>
               <p><b>{{model.address.location}}</b></p>
               <p>{{model.comment}}</p>
             </div>
-            <div class="col s7" *ngIf="model.address.latitude">
+            <div class="col s12 m7" *ngIf="model.address.latitude">
 
               <geo-map [circleLocation]="model"
                        [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s4" *ngFor="let section of model.sections; let i=index;">
+            <div class="col s12 m6 l4" *ngFor="let section of model.sections; let i=index;">
               <h5>Gruppe {{i+1}}</h5>
               <participant-ref-list-view [participants]="section.participants"></participant-ref-list-view>
             </div>
@@ -39,24 +39,13 @@
         <a class="waves-effect waves-teal btn-flat" (click)="toggleEditing()">
           <i class="material-icons ">create</i></a>
 
-        <a href="#planRemovalDialog" class="waves-effect waves-teal btn-flat " materialize="leanModal"
-           [materializeParams]="[{dismissible: false}]">
+        <a  class="waves-effect waves-teal btn-flat " (click)="removalDialog.openModal()">
           <i class="material-icons red-text">delete</i></a>
 
       </div>
     </div>
 
     <!-- Removal Dialog -->
-    <div id="planRemovalDialog" class="modal" materialize>
-      <div class="modal-content">
-        <h4>Soll die Gruppe wirklich gelöscht werden?</h4>
-        <p>{{ model.getTitle()}}</p>
-      </div>
-      <div class="modal-footer">
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat red-text"
-           (click)="sendRemoveEvent()">Agree</a>
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat">Nein</a>
-      </div>
-    </div>
+    <removal-dialog [removalIdentification]="model.getTitle()" (removeAccepted)="sendRemoveEvent()"></removal-dialog>
   </div>
 </div>

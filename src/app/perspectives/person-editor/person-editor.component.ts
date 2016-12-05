@@ -1,13 +1,12 @@
-import { DienstPlan } from '../../model/DienstPlan';
-import { PlanPersistenceService } from '../../services/plan-persistence.service';
-import { DisplayableModel } from '../../model/interfaces/DisplayableModel';
-import { NotificationEntry } from '../../model/NotificationEntry';
-import { NotificationControlService } from '../../services/notification-control-service.service';
-import { Component, OnInit } from '@angular/core';
-import { Participant } from '../../model/Participant';
-import { Router, ActivatedRoute } from '@angular/router';
+import {DienstPlan} from "../../model/DienstPlan";
+import {NotificationEntry} from "../../model/NotificationEntry";
+import {NotificationControlService} from "../../services/notification-control-service.service";
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {Participant} from "../../model/Participant";
+import {Router, ActivatedRoute} from "@angular/router";
 import {AppStoreService} from "../../services/app-store.service";
 import {List} from "immutable";
+import {RemovalDialogComponent} from "../../commons/removal-dialog/removal-dialog.component";
 
 @Component({
   selector: 'app-person-editor',
@@ -18,7 +17,7 @@ export class PersonEditorComponent implements OnInit {
 
   private person: Participant = new Participant();
   private personUUID: string;
-  private isPersistent:boolean = false;
+  private isPersistent: boolean = false;
 
   notifications: Array<NotificationEntry> = [];
 
@@ -26,10 +25,13 @@ export class PersonEditorComponent implements OnInit {
 
   private paramsSub;
 
+  @ViewChild(RemovalDialogComponent)
+  private removalDialog: RemovalDialogComponent;
+
   constructor(private service: AppStoreService,
-    private notificationService: NotificationControlService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private notificationService: NotificationControlService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
     this.service.planList.subscribe(plans => this.existingPlans = plans);
 
@@ -41,9 +43,10 @@ export class PersonEditorComponent implements OnInit {
       let foundIndex = personList.findIndex(person=>this.personUUID == person.uuid);
       if (foundIndex > -1) {
         this.person = personList.get(foundIndex);
+        this.refreshNotifications();
         this.isPersistent = true;
       }
-    });
+    }, ()=>{});
 
   }
 
@@ -51,6 +54,8 @@ export class PersonEditorComponent implements OnInit {
   navDashboard() {
     this.router.navigate(['/person/all']);
   }
+
+
 
   saveChanges() {
     this.service.saveParticipant(this.person).subscribe();
@@ -69,28 +74,21 @@ export class PersonEditorComponent implements OnInit {
     });
   }
 
+
   /**
-   * Creates a function that groups notification by a plan they a referencing
+   * Open confirmation dialog
    */
-  groupByPlan(): (notification: NotificationEntry) => DisplayableModel {
-    let _me = this;
-    return (notification: NotificationEntry): DisplayableModel => {
+  openRemovalDialog() {
+    this.removalDialog.openModal();
+  }
 
-      let planUUID = notification.category[0];
-      let foundPlans = _me.existingPlans.filter(plan => plan.uuid === planUUID);
-      if (foundPlans.size == 0) {
-        console.error('Illegal State.. Notifications for non existent plan found. removed?');
-        return null;
-      }
+  /**
+   * Remove Person
+   */
+  removePerson() {
+    // Remove all notifications of group
+    this.service.removeParticipant(this.person).subscribe(() => this.navDashboard());
 
-      return <DisplayableModel>
-        {
-          uuid: planUUID,
-          getDescription: () => null,
-          getTitle: () => foundPlans.first().planName
-        }
-
-    }
   }
 
   /**
@@ -105,10 +103,10 @@ export class PersonEditorComponent implements OnInit {
   /**
    * Remove combinations from group1UUID with referenceId person.uuid
    */
-  groupNotifcationRemove(data: { group1UUID: string, group2UUID: string }) {
-    console.info("Removing: " + data.group1UUID + "   " + data.group2UUID);
+  groupNotifcationRemove(dienstPlanUUID: string) {
+    console.info("Removing: " + dienstPlanUUID );
 
-    this.notificationService.cancelPersonGroupNotifications(data.group1UUID, this.person.uuid).subscribe(() => this.refreshNotifications());
+    this.notificationService.cancelPersonGroupNotifications(dienstPlanUUID, this.person.uuid).subscribe(() => this.refreshNotifications());
 
   }
 

@@ -1,0 +1,41 @@
+<div class="center-align">
+  <h2>{{plan.planName}}</h2>
+
+  <table class="striped" border="1">
+    <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
+      <thead>
+      <tr class="trow header grey">
+        <th data-field="participants" width="50%">{{gruppe.name}}</th>
+        <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
+        <th class="center-align" width="40%">Telefon</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
+        <td data-field="participants">
+          <div *ngFor="let participant of teilgruppe.participants | personRef">
+            {{ participant?.getTitle()}}<br/>
+          </div>
+        </td>
+        <td [class.available]="teilgruppe.verfuegbarkeit[dayIndey]"
+            *ngFor="let besetzt of plan.eventDates; let dayIndey=index">
+
+          <div class="center-align" *ngIf="teilgruppe.besetzung[dayIndey]">
+            X
+          </div>
+
+        </td>
+        <td>
+          <div class="center-align" *ngFor="let participant of teilgruppe.participants | personRef">
+            {{ participant?.mobilePhone + ''}} <br/>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </template>
+  </table>
+
+</div>
+
+

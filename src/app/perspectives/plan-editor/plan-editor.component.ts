@@ -23,7 +23,7 @@ export class PlanEditorComponent implements OnInit {
   private paramsSub;
 
   @ViewChildren(GruppeViewComponent)
-  private groupViews: QueryList < GruppeViewComponent >;
+  private groupViews: QueryList <GruppeViewComponent>;
 
   @ViewChild(NgForm)
   public planForm: NgForm;
@@ -83,12 +83,13 @@ export class PlanEditorComponent implements OnInit {
   }
 
   navDashboard() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/plans']);
   }
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
   }
+
 
 
 }

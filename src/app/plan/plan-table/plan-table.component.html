@@ -4,6 +4,7 @@
     <tr>
       <th data-field="participants" width="40%">{{gruppe.getTitle()}}</th>
       <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
+      <th data-field="count"> </th>
     </tr>
     </thead>
     <tbody>
@@ -18,6 +19,9 @@
                name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
                id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
         <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"></label>
+      </td>
+      <td>
+        <span class="badge">{{countBesetzungen(teilgruppe)}}</span>
       </td>
     </tr>
     </tbody>

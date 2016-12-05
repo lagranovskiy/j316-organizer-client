@@ -21,6 +21,17 @@ export class PlanTableComponent implements OnInit {
 
   }
 
+  countBesetzungen(teilgruppe: DienstPlanTeilgruppe) {
+    // .reduce((accum, current)=>accum + current, '');
+    return teilgruppe.besetzung.reduce((previousValue: number, currentValue: boolean, currentIndex: number, array: boolean[])=> {
+      let retVal = previousValue;
+      if (currentIndex < this.plan.eventDates.length && currentValue) {
+        retVal += 1;
+      }
+      return retVal;
+    }, 0);
+  }
+
   ngOnInit() {
   }
 

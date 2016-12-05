@@ -17,7 +17,7 @@
 
 
 <div class="row">
-  <div class="col s12 m3 l4" *ngFor="let person of personList | filterDisplayable: searchString">
+  <div class="col s12 m6 l4" *ngFor="let person of personList | filterDisplayable: searchString">
     <view-card [model]="person" [clonable]="false"  (openClicked)="openPerson($event)" (removeClicked)="removePerson($event)" ></view-card>
   </div>
 </div>

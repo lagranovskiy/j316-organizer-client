@@ -34,6 +34,9 @@ export class PlanNavigationToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  navDashboard(){
+    this.backClicked.emit('');
+  }
   callSaveClicked() {
     this.saveClicked.emit('');
   }

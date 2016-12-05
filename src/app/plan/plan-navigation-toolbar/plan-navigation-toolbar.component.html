@@ -1,3 +1,8 @@
+<a materialize="tooltip" class="btn-floating btn-large waves-effect waves-light tooltipped"
+   (click)="navDashboard()" data-position="bottom"
+   data-delay="50" data-tooltip="Zurück zu Plänen"><i
+  class="material-icons left">reply</i></a>
+
 <a materialize="tooltip"
    [ngClass]="{'disabled': !isPersistent}"
    (click)="removalDialog.openModal()" class="btn-floating btn-large waves-effect waves-light red tooltipped"

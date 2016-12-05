@@ -18,7 +18,7 @@
 
 
 <div class="row">
-  <div class="col s12 m4 l3" *ngFor="let plan of planList | filterDisplayable: searchString">
+  <div class="col s12 m6 l4" *ngFor="let plan of planList | filterDisplayable: searchString">
     <view-card [model]="plan" [clonable]="true" (openClicked)="openPlan($event)" (removeClicked)="removePlan($event)"
                (cloneClicked)="clonePlan($event)"></view-card>
   </div>

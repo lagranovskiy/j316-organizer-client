@@ -15,35 +15,27 @@
       <tr *ngFor="let teilgruppe of gruppe.sections; let teilgruppenIndex=index">
         <td data-field="participants">
           <div *ngFor="let participant of teilgruppe.participants | personRef">
-            {{ participant?.getTitle()}}
+            {{ participant?.getTitle()}}<br/>
           </div>
         </td>
-        <td [class.available]="isNotAvailable(i, teilgruppe.verfuegbarkeit)" *ngFor="let besetzt of teilgruppe.besetzung; let i = index">
+        <td [class.available]="teilgruppe.verfuegbarkeit[dayIndey]"
+            *ngFor="let besetzt of plan.eventDates; let dayIndey=index">
 
-          <div class="center-align" *ngIf="besetzt">
+          <div class="center-align" *ngIf="teilgruppe.besetzung[dayIndey]">
             X
           </div>
 
         </td>
-        <td data-field="participants">
-          <div class="center-align"  *ngFor="let participant of teilgruppe.participants | personRef">
-         {{ participant?.mobilePhone}}
+        <td>
+          <div class="center-align" *ngFor="let participant of teilgruppe.participants | personRef">
+            {{ participant?.mobilePhone + ''}} <br/>
           </div>
         </td>
       </tr>
       </tbody>
     </template>
   </table>
-  <div class="row">
-    <div class="col s10">
-  <input [attr.placeholder]="text">
-</div>
-  <div class="col s2">
-<div style="border-style: double;">
-    {{vers}}
-</div>
-</div>
-</div>
+
 </div>
 
 

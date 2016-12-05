@@ -2,11 +2,12 @@
 
   <div class="row valign-wrapper">
     <div class="col s7 valign-wrapper">
-      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>   <h3 class="valign">  {{plan.planName}}</h3>
+      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>
+      <h3 class="valign"> {{plan.planName}}</h3>
     </div>
 
     <div class="col s4 right-align">
-      <plan-navigation-toolbar [uUid]="plan.uuid" [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
+      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
 

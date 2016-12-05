@@ -1,6 +1,6 @@
 import {AppConfig} from "./app.config";
 import {OpaqueToken} from "@angular/core";
-import {environment} from '../../environments'
+import {environment} from "../../environments";
 
 export const J316_CONFIG: AppConfig = {
   mapsAPI: environment.mapsAPI,

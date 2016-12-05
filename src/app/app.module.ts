@@ -44,7 +44,7 @@ import {NotificatationDienstGroupPipe} from "./pipes/notificatation-group-by-die
 import {NotificatationPersonGroupPipe} from "./pipes/notificatation-group-by-person.pipe";
 import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by-plan.pipe";
 import {FilterDisplayablePipe} from "./pipes/filter-displayable.pipe";
-import { PlanPrintComponent } from './plan/plan-print/plan-print.component';
+import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
 
 
 @NgModule({

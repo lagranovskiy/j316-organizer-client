@@ -5,7 +5,7 @@ import {PersonDashboardComponent} from "./perspectives/person-dashboard/person-d
 import {PersonEditorComponent} from "./perspectives/person-editor/person-editor.component";
 import {PlanNotificationViewComponent} from "./perspectives/plan-notification-view/plan-notification-view.component";
 import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
-import {PlanPrintComponent} from './plan/plan-print/plan-print.component';
+import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {WelcomeComponent} from "./perspectives/welcome/welcome.component";
 
@@ -26,7 +26,8 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'edit', pathMatch: 'full'},
       {path: 'notification', component: PlanNotificationViewComponent},
-      {path: 'edit', component: PlanEditorComponent}
+      {path: 'edit', component: PlanEditorComponent},
+      {path: 'print', component: PlanPrintComponent}
     ]
   },
   {
@@ -42,11 +43,6 @@ const routes: Routes = [
   {
     component: PersonEditorComponent,
     path: 'person/:uuid',
-    canActivate: [AuthGuardService]
-  },
-  {
-    component: PlanPrintComponent,
-    path: 'print/:uuid',
     canActivate: [AuthGuardService]
   }
 

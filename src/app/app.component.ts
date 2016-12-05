@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {AppStoreService} from "./services/app-store.service";
 import {AuthService} from "./services/auth-service.service";
 import {Router} from "@angular/router";
-import {environment} from "../environments";
 
 @Component({
   selector: 'j316-organizer',

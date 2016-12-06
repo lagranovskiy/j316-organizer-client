@@ -1,9 +1,9 @@
-import {Injectable, ErrorHandler} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Subject, Observable} from "rxjs";
 import {Response} from "@angular/http";
 
 @Injectable()
-export class AlertService implements ErrorHandler {
+export class AlertService  {
 
 
     private errorSubject: Subject<any> = new Subject<any>();
@@ -37,16 +37,6 @@ export class AlertService implements ErrorHandler {
         this.errorSubject.next(errorItem);
 
         return Observable.throw(errMsg);
-    }
-
-    handleError(error: any): void {
-        let errorItem = {
-            type: 'HTTP',
-            errMsg: JSON.stringify(error),
-            error,
-            timestamp: new Date()
-        };
-        this.errorSubject.next(errorItem);
     }
 
 

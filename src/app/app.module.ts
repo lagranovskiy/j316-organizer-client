@@ -1,5 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule, ErrorHandler} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
@@ -21,7 +21,6 @@ import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
 import {GruppeViewComponent} from "./plan/gruppe-view/gruppe-view.component";
 import {GruppeEditorComponent} from "./plan/gruppe-editor/gruppe-editor.component";
 import {ParticipantRefListViewComponent} from "./plan/participant-ref-list-view/participant-ref-list-view.component";
-import {ParticipantListSingleViewComponent} from "./plan/participant-list-single-view/participant-list-single-view.component";
 import {PlanPersistenceService} from "./services/plan-persistence.service";
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import {AddressEditorComponent} from "./commons/address-editor/address-editor.component";
@@ -57,7 +56,6 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
     MaterializeDirective,
     ViewCardComponent,
     ParticipantRefListViewComponent,
-    ParticipantListSingleViewComponent,
     PlanTableComponent,
     PersonDashboardComponent,
     PersonEditorComponent,
@@ -91,8 +89,7 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
     AuthService,
     AuthGuardService,
     AUTH_PROVIDERS,
-    {provide: APP_CONFIG, useValue: J316_CONFIG},
-    {provide: ErrorHandler, useClass: AlertService}
+    {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [
     BrowserModule,

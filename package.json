@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "node server.js",
-    "preinstall": "npm install -g angular-cli",
+    "preinstall": "npm install",
     "postinstall": "ng build --prod",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -13,8 +13,8 @@
     "e2e": "protractor"
   },
   "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.10"
+    "node": "7.2.0",
+    "npm": "3.10.9"
   },
   "private": true,
   "dependencies": {
@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/jasmine": "2.2.30",
-    "angular-cli": "^1.0.0-beta.21",
+    "angular-cli": "^1.0.0-beta.22",
     "codelyzer": "0.0.26",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",

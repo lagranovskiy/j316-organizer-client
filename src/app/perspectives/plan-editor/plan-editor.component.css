@@ -30,3 +30,7 @@
 .active-group .card {
   border: solid black 5px;
 }
+
+.sebm-google-map-container {
+  height: 300px;
+}

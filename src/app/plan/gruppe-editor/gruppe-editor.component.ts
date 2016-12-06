@@ -21,7 +21,6 @@ export class GruppeEditorComponent implements OnInit {
     this.model.sections.splice(this.model.sections.indexOf(teilgruppe), 1);
   }
 
-  teilgruppeChanged(){}
 
   ngOnInit() {
   }

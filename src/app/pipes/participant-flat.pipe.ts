@@ -10,7 +10,9 @@ export class ParticipantFlatPipe implements PipeTransform {
 
   transform(values: Array<DienstPlanTeilgruppe>, args?: any): any {
     let retVal: Array<ParticipantRef> = [];
-
+    if (!values) {
+      return retVal;
+    }
     values.forEach(teilgruppe =>retVal = retVal.concat(teilgruppe.participants));
     return retVal;
   }

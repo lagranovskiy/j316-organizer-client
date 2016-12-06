@@ -135,7 +135,7 @@ export class Participant extends J316Model implements DisplayableModel, GeoMapDi
   }
 
   getTitle() {
-    return this.forename + ' ' + this.surname;
+    return  this.surname + ', '+this.forename ;
   }
 
   getDescription() {

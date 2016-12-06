@@ -34,7 +34,9 @@ export class AppStoreService {
     }
 
     public loadData() {
-        this.participantService.fetchParticipants().subscribe(participants=>this._personList.next(List<Participant>(participants)));
+        this.participantService.fetchParticipants().subscribe(participants=> {
+            this._personList.next(List<Participant>(participants))
+        });
         this.planService.fetchPlans().subscribe(plans=>this._planList.next(List<DienstPlan>(plans)));
     }
 

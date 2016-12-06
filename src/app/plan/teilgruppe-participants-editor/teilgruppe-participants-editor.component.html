@@ -7,9 +7,10 @@
           #teilgruppenSelect
 
           materialize="material_select">
+    <option value="" disabled selected>Bitte zuordnen</option>
     <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
   </select>
 </div>
 
 <!-- Display participant core information -->
-<participant-ref-list-view [participants]="model?.participants" [editMode]="true"></participant-ref-list-view>
+<participant-ref-list-view [participants]="model?.participants" [editMode]="true" (participantRemoved)="removeParticipantRef($event)"></participant-ref-list-view>

@@ -1,5 +1,6 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {ParticipantRef} from "../../model/ParticipantRef";
+import {Participant} from "../../model/Participant";
 
 @Component({
     selector: 'participant-ref-list-view',
@@ -11,6 +12,9 @@ export class ParticipantRefListViewComponent implements OnInit {
     @Input()
     private participants: Array<ParticipantRef>;
 
+    @Output()
+    private participantRemoved: EventEmitter<string> = new EventEmitter<string>();
+
 
     @Input()
     private editMode: boolean = false;
@@ -18,10 +22,8 @@ export class ParticipantRefListViewComponent implements OnInit {
     ngOnInit() {
     }
 
-    removeParticipant(uuid: string) {
-        let ref = this.participants.filter(item=>item.participantUUID === uuid)[0];
-        this.participants.splice(this.participants.indexOf(ref), 1);
-        console.error('removing participant from teilgruppe')
+    removeParticipant(ref: Participant) {
+      this.participantRemoved.emit(ref.uuid);
     }
 
 }

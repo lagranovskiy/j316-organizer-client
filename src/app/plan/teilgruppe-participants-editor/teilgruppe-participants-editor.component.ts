@@ -1,9 +1,10 @@
-import {Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild} from "@angular/core";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 import {AppStoreService} from "../../services/app-store.service";
 import {Participant} from "../../model/Participant";
 import {List} from "immutable";
 import {ParticipantRef} from "../../model/ParticipantRef";
+import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
   selector: 'teilgruppe-participants-editor',
@@ -18,6 +19,9 @@ export class TeilgruppeParticipantsEditorComponent implements OnInit {
   @Output()
   private participantsChanged: EventEmitter<DienstPlanTeilgruppe> = new EventEmitter<DienstPlanTeilgruppe>();
 
+  @ViewChild(MaterializeDirective)
+  private select: MaterializeDirective;
+
   private personList: List<Participant> = List<Participant>();
 
   constructor(private appStoreService: AppStoreService) {
@@ -30,7 +34,6 @@ export class TeilgruppeParticipantsEditorComponent implements OnInit {
     } else {
       return []
     }
-
   }
 
   private set participants(neueParticipants: Array<string>) {
@@ -42,6 +45,11 @@ export class TeilgruppeParticipantsEditorComponent implements OnInit {
         this.participantsChanged.emit(this.model);
       }
     }
+  }
+
+  removeParticipantRef(removed: string) {
+    this.participants = this.participants.filter(item=>item != removed);
+    this.select.ngOnChanges();
   }
 
   ngOnInit() {

@@ -18,7 +18,9 @@
       <address-editor [address]="model.address"></address-editor>
     </div>
     <div class="col s12 m6">
-      <geo-map [circleLocation]="model" [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
+      <geo-map [circleLocations]="[model]"
+               [circleRadius]="5000" [zoom]="11"
+               [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
     </div>
   </div>
 

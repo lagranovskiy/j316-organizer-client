@@ -45,6 +45,8 @@ import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by
 import {FilterDisplayablePipe} from "./pipes/filter-displayable.pipe";
 import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
 import {ParticipantSearchComponent} from "./plan/participant-search/participant-search.component";
+import {GruppeFlatPipe} from "./pipes/gruppe-flat.pipe";
+import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import {ParticipantSearchComponent} from "./plan/participant-search/participant-
     NotificatationDienstPlanGroupPipe,
     FilterDisplayablePipe,
     PlanPrintComponent,
-    ParticipantSearchComponent
+    ParticipantSearchComponent,
+    GruppeFlatPipe,
+    PersonGroupRefPipe
   ],
   providers: [
     PlanPersistenceService,

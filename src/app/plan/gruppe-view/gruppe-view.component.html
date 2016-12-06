@@ -14,7 +14,8 @@
             </div>
             <div class="col s12 m7" *ngIf="model.address.latitude">
 
-              <geo-map [circleLocation]="model"
+              <geo-map [circleLocations]="[model]"
+                       [circleRadius]="5000" [zoom]="11"
                        [markerLocations]="model.sections | participantFlat | personRef"></geo-map>
 
             </div>

@@ -20,7 +20,9 @@ export class PlanDashboardComponent implements OnInit {
 
 
   constructor(private service: AppStoreService, private router: Router) {
-    this.service.planList.subscribe(plans => this.planList=plans);
+    this.service.planList.subscribe(plans => this.planList=plans, err=>{
+      console.info('Hohoh');
+    });
   }
 
   private openPlan(plan) {

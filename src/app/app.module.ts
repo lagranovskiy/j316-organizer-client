@@ -1,5 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from "@angular/core";
+import {NgModule, ErrorHandler} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AppComponent} from "./app.component";
@@ -91,7 +91,8 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
     AuthService,
     AuthGuardService,
     AUTH_PROVIDERS,
-    {provide: APP_CONFIG, useValue: J316_CONFIG}
+    {provide: APP_CONFIG, useValue: J316_CONFIG},
+    {provide: ErrorHandler, useClass: AlertService}
   ],
   imports: [
     BrowserModule,

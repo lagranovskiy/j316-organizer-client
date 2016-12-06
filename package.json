@@ -5,7 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "node server.js",
-    "preinstall": "nvm install",
+    "preinstall": "npm install",
     "postinstall": "ng build --prod",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",

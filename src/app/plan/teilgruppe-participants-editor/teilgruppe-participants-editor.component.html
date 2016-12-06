@@ -1,4 +1,4 @@
-<div class="input-field">
+<!--<div class="input-field">
 
   <select [(ngModel)]="participants"
           name="teilgruppenSelect"
@@ -10,7 +10,17 @@
     <option value="" disabled selected>Bitte zuordnen</option>
     <option *ngFor="let option of personList" [value]="option.uuid">{{option.getTitle()}}</option>
   </select>
+</div>-->
+
+<div class="row">
+  <div class="col"><h5>Teilgruppe</h5></div>
+  <participant-search (participantRemoved)="removeParticipantRef($event)" (participantAdded)="addParticipantRef($event)"
+                      [selectedParticipantRefs]="model?.participants"></participant-search>
+
 </div>
 
 <!-- Display participant core information -->
-<participant-ref-list-view [participants]="model?.participants" [editMode]="true" (participantRemoved)="removeParticipantRef($event)"></participant-ref-list-view>
+<participant-ref-list-view [participants]="model?.participants" [editMode]="true"
+                           (participantRemoved)="removeParticipantRef($event)"></participant-ref-list-view>
+
+

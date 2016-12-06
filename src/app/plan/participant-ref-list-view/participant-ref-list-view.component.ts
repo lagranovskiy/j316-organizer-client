@@ -22,7 +22,10 @@ export class ParticipantRefListViewComponent implements OnInit {
     ngOnInit() {
     }
 
-    removeParticipant(ref: Participant) {
+    removeParticipant(ref: Participant, event) {
+      if(event){
+        event.stopPropagation();
+      }
       this.participantRemoved.emit(ref.uuid);
     }
 

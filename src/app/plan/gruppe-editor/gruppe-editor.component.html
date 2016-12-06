@@ -26,12 +26,10 @@
     class="material-icons left">reply</i>Neue Teilgruppe</a>
 
   <div class="row">
-    <div class="col s12 m6 l4" *ngFor="let teilgruppe of model.sections; let i=index;">
+    <div class="col s12 m12 l6" *ngFor="let teilgruppe of model.sections; let i=index;">
       <div class="card">
         <div class="card-content">
-          <h5>Teilgruppe {{i+1}}</h5>
-          <teilgruppe-participants-editor [model]="teilgruppe" (participantsChanged)="teilgruppeChanged"></teilgruppe-participants-editor>
-
+          <teilgruppe-participants-editor [model]="teilgruppe"></teilgruppe-participants-editor>
         </div>
         <div class="card-action">
           <a (click)="removeTeilgruppe(teilgruppe)" class="waves-effect waves-teal btn-flat "><i

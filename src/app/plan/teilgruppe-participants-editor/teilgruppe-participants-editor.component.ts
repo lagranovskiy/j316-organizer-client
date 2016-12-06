@@ -1,10 +1,7 @@
-import {Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild} from "@angular/core";
+import {Component, OnInit, Input, ChangeDetectionStrategy} from "@angular/core";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
 import {AppStoreService} from "../../services/app-store.service";
-import {Participant} from "../../model/Participant";
-import {List} from "immutable";
 import {ParticipantRef} from "../../model/ParticipantRef";
-import {MaterializeDirective} from "angular2-materialize";
 
 @Component({
   selector: 'teilgruppe-participants-editor',
@@ -16,41 +13,26 @@ export class TeilgruppeParticipantsEditorComponent implements OnInit {
   @Input()
   private model: DienstPlanTeilgruppe;
 
-  @Output()
-  private participantsChanged: EventEmitter<DienstPlanTeilgruppe> = new EventEmitter<DienstPlanTeilgruppe>();
-
-  @ViewChild(MaterializeDirective)
-  private select: MaterializeDirective;
-
-  private personList: List<Participant> = List<Participant>();
-
   constructor(private appStoreService: AppStoreService) {
-    appStoreService.personList.subscribe(list => this.personList = list);
   }
 
-  private get participants() {
-    if (this.model) {
-      return this.model.participants.map(participantRef=>participantRef.participantUUID);
-    } else {
-      return []
-    }
+  /**
+   * removes ref from model
+   * @param ref
+   */
+  removeParticipantRef(ref: ParticipantRef) {
+    this.model.participants.splice(this.model.participants.indexOf(ref), 1);
   }
 
-  private set participants(neueParticipants: Array<string>) {
-    if (this.model) {
-      let currentSelectionString: string = this.model.participants.map(participantRef=>participantRef.participantUUID).reduce((accum, current)=>accum + current, '');
-      let newSelectionString: string = neueParticipants.reduce((accum, current)=>accum + current, '');
-      if (currentSelectionString != newSelectionString) {
-        this.model.participants = neueParticipants.map(participantUUID=>new ParticipantRef({participantUUID}));
-        this.participantsChanged.emit(this.model);
-      }
-    }
+  /**
+   * removes ref from model
+   * @param ref
+   */
+  addParticipantRef(ref: ParticipantRef) {
+    this.model.participants.push(ref);
   }
 
-  removeParticipantRef(removed: string) {
-    this.participants = this.participants.filter(item=>item != removed);
-    this.select.ngOnChanges();
-  }
+
 
   ngOnInit() {
   }

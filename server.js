@@ -11,7 +11,7 @@ var port = process.env.PORT || 4200;
 app.use('/api', function (req, res, next) {
   console.info('request: ' + req.url);
   return next()
-}, proxy(process.env.BACKEND_URL || 'http://localhost:8080/'));
+}, proxy(process.env.BACKEND_URL+'/api' || 'http://localhost:8080/api'));
 
 
 app.use('/',express.static(__dirname+'/dist'));

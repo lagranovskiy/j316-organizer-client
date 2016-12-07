@@ -1,6 +1,19 @@
-<ul class="collection">
-  <!-- Display participant core information -->
-  <li class="collection-item avatar" *ngFor="let participant of participants | personRef">
-    <participant-list-single-view [participant]="participant"></participant-list-single-view>
+<ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+  <li *ngIf="participants.length == 0">
+    <div class="collapsible-header">Keine Teilnehmer ausgewählt</div>
+    <div class="collapsible-body"></div>
+  </li>
+  <li *ngFor="let participant of participants | personRef">
+    <div class="collapsible-header" style="overflow: auto">{{participant.getTitle()}}
+      <span class="badge" *ngIf="editMode">
+        <a (click)="removeParticipant(participant, $event)"><i class="material-icons red-text">delete</i></a>
+      </span>
+    </div>
+    <div class="collapsible-body">
+      <p><b>Anschrift:</b> {{participant.address.location }}<br>
+        <b>Email:</b> {{participant.email}}<br>
+        <b>Handly:</b> {{participant.mobilePhone}}
+      </p>
+    </div>
   </li>
 </ul>

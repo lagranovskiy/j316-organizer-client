@@ -21,7 +21,6 @@ import {PlanViewComponent} from "./perspectives/plan-view/plan-view.component";
 import {GruppeViewComponent} from "./plan/gruppe-view/gruppe-view.component";
 import {GruppeEditorComponent} from "./plan/gruppe-editor/gruppe-editor.component";
 import {ParticipantRefListViewComponent} from "./plan/participant-ref-list-view/participant-ref-list-view.component";
-import {ParticipantListSingleViewComponent} from "./plan/participant-list-single-view/participant-list-single-view.component";
 import {PlanPersistenceService} from "./services/plan-persistence.service";
 import {PlanTableComponent} from "./plan/plan-table/plan-table.component";
 import {AddressEditorComponent} from "./commons/address-editor/address-editor.component";
@@ -45,6 +44,9 @@ import {NotificatationPersonGroupPipe} from "./pipes/notificatation-group-by-per
 import {NotificatationDienstPlanGroupPipe} from "./pipes/notificatation-group-by-plan.pipe";
 import {FilterDisplayablePipe} from "./pipes/filter-displayable.pipe";
 import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
+import {ParticipantSearchComponent} from "./plan/participant-search/participant-search.component";
+import {GruppeFlatPipe} from "./pipes/gruppe-flat.pipe";
+import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
 
 
 @NgModule({
@@ -57,7 +59,6 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
     MaterializeDirective,
     ViewCardComponent,
     ParticipantRefListViewComponent,
-    ParticipantListSingleViewComponent,
     PlanTableComponent,
     PersonDashboardComponent,
     PersonEditorComponent,
@@ -79,7 +80,10 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
     NotificatationPersonGroupPipe,
     NotificatationDienstPlanGroupPipe,
     FilterDisplayablePipe,
-    PlanPrintComponent
+    PlanPrintComponent,
+    ParticipantSearchComponent,
+    GruppeFlatPipe,
+    PersonGroupRefPipe
   ],
   providers: [
     PlanPersistenceService,

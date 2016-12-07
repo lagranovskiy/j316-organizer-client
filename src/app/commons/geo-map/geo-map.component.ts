@@ -9,15 +9,24 @@ import {GeoMapDisplayable} from "../../model/interfaces/GeoMapDisplayable";
 export class GeoMapComponent implements OnInit {
 
   @Input()
-  private circleLocation: GeoMapDisplayable;
+  private circleLocations: Array<GeoMapDisplayable> = [];
 
   @Input()
   private circleRadius: number = 10000;
 
   @Input()
-  private markerLocations: Array<GeoMapDisplayable>;
+  private zoom: number = 11;
 
+  @Input()
+  private markerLocations: Array<GeoMapDisplayable> = [];
 
+  @Input()
+  private markerLocationGroups: Array<Array<GeoMapDisplayable>>;
+
+  private test;
+
+  private colorArray: Array<string> = ['blue', 'green', 'grey', 'orange', 'purple', 'red', 'white', 'yellow', 'black'];
+  private markerArray: Array<string> = ['blue.png', 'green.png', 'grey.png', 'orange.png', 'purple.png', 'red.png', 'white.png', 'yellow.png', 'black.png'];
 
   constructor() {
   }

@@ -90,5 +90,16 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="plan.groupList.length>0">
+    <div class="col s12">
+      <h4>Dienstkarte</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <geo-map [circleLocations]="plan.groupList" [circleRadius]="5000" [zoom]="10" [markerLocationGroups]="plan.groupList | GruppeFlat | PersonGroupRef"></geo-map>
+    </div>
+  </div>
 
 </form>

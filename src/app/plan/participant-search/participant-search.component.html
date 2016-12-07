@@ -1,0 +1,24 @@
+<a class="waves-effect waves-light btn-flat btn right" (click)="participantModalOpen()"><i class="material-icons left">search</i></a>
+
+<div id="participantSearchDialog" class="modal" [materializeParams]="[{dismissible: false}]"
+     [materializeActions]="modalActions" materialize="modal">
+  <div class="modal-content">
+
+    <input id="searchField" type="text" [(ngModel)]="searchString" class="validate">
+
+    <ul class="collection">
+      <li class="collection-item " (click)="toggleParticipant(person)" [ngClass]="{'active':getRef(person).length>0}"
+          *ngFor="let person of personList | filterDisplayable: searchString| orderBy" #items>
+        {{person.getTitle()}}
+      </li>
+
+      <li class="collection-item " *ngIf="filteredItems?.length==0">
+        nichts gefunden <b>{{searchString}}</b>
+      </li>
+    </ul>
+
+  </div>
+  <div class="modal-footer">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Schließen</a>
+  </div>
+</div>

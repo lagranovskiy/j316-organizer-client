@@ -133,7 +133,9 @@
         <address-editor [address]="person.address"></address-editor>
       </div>
       <div class="input-field col s12 m8">
-        <geo-map [circleLocation]="person" [circleRadius]="0" [markerLocations]="[person]"></geo-map>
+        <geo-map [circleLocations]="[person]"
+                 [zoom]="11"
+                 [circleRadius]="0" [markerLocations]="[person]"></geo-map>
       </div>
     </div>
   </div>

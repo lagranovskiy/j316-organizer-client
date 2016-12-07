@@ -1,17 +1,23 @@
 var express = require('express');
 var path = require('path');
-var proxy = require('express-http-proxy');
+//var proxy = require('express-http-proxy');
+var proxy = require('http-proxy-middleware');
 var app = express();
 
 // set the port of our application
 // process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 4200;
 
+var backendURL= process.env.BACKEND_URL || 'http://localhost:8080';
 
+app.use('/api', proxy({target: backendURL, changeOrigin: true}));
+
+/*
 app.use('/api', function (req, res, next) {
   console.info('request: ' + req.url);
   return next()
 }, proxy(process.env.BACKEND_URL+'/api' || 'http://localhost:8080/api'));
+*/
 
 
 app.use('/',express.static(__dirname+'/dist'));

@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {DienstPlan} from "../../model/DienstPlan";
 import {DienstPlanTeilgruppe} from "../../model/DienstPlanTeilgruppe";
+import {DienstPlanGruppe} from "../../model/DienstPlanGruppe";
 
 @Component({
   selector: 'app-plan-table',
@@ -11,6 +12,9 @@ export class PlanTableComponent implements OnInit {
 
   @Input()
   private plan: DienstPlan;
+
+  private showHorizontalSumm: boolean = false;
+  private showVerticalSumm: boolean = false;
 
 
   toggleVerfuegbarkeit(teilGruppe: DienstPlanTeilgruppe, dayIndex: number) {
@@ -30,6 +34,21 @@ export class PlanTableComponent implements OnInit {
       }
       return retVal;
     }, 0);
+  }
+
+
+  countDayBesetzungen(gruppe: DienstPlanGruppe, dayIndex: number) {
+    let retVal = {besetzt: 0, verfuegbar: 0};
+
+    gruppe.sections.forEach(teilgruppe=> {
+      if (teilgruppe.besetzung[dayIndex]) {
+        retVal.besetzt++;
+      }
+      if (teilgruppe.verfuegbarkeit[dayIndex]) {
+        retVal.verfuegbar++;
+      }
+    });
+    return retVal;
   }
 
   ngOnInit() {

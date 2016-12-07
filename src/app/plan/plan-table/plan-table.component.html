@@ -1,10 +1,27 @@
-<table class="striped" border="1">
+<div class="row">
+  <div class="switch col s6">
+    <label>
+      Teilgruppensummen anzeigen
+      <input type="checkbox" materialize="" [(ngModel)]="showHorizontalSumm">
+      <span class="lever"></span>
+    </label>
+  </div>
+  <div class="switch col s6">
+    <label>
+      Gruppensummen anzeigen
+      <input type="checkbox" materialize="" [(ngModel)]="showVerticalSumm">
+      <span class="lever"></span>
+    </label>
+  </div>
+</div>
+
+<table class="striped highlight" border="1">
   <template ngFor let-gruppe let-gruppenIndex="index" [ngForOf]="plan.groupList">
     <thead>
     <tr>
       <th data-field="participants" width="40%">{{gruppe.getTitle()}}</th>
       <th class="center-align" data-field="name" *ngFor="let eventDate of plan.eventDates">{{eventDate}}</th>
-      <th data-field="count"> </th>
+      <th data-field="count" *ngIf="showHorizontalSumm"></th>
     </tr>
     </thead>
     <tbody>
@@ -14,19 +31,28 @@
           {{ participant?.getTitle()}}
         </div>
       </td>
-      <td data-field="price" [class.verfuegbarday]="teilgruppe.verfuegbarkeit[dayIndex]" (click)="toggleVerfuegbarkeit(teilgruppe, dayIndex)" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
+      <td data-field="price" [class.verfuegbarday]="teilgruppe.verfuegbarkeit[dayIndex]"
+          (click)="toggleVerfuegbarkeit(teilgruppe, dayIndex)" class="center-align"
+          *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
         <input [(ngModel)]="teilgruppe.besetzung[dayIndex]" type="checkbox"
                name="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"
                id="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"/>
         <label attr.for="test{{gruppenIndex + '_' +teilgruppenIndex + '_' +dayIndex}}"></label>
       </td>
-      <td>
-        <span class="badge">{{countBesetzungen(teilgruppe)}}</span>
+      <td *ngIf="showHorizontalSumm"  >
+        <span class="badge" style="color:#ff5722">{{countBesetzungen(teilgruppe)}}</span>
       </td>
+    </tr>
+    <tr *ngIf="showVerticalSumm" style="color:#ff5722">
+      <td></td>
+      <td  data-field="summe" class="center-align" *ngFor="let eventDate of plan.eventDates; let dayIndex=index">
+        {{countDayBesetzungen(gruppe,dayIndex).besetzt}}
+      </td>
+      <td></td>
     </tr>
     </tbody>
   </template>
 
-
 </table>
+
 

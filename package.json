@@ -36,7 +36,7 @@
     "bootstrap": "3.3.7",
     "core-js": "2.4.1",
     "express": "^4.14.0",
-    "express-http-proxy": "^0.10.1",
+    "http-proxy-middleware": "^0.17.2",
     "immutable": "3.8.1",
     "materialize-css": "^0.97.8",
     "moment": "^2.15.2",

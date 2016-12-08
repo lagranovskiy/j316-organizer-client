@@ -1,4 +1,4 @@
-<sebm-google-map [latitude]="circleLocations[0]?.address.latitude" [longitude]="circleLocations[0]?.address.longitude"
+<sebm-google-map [latitude]="circleLocations[0]?.address?.latitude" [longitude]="circleLocations[0]?.address?.longitude"
                  [zoom]="zoom"
                  [disableDefaultUI]="false"
                  [zoomControl]="true">
@@ -20,9 +20,9 @@
   <template ngFor let-locationGroup let-locationIndex="index" [ngForOf]="markerLocationGroups">
     <sebm-google-map-marker
       *ngFor="let location of locationGroup"
-      [latitude]="location.address.latitude"
-      [longitude]="location.address.longitude"
-      [label]="location?.getTitle()"
+      [latitude]="location.address?.latitude"
+      [longitude]="location.address?.longitude"
+      [label]="location.getTitle()"
       [iconUrl]="'assets/marker/'+markerArray[locationIndex]"
       [markerDraggable]="false">
       <sebm-google-map-info-window>
@@ -32,17 +32,20 @@
   </template>
 
 
-  <sebm-google-map-circle [latitude]="circleLocation.address.latitude" [longitude]="circleLocation.address.longitude"
+  <sebm-google-map-circle *ngFor="let circleLocation of circleLocations; let i=index; "
+                          [latitude]="circleLocation.address?.latitude"
+                          [longitude]="circleLocation.address?.longitude"
                           [radius]="circleRadius"
                           [fillColor]="colorArray[i]"
                           [circleDraggable]="false"
-                          [fillOpacity]="0.2"
+                          [fillOpacity]="0.3"
                           [editable]="false"
-                          *ngFor="let circleLocation of circleLocations; let i=index; "></sebm-google-map-circle>
+                          ></sebm-google-map-circle>
 
-  <sebm-google-map-marker [latitude]="circleLocation.address.latitude"
+  <sebm-google-map-marker *ngFor="let circleLocation of circleLocations"
+                          [latitude]="circleLocation.address?.latitude"
                           [iconUrl]="'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png'"
-                          [longitude]="circleLocation.address.longitude"
+                          [longitude]="circleLocation.address?.longitude"
                           [label]="circleLocation.name"
-                          *ngFor="let circleLocation of circleLocations"></sebm-google-map-marker>
+                          ></sebm-google-map-marker>
 </sebm-google-map>

@@ -1,6 +1,8 @@
 import * as moment from "moment";
+import {DisplayableModel} from "./interfaces/DisplayableModel";
 
-export class NotificationEntry {
+export class NotificationEntry implements DisplayableModel{
+
 
 
   private data: {
@@ -55,6 +57,15 @@ export class NotificationEntry {
   }) {
 
     this.data = data;
+  }
+
+
+  getDescription(): string {
+    return this.scheduledDate;
+  }
+
+  getTitle(): string {
+    return this.recipient;
   }
 
   get uuid(): string {

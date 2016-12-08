@@ -1,11 +1,12 @@
-import { Component,  OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NotificationEntry } from '../../model/NotificationEntry';
+import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from "@angular/core";
+import {NotificationEntry} from "../../model/NotificationEntry";
 
 
 @Component({
   selector: 'notification-single-group-presenter',
   templateUrl: './notification-single-group-presenter.component.html',
-  styleUrls: ['./notification-single-group-presenter.component.css']
+  styleUrls: ['./notification-single-group-presenter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotificationSingleGroupPresenterComponent implements OnInit {
 

@@ -3,7 +3,8 @@ import {DienstPlan} from "../model/DienstPlan";
 import {NotificationEntry} from "../model/NotificationEntry";
 
 @Pipe({
-  name: 'groupByDienstPlan'
+  name: 'groupByDienstPlan',
+  pure: true
 })
 export class NotificatationDienstPlanGroupPipe implements PipeTransform {
 

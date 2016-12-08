@@ -8,7 +8,13 @@ export class FilterDisplayablePipe implements PipeTransform {
 
   transform(value: Array<DisplayableModel>, filterString: string): any {
     if (filterString && filterString.length > 0) {
-      return value.filter(plan=>plan.getTitle().indexOf(filterString) > -1 || plan.getDescription().indexOf(filterString) > -1);
+      return value.filter(plan => {
+        if(!plan.getTitle){
+          return false;
+        }
+
+        return plan.getTitle().toLowerCase().indexOf(filterString.toLowerCase()) > -1 || plan.getDescription().toLowerCase().indexOf(filterString.toLowerCase()) > -1
+      });
     }
     return value;
   }

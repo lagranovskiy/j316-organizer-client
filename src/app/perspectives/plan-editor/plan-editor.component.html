@@ -1,17 +1,17 @@
 <form materialize class="col s12" #planForm="ngForm">
-
-  <div class="row valign-wrapper">
-    <div class="col s7 valign-wrapper">
-      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>
-      <h3 class="valign"> {{plan.planName}}</h3>
+  <div class="row "> <div class="col"></div></div>
+  <div class="row ">
+    <div class="col s9">
+      <div [ngClass]="{'green-text': plan.planActive ,'grey-text': !plan.planActive }" class="flow-text valign"> -> {{plan.planName}}</div>
     </div>
 
-    <div class="col s4 right-align">
-      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
+    <div class="col s3 ">
+       <plan-navigation-toolbar class="" [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent" (saveClicked)="savePlan()"
                                (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
 
   </div>
+
 
   <div class="card-panel">
     <div class="row">
@@ -55,13 +55,43 @@
     </div>
   </div>
 
+
+  <div class="card-panel">
+    <div class="row">
+      <div class="switch col s6 m3">
+        <label>
+          Plan Aktiv
+          <input type="checkbox" name="planActive" materialize="" [(ngModel)]="plan.planActive">
+          <span class="lever"></span>
+        </label>
+      </div>
+      <div class="switch col s6 m3">
+        <label>
+          Karten anzeigen
+          <input type="checkbox" name="showMaps" materialize="" [(ngModel)]="showMaps">
+          <span class="lever"></span>
+        </label>
+      </div>
+
+    </div>
+
+  </div>
+
+
   <div class="row" style="position: relative;">
     <div class="col s4">
       <h4>Plangruppen</h4>
     </div>
-    <div class="col s8 right-align">
-      <a (click)="addDienstPlanGruppe()" class="btn-floating btn-small waves-effect waves-light red"><i
-        class="material-icons">add</i></a>
+    <div class="col s8 ">
+      <div class="right">
+
+        <a (click)="addDienstPlanGruppe()" class="right btn-floating btn-small waves-effect waves-light red"><i
+          class="material-icons">add</i></a>
+
+
+      </div>
+
+
     </div>
 
 
@@ -70,7 +100,8 @@
     <div class="col s12">
       <div *ngFor="let dienstPlanGruppe of plan.groupList">
 
-        <gruppe-view [model]="dienstPlanGruppe" (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
+        <gruppe-view [model]="dienstPlanGruppe" [showMaps]="showMaps" (upButtonClicked)="upGruppe($event)"
+                     (removeClicked)="removeDienstPlanGruppe($event)"></gruppe-view>
         <!--  <view-card [model]="dienstPlanGruppe" (openClicked)="openDienstPlanGruppe($event)"></view-card>-->
       </div>
     </div>
@@ -90,15 +121,16 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="plan.groupList.length>0">
+  <div class="row" *ngIf="plan.groupList.length>0 && showMaps">
     <div class="col s12">
       <h4>Dienstkarte</h4>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="plan.groupList.length>0 && showMaps">
     <div class="col s12">
-      <geo-map [circleLocations]="plan.groupList" [circleRadius]="5000" [zoom]="10" [markerLocationGroups]="plan.groupList | GruppeFlat | PersonGroupRef"></geo-map>
+      <geo-map [circleLocations]="plan.groupList" [circleRadius]="5000" [zoom]="10"
+               [markerLocationGroups]="plan.groupList | GruppeFlat | PersonGroupRef"></geo-map>
     </div>
   </div>
 

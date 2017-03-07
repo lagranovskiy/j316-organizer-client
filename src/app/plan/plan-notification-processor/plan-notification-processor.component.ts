@@ -20,6 +20,9 @@ export class PlanNotificationProcessorComponent implements OnInit {
   @Output()
   private notificationsUpdated: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output()
+  private notificationActive: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   private reportModalActions = new EventEmitter<string|MaterializeAction>();
   private removalModalActions = new EventEmitter<string|MaterializeAction>();
@@ -49,7 +52,8 @@ export class PlanNotificationProcessorComponent implements OnInit {
           this.sentReport = data;
           if (data.length > 0 && data[0].success) {
             this.notificationsActive = true;
-            this.notificationsUpdated.emit('updated')
+            this.notificationsUpdated.emit('updated');
+            this.notificationActive.emit(true);
           }
           this.showReportModal();
 
@@ -77,7 +81,8 @@ export class PlanNotificationProcessorComponent implements OnInit {
           this.cancelReport = data;
           if (data.n >= 0) {
             this.notificationsActive = false;
-            this.notificationsUpdated.emit('updated')
+            this.notificationsUpdated.emit('updated');
+            this.notificationActive.emit(false);
           } else {
             this.error = data.errorMessage;
           }

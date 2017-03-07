@@ -15,6 +15,12 @@ export class GruppeViewComponent implements OnInit {
   @Output()
   private removeClicked: EventEmitter<DienstPlanGruppe> = new EventEmitter<DienstPlanGruppe>();
 
+  @Output()
+  private upButtonClicked: EventEmitter<DienstPlanGruppe> = new EventEmitter<DienstPlanGruppe>();
+
+  @Input()
+  private showMaps: boolean;
+
   @ViewChild(RemovalDialogComponent)
   private removalDialog: RemovalDialogComponent;
 
@@ -33,6 +39,11 @@ export class GruppeViewComponent implements OnInit {
 
   stopEditing() {
     this.isEditing = false;
+  }
+
+
+  sendUpEvent() {
+    this.upButtonClicked.emit(this.model);
   }
 
 

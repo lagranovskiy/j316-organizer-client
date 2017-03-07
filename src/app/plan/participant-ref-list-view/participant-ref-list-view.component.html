@@ -5,14 +5,15 @@
   </li>
   <li *ngFor="let participant of participants | personRef">
     <div class="collapsible-header" style="overflow: auto">{{participant.getTitle()}}
-      <span class="badge" *ngIf="editMode">
-        <a (click)="removeParticipant(participant, $event)"><i class="material-icons red-text">delete</i></a>
+      <span class="badge" >
+        <a *ngIf="editMode" class="right" (click)="removeParticipant(participant, $event)"><i class="material-icons red-text">delete</i></a>
+        {{participant.mobilePhone}}
       </span>
     </div>
     <div class="collapsible-body">
       <p><b>Anschrift:</b> {{participant.address.location }}<br>
         <b>Email:</b> {{participant.email}}<br>
-        <b>Handly:</b> {{participant.mobilePhone}}
+        <b>Handy:</b> {{participant.mobilePhone}}
       </p>
     </div>
   </li>

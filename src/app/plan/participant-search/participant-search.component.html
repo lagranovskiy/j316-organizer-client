@@ -5,6 +5,7 @@
   <div class="modal-content">
 
     <input id="searchField" type="text" [(ngModel)]="searchString" class="validate">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Schließen</a>
 
     <ul class="collection">
       <li class="collection-item " (click)="toggleParticipant(person)" [ngClass]="{'active':getRef(person).length>0}"

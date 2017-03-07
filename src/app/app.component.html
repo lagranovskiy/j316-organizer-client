@@ -21,7 +21,7 @@
 
       <li class="user" *ngIf="auth.authenticated() && auth.userProfile">
         <div style="padding: 0 15px;">
-          <a class="dropdown-button" data-activates="dropdown1" materialize="dropdown">
+          <a class="dropdown-button" data-activates="dropdown1" materialize="dropdown" style="overflow: hidden; max-height: 63px;">
             <img src="{{auth.userProfile.picture}}"
                  style="width: 35px; vertical-align: middle;" alt="John Doe"
                  class="circle"> {{auth.userProfile.nickname}}

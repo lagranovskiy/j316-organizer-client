@@ -47,6 +47,7 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
 import {ParticipantSearchComponent} from "./plan/participant-search/participant-search.component";
 import {GruppeFlatPipe} from "./pipes/gruppe-flat.pipe";
 import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
+import {ListItemComponent} from "./commons/list-item/list-item.component";
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
     PlanPrintComponent,
     ParticipantSearchComponent,
     GruppeFlatPipe,
-    PersonGroupRefPipe
+    PersonGroupRefPipe,
+    ListItemComponent
   ],
   providers: [
     PlanPersistenceService,

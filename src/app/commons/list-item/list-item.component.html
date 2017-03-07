@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-content">
+    <div class="right">
+      <a class="waves-effect waves-teal btn-flat" (click)="sendOpenEvent()"><i class="material-icons ">create</i></a>
+      <a (click)="openModal()" class="waves-effect waves-teal btn-flat "><i class="material-icons red-text">delete</i></a>
+      <a *ngIf="clonable" class="waves-effect waves-teal btn-flat" (click)="sendCloneEvent()"><i class="material-icons ">content_copy</i></a>
+    </div>
+
+    <span class="card-title flow-text"> {{model.getTitle()}}</span>
+    <blockquote *ngIf="model.getDescription()">{{model.getDescription() || 'kein Kommentar'}}</blockquote>
+  </div>
+
+</div>
+
+<removal-dialog [removalIdentification]="model.getTitle()" (removeAccepted)="sendRemoveEvent()"></removal-dialog>

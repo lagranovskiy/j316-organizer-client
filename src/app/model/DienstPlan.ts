@@ -15,6 +15,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     eventRecurringDays: number,
     eventStartTime: string,
     eventEndTime: string,
+    planActive: boolean,
     notificationEmail: boolean,
     notificationSMS: boolean,
     notificationCal: boolean,
@@ -36,6 +37,7 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     eventStartTime: '10:00',
     eventEndTime: '12:00',
 
+    planActive: false,
     notificationEmail: true,
     notificationSMS: true,
     notificationCal: true,
@@ -79,7 +81,11 @@ export class DienstPlan extends J316Model implements DisplayableModel {
 
 
   getTitle() {
-    return this.data.planName;
+    let prefix='';
+    if(this.data.planActive){
+      prefix = "(A) ";
+    }
+    return prefix + this.data.planName;
   }
 
 
@@ -129,6 +135,13 @@ export class DienstPlan extends J316Model implements DisplayableModel {
     return this.data.eventDates;
   }
 
+  get planActive(): boolean {
+    return this.data.planActive;
+  }
+
+  set planActive(value: boolean) {
+    this.data.planActive = value;
+  }
 
   get notificationEmail(): boolean {
     return this.data.notificationEmail;

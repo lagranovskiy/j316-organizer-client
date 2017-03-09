@@ -19,6 +19,7 @@ export class PlanEditorComponent implements OnInit {
   private planUUID: string;
   private plan: DienstPlan = new DienstPlan();
   private isPersistent = false;
+  private showMaps: boolean = false;
 
   private paramsSub;
 
@@ -61,6 +62,11 @@ export class PlanEditorComponent implements OnInit {
     this.plan.groupList.splice(this.plan.groupList.indexOf(gruppe), 1);
   }
 
+  upGruppe(gruppe:DienstPlanGruppe){
+    let indexOfGroup = this.plan.groupList.indexOf(gruppe);
+    this.plan.groupList.splice(indexOfGroup, 1);
+    this.plan.groupList.splice(indexOfGroup - 1,0, gruppe)
+  }
 
   completeBesetzungArrays() {
     this.plan.groupList.map(gruppe=> {

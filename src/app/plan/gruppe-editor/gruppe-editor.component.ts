@@ -13,6 +13,9 @@ export class GruppeEditorComponent implements OnInit {
   @Input()
   private model: DienstPlanGruppe;
 
+  @Input()
+  private showMaps: boolean;
+
   addTeilgruppe() {
     this.model.sections.push(new DienstPlanTeilgruppe());
   }
@@ -21,6 +24,11 @@ export class GruppeEditorComponent implements OnInit {
     this.model.sections.splice(this.model.sections.indexOf(teilgruppe), 1);
   }
 
+  upTeilgruppe(teilgruppe: DienstPlanTeilgruppe){
+    let indexOfGroup = this.model.sections.indexOf(teilgruppe);
+    this.model.sections.splice(this.model.sections.indexOf(teilgruppe), 1);
+    this.model.sections.splice(indexOfGroup-1,0,teilgruppe)
+  }
 
   ngOnInit() {
   }

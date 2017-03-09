@@ -46,6 +46,11 @@ export class PlanNotificationViewComponent implements OnInit {
     this.service.savePlan(this.plan).subscribe(savedPlan => this.router.navigate([`/plan/${this.plan.uuid}/notification`]));
   }
 
+  planActived(active: boolean){
+    this.plan.planActive = active;
+    this.savePlan();
+  }
+
 
   removePlan() {
     this.service.removePlan(this.plan.uuid).subscribe(() => this.navDashboard());

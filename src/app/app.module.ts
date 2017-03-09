@@ -1,13 +1,12 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {HttpModule, RequestOptions, Http} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {routing} from "./app.routes";
-import {MaterializeDirective} from "angular2-materialize";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {APP_CONFIG, J316_CONFIG} from "./config/const";
-import {AUTH_PROVIDERS} from "angular2-jwt";
+//import {AUTH_PROVIDERS} from "angular2-jwt";
 import {ParticipantPersistenceService} from "./services/participant-persistence.service";
 import {NotificationControlService} from "./services/notification-control-service.service";
 import {AddressPersistenceService} from "./services/address-persistence.service";
@@ -47,6 +46,13 @@ import {PlanPrintComponent} from "./plan/plan-print/plan-print.component";
 import {ParticipantSearchComponent} from "./plan/participant-search/participant-search.component";
 import {GruppeFlatPipe} from "./pipes/gruppe-flat.pipe";
 import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
+import {ListItemComponent} from "./commons/list-item/list-item.component";
+import {AuthHttp, AuthConfig} from "angular2-jwt";
+import {MaterializeModule} from "angular2-materialize";
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp( new AuthConfig({}), http, options);
+}
 
 
 @NgModule({
@@ -56,7 +62,6 @@ import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
     GruppeViewComponent,
     GruppeEditorComponent,
     PlanEditorComponent,
-    MaterializeDirective,
     ViewCardComponent,
     ParticipantRefListViewComponent,
     PlanTableComponent,
@@ -83,7 +88,8 @@ import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
     PlanPrintComponent,
     ParticipantSearchComponent,
     GruppeFlatPipe,
-    PersonGroupRefPipe
+    PersonGroupRefPipe,
+    ListItemComponent
   ],
   providers: [
     PlanPersistenceService,
@@ -94,14 +100,21 @@ import {PersonGroupRefPipe} from "./pipes/person-group-ref.pipe";
     AppStoreService,
     AuthService,
     AuthGuardService,
-    AUTH_PROVIDERS,
+   // AUTH_PROVIDERS,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [ Http, RequestOptions ]
+    },
     {provide: APP_CONFIG, useValue: J316_CONFIG}
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    MaterializeModule    ,
     AgmCoreModule.forRoot({
-      apiKey: J316_CONFIG.mapsAPI,
+      //apiKey: J316_CONFIG.mapsAPI,
+      apiKey: 'AIzaSyDxEGs76p175F19pK8Vf_rEzsJaP_BKoes',
       libraries: ["places"]
     }),
     HttpModule,

@@ -12,7 +12,7 @@
               <p><b>{{model.address.location}}</b></p>
               <p>{{model.comment}}</p>
             </div>
-            <div class="col s12 m7" *ngIf="model.address.latitude">
+            <div class="col s12 m7" *ngIf="model.address.latitude  && showMaps">
 
               <geo-map [circleLocations]="[model]"
                        [circleRadius]="5000" [zoom]="11"
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col s12 m12 l6" *ngFor="let section of model.sections; let i=index;">
+            <div class="col s12" *ngFor="let section of model.sections; let i=index;">
               <h5>Teilgruppe {{i+1}}</h5>
               <participant-ref-list-view [participants]="section.participants" [editMode]="false"></participant-ref-list-view>
             </div>
@@ -29,7 +29,7 @@
         </div>
 
         <div *ngIf="isEditing">
-          <gruppe-editor [model]="model"></gruppe-editor>
+          <gruppe-editor [model]="model" [showMaps]="showMaps"></gruppe-editor>
 
         </div>
 
@@ -42,6 +42,9 @@
 
         <a  class="waves-effect waves-teal btn-flat " (click)="removalDialog.openModal()">
           <i class="material-icons red-text">delete</i></a>
+
+        <a  class="waves-effect waves-teal btn-flat " (click)="sendUpEvent()">
+          <i class="material-icons">fast_rewind</i></a>
 
       </div>
     </div>

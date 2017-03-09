@@ -1,16 +1,22 @@
 <form materialize class="col s12" #planForm="ngForm">
+  <div class="row ">
+    <div class="col"></div>
+  </div>
 
-  <div class="row valign-wrapper">
-    <div class="col s7 valign-wrapper">
-      <i class="large material-icons valign hide-on-med-and-down">border_clear</i>
-      <h3 class="valign"> {{plan.planName}}</h3>
+  <div class="row ">
+    <div class="col s9">
+      <div [ngClass]="{'green-text': plan.planActive ,'grey-text': !plan.planActive }" class="flow-text valign"> ->
+        {{plan.planName}}
+      </div>
     </div>
 
-    <div class="col s4 right-align">
-      <plan-navigation-toolbar [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent"
+    <div class="col s3 ">
+      <plan-navigation-toolbar class="" [isSaveAllowed]="planForm.valid" [isPersistent]="isPersistent"
                                (saveClicked)="savePlan()"
-                               (backClicked)="navDashboard()" (removeClicked)="removePlan()"></plan-navigation-toolbar>
+                               (backClicked)="navDashboard()"
+                               (removeClicked)="removePlan()"></plan-navigation-toolbar>
     </div>
+
   </div>
 
   <div class="row">
@@ -129,7 +135,8 @@
   </div>
 
   <plan-notification-processor [plan]="plan" [notificationsActive]="notifications.length>0"
-                               (notificationsUpdated)="refreshNotifications()"></plan-notification-processor>
+                               (notificationsUpdated)="refreshNotifications()"
+                               (notificationActive)="planActived($event)"></plan-notification-processor>
 
 
   <div *ngFor="let groupNotifications of notifications|groupByDienstPlanGroup:plan.groupList">

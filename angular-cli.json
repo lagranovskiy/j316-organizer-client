@@ -20,6 +20,7 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
+        "../node_modules/materialize-css/dist/css/materialize.min.css",
         "styles.css"
       ],
       "scripts": [

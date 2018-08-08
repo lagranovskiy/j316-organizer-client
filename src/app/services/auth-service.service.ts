@@ -19,7 +19,9 @@ export class AuthService {
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig,
               private alertService: AlertService) {
-    this.lock = new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {
+
+    this.lock = new Auth0Lock(config.authAPI, 'j316.eu.auth0.com')
+  /**  this.lock = new Auth0Lock(config.authAPI, 'j316.eu.auth0.com', {
       allowForgotPassword: true,
       theme: {
         logo: '../../../assets/logo.png'
@@ -29,7 +31,7 @@ export class AuthService {
     let profile = localStorage.getItem('profile');
     if (profile) {
       this.userProfile = JSON.parse(profile);
-    }
+    }**/
     // Add callback for lock `authenticated` event
     this.lock.on("authenticated", (authResult) => {
       localStorage.setItem('id_token', authResult.idToken);
